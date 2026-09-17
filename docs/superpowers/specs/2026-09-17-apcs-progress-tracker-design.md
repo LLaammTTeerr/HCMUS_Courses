@@ -127,8 +127,8 @@ Each item reports `done`, `covered-by-plan`, `missing`, or `unknown`.
 
 - Semester credits outside 10–22 (current and future semesters with ≥ 1 course).
 - Prerequisite `missing`/`weak` for in-progress or planned courses.
-- A course planned more than once, or planned although already passed (retake intent is allowed only if
-  the latest grade is failing — otherwise warning "already passed").
+- A course planned more than once (warning); a planned attempt of an already passed course is shown as
+  info — it counts as a grade improvement and its grade becomes official (QC1175 Art. 14.2).
 - Planned/in-progress attempt in a semester before the current one; completed attempts in the future.
 - Track: thesis without CS468 planned; capstone without CS469+CS470; CS470 not after CS469; courses of the
   other track planned.
