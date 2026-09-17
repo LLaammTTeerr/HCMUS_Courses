@@ -25,16 +25,16 @@ describe('cumulativeGpa', () => {
   it('weights passed courses by credits and excludes failed and EXTRA courses', () => {
     const states = deriveCourseStates(program, [
       done('CS160', 1, 8),      // 4 cr
-      done('BAA00004', 2, 6),   // 3 cr
+      done('PH211', 2, 6),      // 4 cr
       done('CS163', 2, 3),      // failed → excluded
       done('BAA00030', 1, 10),  // EXTRA → excluded
       inProgress('CS202', 7),
     ]);
     const g = cumulativeGpa(program, states);
-    expect(g.credits).toBe(7);
-    expect(g.gpa10).toBeCloseTo((8 * 4 + 6 * 3) / 7, 10);
-    expect(g.gpa4).toBeCloseTo((3.5 * 4 + 2.5 * 3) / 7, 10);
-    expect(g.allGpa10).toBeCloseTo((8 * 4 + 6 * 3 + 3 * 4) / 11, 10);
+    expect(g.credits).toBe(8);
+    expect(g.gpa10).toBeCloseTo((8 * 4 + 6 * 4) / 8, 10);
+    expect(g.gpa4).toBeCloseTo((3.5 * 4 + 2.5 * 4) / 8, 10);
+    expect(g.allGpa10).toBeCloseTo((8 * 4 + 6 * 4 + 3 * 4) / 12, 10);
   });
 
   it('returns nulls when nothing is graded', () => {
@@ -49,7 +49,7 @@ describe('GPA overrides (courses not counted toward classification)', () => {
 
   it('uses the program default when there is no override', () => {
     expect(countsInGpa(program, 'WR227', {})).toBe(true);
-    expect(countsInGpa(program, 'BAA00004', {})).toBe(true);
+    expect(countsInGpa(program, 'BAA00004', {})).toBe(false);
     expect(countsInGpa(program, 'BAA00030', {})).toBe(false);
     expect(countsInGpa(program, 'BAA00101', {})).toBe(false);
   });

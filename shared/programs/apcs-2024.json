@@ -55,7 +55,7 @@
     { "code": "BAA00103", "nameEn": "Scientific Socialism", "nameVi": "Chủ nghĩa xã hội khoa học", "credits": 2, "bucket": "NONCS", "prereqs": [], "suggestedSemester": 8, "countsInGpa": false },
     { "code": "BAA00104", "nameEn": "History of Vietnamese Communist Party", "nameVi": "Lịch sử Đảng Cộng sản Việt Nam", "credits": 2, "bucket": "NONCS", "prereqs": [], "suggestedSemester": 11, "countsInGpa": false },
     { "code": "BAA00003", "nameEn": "Ho Chi Minh's Ideology", "nameVi": "Tư tưởng Hồ Chí Minh", "credits": 2, "bucket": "NONCS", "prereqs": [], "suggestedSemester": 10, "countsInGpa": false },
-    { "code": "BAA00004", "nameEn": "Introduction to Laws", "nameVi": "Pháp luật đại cương", "credits": 3, "bucket": "NONCS", "prereqs": [], "suggestedSemester": 2 },
+    { "code": "BAA00004", "nameEn": "Introduction to Laws", "nameVi": "Pháp luật đại cương", "credits": 3, "bucket": "NONCS", "prereqs": [], "suggestedSemester": 2, "countsInGpa": false },
 
     { "code": "MTH251", "nameEn": "Calculus I", "nameVi": "Vi tích phân I", "credits": 4, "bucket": "MATH", "prereqs": [], "suggestedSemester": 1 },
     { "code": "MTH252", "nameEn": "Calculus II", "nameVi": "Vi tích phân II", "credits": 4, "bucket": "MATH", "prereqs": ["MTH251"], "suggestedSemester": 2 },
