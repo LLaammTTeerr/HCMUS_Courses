@@ -5,7 +5,7 @@ import { suggestedPlanAttempts } from '../../shared/domain/suggestedPlan';
 import type { Attempt, Course, GradTrack } from '../../shared/domain/types';
 import { courseIndex } from '../../shared/programs/index';
 import type { PageProps } from '../App';
-import { BUCKET_LABELS, BUCKET_ORDER } from '../components/common';
+import { BUCKET_LABELS, BUCKET_ORDER, RequirementBadge } from '../components/common';
 import { WarningList } from '../components/WarningList';
 import { useStore } from '../state/store';
 
@@ -229,7 +229,7 @@ function PlanCard({ course, className, payload, onOpen }: { course: Course; clas
       onClick={onOpen}
       title={`${course.nameEn} — click for details, drag to plan`}
     >
-      <div className="top"><span className="code">{course.code}</span><span className="cr">{course.credits} cr</span></div>
+      <div className="top"><span className="code">{course.code}</span><RequirementBadge course={course} compact /><span className="cr">{course.credits} cr</span></div>
       <div className="nm">{course.nameEn}</div>
     </div>
   );
@@ -258,6 +258,7 @@ function AttemptCard({ attempt, course, draggable, warnings, onOpen, onRemove }:
     >
       <div className="top">
         <span className="code">{attempt.code}</span>
+        {course && <RequirementBadge course={course} compact />}
         {warnings && <span className="warn" aria-label="Has warnings">⚠</span>}
         <span className="cr">{attempt.grade10 !== null ? attempt.grade10.toFixed(1) : `${course?.credits ?? '?'} cr`}</span>
         {onRemove && (

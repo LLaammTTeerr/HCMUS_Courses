@@ -1,4 +1,5 @@
-import type { BucketId, CourseStatus } from '../../shared/domain/types';
+import { REQUIREMENT_LABELS, requirementKind } from '../../shared/domain/requirement';
+import type { BucketId, Course, CourseStatus } from '../../shared/domain/types';
 
 export const BUCKET_LABELS: Record<BucketId, string> = {
   A_REQ: 'CS (A) — required',
@@ -29,3 +30,15 @@ export function StatusBadge({ status }: { status: CourseStatus }) {
 export const fmt = (n: number | null, digits = 2) => (n === null ? '—' : n.toFixed(digits));
 
 export const shortSemester = (n: number) => `S${n}`;
+
+/** Compulsory / elective marker (CTĐT "Loại HP"). `compact` shows only compulsory courses, as a short pill. */
+export function RequirementBadge({ course, compact = false }: { course: Course; compact?: boolean }) {
+  const kind = requirementKind(course);
+  const label = REQUIREMENT_LABELS[kind];
+  if (compact) {
+    return kind === 'compulsory'
+      ? <span className="req-pill" title={label.long} aria-label={label.long}>Req</span>
+      : null;
+  }
+  return <span className={`badge req-${kind}`} title={label.long}>{label.short}</span>;
+}

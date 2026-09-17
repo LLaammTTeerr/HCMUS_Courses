@@ -111,7 +111,9 @@ export function planWarnings(program: Program, record: StudentRecord): Warning[]
       message: `Required courses not passed or planned: ${list.slice(0, 8).join(', ')}${list.length > 8 ? ` +${list.length - 8} more` : ''}` });
   }
 
-  return warnings;
+  // Duplicate attempts of one course repeat per-course warnings; keep one per id (ids are React keys).
+  const seen = new Set<string>();
+  return warnings.filter((w) => !seen.has(w.id) && !!seen.add(w.id));
 }
 
 function trackWarnings(program: Program, record: StudentRecord, states: Map<string, CourseState>): Warning[] {

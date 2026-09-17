@@ -6,7 +6,8 @@ import type { AttemptStatus, StudentRecord } from '../../shared/domain/types';
 import { courseIndex } from '../../shared/programs/index';
 import type { Derived } from '../state/derived';
 import { useStore } from '../state/store';
-import { BUCKET_LABELS, fmt, StatusBadge } from './common';
+import { REQUIREMENT_LABELS, requirementKind } from '../../shared/domain/requirement';
+import { BUCKET_LABELS, fmt, RequirementBadge, StatusBadge } from './common';
 import { GradeInput } from './GradeInput';
 import { SemesterSelect } from './SemesterSelect';
 
@@ -51,7 +52,7 @@ export function CourseDrawer({ record, derived }: { record: StudentRecord; deriv
       <aside className="drawer" role="dialog" aria-modal="true" aria-label={`${course.code} ${course.nameEn}`}>
         <div className="row" style={{ alignItems: 'flex-start' }}>
           <div style={{ flex: 1 }}>
-            <div className="row"><span className="mono faint">{course.code}</span><StatusBadge status={state.status} /></div>
+            <div className="row"><span className="mono faint">{course.code}</span><RequirementBadge course={course} /><StatusBadge status={state.status} /></div>
             <h2>{course.nameEn}</h2>
             <div className="muted">{course.nameVi}</div>
           </div>
@@ -60,6 +61,7 @@ export function CourseDrawer({ record, derived }: { record: StudentRecord; deriv
 
         <dl className="kv">
           <dt>Bucket</dt><dd>{BUCKET_LABELS[course.bucket]}</dd>
+          <dt>Requirement</dt><dd>{REQUIREMENT_LABELS[requirementKind(course)].long}</dd>
           <dt>Credits</dt><dd>{course.credits}</dd>
           <dt>Official grade</dt>
           <dd>{state.officialGrade === null ? '—' : `${fmt(state.officialGrade, 1)} · ${fmt(to4(state.officialGrade))} / 4`}</dd>

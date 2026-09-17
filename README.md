@@ -4,6 +4,8 @@ A local web app for tracking graduation progress in the **HCMUS Advanced Program
 (APCS), intake 2024**. You can use it to:
 
 - see credits per requirement bucket: earned, in progress, and planned
+- see which courses are **compulsory** (bắt buộc), group electives ("choose", e.g. 16 cr of A), free CS
+  electives, or graduation work. Badges appear in the course list, the drawer, and the planner (`REQ`).
 - record every course attempt with its 10-point grade (retakes supported; the latest grade is official)
 - plan semesters by drag and drop, with warnings for credit limits, prior courses, and the thesis/capstone track
 - get ranked "what can I take next" suggestions

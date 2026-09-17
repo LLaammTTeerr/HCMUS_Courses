@@ -51,6 +51,9 @@ Handbook URL (too large to vendor): https://www.ctda.hcmus.edu.vn/vi/goc-sinh-vi
 | `GRAD` | CS468 (10) **or** CS469 + CS470 (5 + 5) | 10 cr |
 | `EXTRA` | BAA00021, BAA00022, BAA00030 | must pass; not in 163, not in GPA |
 
+- **Requirement kind** (`shared/domain/requirement.ts`, CTĐT "Loại HP"): compulsory = A_REQ, NONCS, MATH,
+  PHYS, EXTRA (29 courses); group-elective = A_ELEC, B; elective = C; graduation = GRAD. Shown as badges
+  in the UI and filterable on the Courses page.
 - **A overflow:** `overflowA = max(0, A_REQ + A_ELEC − 56)` counts toward C.
 - **Graduation work:** capstone counts only when both CS469 and CS470 are passed (CS469 alone = 0 cr);
   CS470 must be in a later semester than CS469. Graduation credits are capped at 10.

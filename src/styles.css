@@ -119,6 +119,11 @@ label.field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; 
 .badge.planned { background: var(--planned-soft); color: var(--planned); }
 .badge.failed { background: var(--failed-soft); color: var(--failed); }
 .badge.not-taken { background: var(--surface-2); color: var(--text-3); }
+.badge.req-compulsory { background: var(--accent); color: #fff; }
+.badge.req-group-elective { background: var(--accent-soft); color: var(--accent); }
+.badge.req-elective { background: var(--surface-2); color: var(--text-2); font-weight: 500; }
+.badge.req-graduation { background: var(--planned-soft); color: var(--planned); }
+.req-pill { font-size: 10px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: 0 3px; line-height: 14px; }
 .badge.bucket { background: var(--surface-2); color: var(--text-2); font-weight: 500; }
 
 /* Bucket bars */

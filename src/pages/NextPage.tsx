@@ -3,7 +3,7 @@ import { recommend } from '../../shared/domain/recommend';
 import { semesterLabel } from '../../shared/domain/semesters';
 import { courseIndex } from '../../shared/programs/index';
 import type { PageProps } from '../App';
-import { BUCKET_LABELS } from '../components/common';
+import { BUCKET_LABELS, RequirementBadge } from '../components/common';
 import { SemesterSelect } from '../components/SemesterSelect';
 import { semesterCredits } from '../../shared/domain/planner';
 import { useStore } from '../state/store';
@@ -53,6 +53,7 @@ export function NextPage({ record, derived }: PageProps) {
                         <td className="mono" style={{ width: 100 }}>
                           <button className="icon-btn" style={{ fontWeight: 650, color: 'var(--text)' }} onClick={() => openCourse(x.code)}>{x.code}</button>
                         </td>
+                        <td style={{ width: 110 }}><RequirementBadge course={c} /></td>
                         <td><div className="course-name"><span>{c.nameEn}</span><span className="vi">{BUCKET_LABELS[c.bucket]} · {c.credits} cr{c.suggestedSemester ? ` · suggested S${c.suggestedSemester}` : ''}</span></div></td>
                         <td className="small muted">{x.reason}</td>
                         <td className="num" style={{ width: 140 }}>

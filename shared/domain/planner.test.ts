@@ -63,6 +63,13 @@ describe('plan warnings', () => {
     expect(ids(r)).toEqual(expect.arrayContaining(['duplicate-CS160', 'needs-grade-CS250', 'planned-past-CS252']));
   });
 
+  it('gives every warning a unique id even when a course is planned twice', () => {
+    const r = record([planned('CS350', 8), planned('CS350', 8), done('CS160', 1, 6), planned('CS160', 9), planned('CS160', 10)]);
+    const all = planWarnings(program, r).map((w) => w.id);
+    expect(new Set(all).size).toBe(all.length);
+    expect(all).toEqual(expect.arrayContaining(['duplicate-CS350', 'prereq-CS350-MTH251', 'retake-passed-CS160']));
+  });
+
   it('reports projected bucket shortfalls', () => {
     expect(ids(record([]))).toEqual(expect.arrayContaining(['short-total', 'short-a', 'short-b', 'short-bc', 'short-required']));
   });

@@ -3,7 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { countsInGpa } from '../../shared/domain/gpa';
 import type { BucketId, CourseStatus } from '../../shared/domain/types';
 import type { PageProps } from '../App';
-import { BUCKET_LABELS, BUCKET_ORDER, fmt, STATUS_LABELS, StatusBadge } from '../components/common';
+import { REQUIREMENT_LABELS, requirementKind, type RequirementKind } from '../../shared/domain/requirement';
+import { BUCKET_LABELS, BUCKET_ORDER, fmt, RequirementBadge, STATUS_LABELS, StatusBadge } from '../components/common';
 import { QuickEntry } from '../components/QuickEntry';
 import { useStore } from '../state/store';
 
@@ -15,12 +16,14 @@ export function CoursesPage({ record, derived }: PageProps) {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<CourseStatus | 'all'>('all');
   const [bucket, setBucket] = useState<BucketId | 'all'>('all');
+  const [kind, setKind] = useState<RequirementKind | 'all'>('all');
 
   const q = query.trim().toLowerCase();
   const visible = program.courses.filter((c) => {
     const s = states.get(c.code)!;
     if (status !== 'all' && s.status !== status) return false;
     if (bucket !== 'all' && c.bucket !== bucket) return false;
+    if (kind !== 'all' && requirementKind(c) !== kind) return false;
     return !q || c.code.toLowerCase().includes(q) || c.nameEn.toLowerCase().includes(q) || c.nameVi.toLowerCase().includes(q);
   });
 
@@ -48,6 +51,10 @@ export function CoursesPage({ record, derived }: PageProps) {
           <option value="all">All buckets</option>
           {BUCKET_ORDER.map((b) => <option key={b} value={b}>{BUCKET_LABELS[b]}</option>)}
         </select>
+        <select className="input" value={kind} onChange={(e) => setKind(e.target.value as RequirementKind | 'all')} aria-label="Filter by requirement">
+          <option value="all">Compulsory & elective</option>
+          {(Object.keys(REQUIREMENT_LABELS) as RequirementKind[]).map((k) => <option key={k} value={k}>{REQUIREMENT_LABELS[k].short}</option>)}
+        </select>
         <span className="faint small">{visible.length} shown</span>
       </div>
 
@@ -66,7 +73,7 @@ export function CoursesPage({ record, derived }: PageProps) {
               </div>
               <table className="list">
                 <thead>
-                  <tr><th style={{ width: 110 }}>Code</th><th>Course</th><th className="num">Cr</th><th className="num">Sugg.</th><th className="num">Grade</th><th style={{ width: 120 }}>Status</th></tr>
+                  <tr><th style={{ width: 110 }}>Code</th><th>Course</th><th style={{ width: 110 }}>Type</th><th className="num">Cr</th><th className="num">Sugg.</th><th className="num">Grade</th><th style={{ width: 120 }}>Status</th></tr>
                 </thead>
                 <tbody>
                   {courses.map((c) => {
@@ -76,6 +83,7 @@ export function CoursesPage({ record, derived }: PageProps) {
                         onKeyDown={(e) => e.key === 'Enter' && openCourse(c.code)}>
                         <td className="mono"><b>{c.code}</b></td>
                         <td><div className="course-name"><span>{c.nameEn}</span><span className="vi">{c.nameVi}</span></div></td>
+                        <td><RequirementBadge course={c} /></td>
                         <td className="num">{c.credits}</td>
                         <td className="num faint">{c.suggestedSemester ? `S${c.suggestedSemester}` : '—'}</td>
                         <td className="num">
