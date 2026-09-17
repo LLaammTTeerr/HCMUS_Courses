@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { deriveCourseStates } from './courseState';
 import { computeProgress } from './credits';
 import { planWarnings, semesterCredits } from './planner';
+import { parseQuickEntry } from './quickEntry';
 import { suggestedPlanAttempts } from './suggestedPlan';
 import { program, record } from './testUtils';
 import type { Attempt, GradTrack, StudentRecord } from './types';
@@ -51,6 +52,21 @@ describe('suggestedPlanAttempts', () => {
       const r = apply(onTrackRecord(track));
       const ids = planWarnings(program, r).map((w) => w.id);
       expect(ids.filter((id) => id.startsWith('credits-')), track).toEqual([]);
+    }
+  });
+
+  it('balances a realistic record with retakes and off-plan electives', () => {
+    const lines = `CS160 1 8.5\nCM102 1 7.8\nMTH251 1 6.9\nPH211 1 7\nBAA00030 1 8\nCS163 2 8\nMTH252 2 5.5\nPH212 2 6.2
+BAA00004 2 7\nCS202 3 9\nMTH261 3 7.5\nPH213 3 4.2\nBAA00101 3 6.8\nCS201 4 7.7\nCS252 4 8.8\nCS250 4 7.2\nSC203 4 8
+BAA00021 4 9\nCS251 5 6.5\nECE341 5 7\nWR227 5 8.1\nSTAT451 5 6\nBAA00022 5 8.5\nCS323 6 8\nCS486 6 7.4\nSTAT452 6 6.6
+MTH253 6 7\nPH213 6 6\nCS300 7\nCS311 7\nCS420 7\nBAA00102 7\nCS418 7`;
+    const parsed = parseQuickEntry(program, lines, 7);
+    expect(parsed.errors).toEqual([]);
+    for (const track of ['thesis', 'capstone'] as GradTrack[]) {
+      const base = record(parsed.rows.map(({ line, ...a }) => ({ ...a, id: line })), { gradTrack: track });
+      const r = apply(base);
+      const ids = planWarnings(program, r).map((w) => w.id);
+      expect(ids, track).toEqual([]);
     }
   });
 
