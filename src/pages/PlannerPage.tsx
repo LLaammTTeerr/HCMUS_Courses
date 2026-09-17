@@ -27,11 +27,15 @@ export function PlannerPage({ record, derived }: PageProps) {
   const [dropTarget, setDropTarget] = useState<number | 'tray' | null>(null);
   const [undoIds, setUndoIds] = useState<number[] | null>(null);
   const [trayQuery, setTrayQuery] = useState('');
+  const [showPast, setShowPast] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const credits = semesterCredits(program, record.attempts);
   const lastUsed = Math.max(0, ...record.attempts.map((a) => a.semester));
   const lastColumn = Math.min(r.maxSemesters, Math.max(r.standardSemesters, lastUsed, current + 1));
-  const semesters = Array.from({ length: lastColumn }, (_, i) => i + 1);
+  const firstColumn = showPast ? 1 : current;
+  const semesters = Array.from({ length: lastColumn - firstColumn + 1 }, (_, i) => firstColumn + i);
+  const pastCount = record.attempts.filter((a) => a.semester < current).length;
 
   const warnedCodes = useMemo(() => {
     const map = new Map<string, string[]>();
@@ -82,9 +86,15 @@ export function PlannerPage({ record, derived }: PageProps) {
 
   const loadSuggested = async () => {
     const plan = suggestedPlanAttempts(program, record);
-    if (plan.length === 0) return;
+    if (plan.length === 0) {
+      setNotice('Nothing to add — every requirement is already passed, in progress or planned.');
+      return;
+    }
     const saved = await addAttempts(plan);
-    if (saved) setUndoIds(saved.map((a) => a.id));
+    if (saved) {
+      setUndoIds(saved.map((a) => a.id));
+      setNotice(`Added ${saved.length} planned courses. Review the warnings below and drag courses to adjust.`);
+    }
   };
 
   const allowDrop = (target: number | 'tray') => (e: DragEvent) => {
@@ -105,7 +115,7 @@ export function PlannerPage({ record, derived }: PageProps) {
         </div>
         <div className="row">
           {undoIds && (
-            <button className="btn" onClick={() => { deleteAttempts(undoIds); setUndoIds(null); }}>
+            <button className="btn" onClick={() => { deleteAttempts(undoIds); setUndoIds(null); setNotice(null); }}>
               Undo suggested plan ({undoIds.length})
             </button>
           )}
@@ -128,8 +138,20 @@ export function PlannerPage({ record, derived }: PageProps) {
           </div>
           {gradSemesters.length > 0 && <span className="small muted">{gradSemesters.join(' · ')}</span>}
         </div>
-        <span className="small faint">Limits: {r.semesterMin}–{r.semesterMax} credits per semester</span>
+        <div className="row">
+          <label className="row small muted">
+            <input type="checkbox" checked={showPast} onChange={(e) => setShowPast(e.target.checked)} />
+            Show past semesters{pastCount > 0 && !showPast ? ` (${pastCount} attempts)` : ''}
+          </label>
+          <span className="small faint">Limits: {r.semesterMin}–{r.semesterMax} credits per semester</span>
+        </div>
       </div>
+      {notice && (
+        <div className="banner" style={{ background: 'var(--accent-soft)' }}>
+          <span>{notice}</span><span className="spacer" />
+          <button className="icon-btn" onClick={() => setNotice(null)} aria-label="Dismiss">✕</button>
+        </div>
+      )}
 
       <div className="planner-wrap">
         <div

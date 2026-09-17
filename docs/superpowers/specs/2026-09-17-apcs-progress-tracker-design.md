@@ -151,6 +151,20 @@ CS469 is passed/in-progress/planned before t). Sorted by:
 
 Each row states its reason, e.g. "required · unlocks 3".
 
+### 3.9 Suggested plan
+
+"Load suggested plan" (Planner) creates planned attempts that complete every requirement:
+
+- **Selection.** Uncovered required courses; electives only while their bucket is short (A < 56,
+  B < 8, B + C < 43), taken in official suggested order; graduation work for the chosen track plus its
+  prior courses (none when undecided).
+- **Placement.** No earlier than the next semester and after prior courses. Graduation work is pinned
+  to its suggested semesters, and credits are spread evenly over the remaining standard semesters.
+- **Balancing.** A local search (single moves and pairwise swaps that keep prerequisite order) removes
+  semesters below 10 or above 22 credits. When the credit multiset cannot fill every semester, it adds
+  up to three extra electives.
+- **Undo.** The page offers an undo for the batch it just added.
+
 ## 4. Architecture
 
 ```

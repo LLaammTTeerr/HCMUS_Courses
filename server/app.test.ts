@@ -27,6 +27,15 @@ afterEach(() => {
   rmSync(dir, { recursive: true, force: true });
 });
 
+describe('routing', () => {
+  it('answers unknown API paths with a JSON 404', async () => {
+    const res = await call('GET', '/nope');
+    expect(res.status).toBe(404);
+    expect(await res.json()).toEqual({ error: 'Not found' });
+    expect((await call('GET', '/health')).status).toBe(200);
+  });
+});
+
 describe('record and profile', () => {
   it('returns the default record', async () => {
     const res = await call('GET', '/record');

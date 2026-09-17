@@ -64,7 +64,7 @@ h3 { font-size: 13px; margin: 0; }
 code, .mono { font-family: var(--mono); font-size: 12.5px; }
 
 /* Layout */
-.app { display: grid; grid-template-columns: 232px 1fr; min-height: 100%; }
+.app { display: grid; grid-template-columns: 232px 1fr; min-height: 100%; background: linear-gradient(90deg, var(--surface) 231px, var(--border) 231px, var(--border) 232px, var(--bg) 232px); }
 .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 18px 12px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 0; height: 100vh; }
 .brand { padding: 0 8px; }
 .brand strong { display: block; font-size: 15px; }
@@ -185,6 +185,7 @@ table.list tr.clickable:hover td { background: var(--surface-2); }
 
 /* Planner */
 .planner-wrap { display: grid; grid-template-columns: 260px 1fr; gap: 14px; align-items: start; }
+.tray.drop { outline: 2px dashed var(--failed); outline-offset: -3px; }
 .tray { position: sticky; top: 12px; max-height: calc(100vh - 40px); display: flex; flex-direction: column; gap: 8px; padding: 12px; }
 .tray-list { overflow-y: auto; display: flex; flex-direction: column; gap: 6px; min-height: 60px; }
 .columns { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; align-items: flex-start; }
@@ -226,7 +227,7 @@ table.list tr.clickable:hover td { background: var(--surface-2); }
 .errors { color: var(--failed); font-size: 12.5px; margin: 0; padding-left: 18px; }
 
 @media (max-width: 900px) {
-  .app { grid-template-columns: 1fr; }
+  .app { grid-template-columns: 1fr; background: var(--bg); }
   .sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .nav { flex-direction: row; flex-wrap: wrap; }
   .sidebar-footer { margin: 0; border: none; padding: 0; }

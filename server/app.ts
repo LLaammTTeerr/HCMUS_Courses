@@ -98,5 +98,8 @@ export function createApp(db: Db) {
     return c.body(null, 204);
   });
 
+  // Registered last so unknown /api paths get JSON instead of the UI fallback.
+  app.all('/*', (c) => c.json({ error: 'Not found' }, 404));
+
   return app;
 }
