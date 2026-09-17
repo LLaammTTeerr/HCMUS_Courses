@@ -17,7 +17,7 @@ Requires Node 22+.
 
 ```bash
 npm install
-npm run dev          # UI at http://localhost:5173 (API on :5174)
+npm run dev          # UI at http://localhost:5173 (API on :5174), also on LAN/Tailscale IPs
 ```
 
 To run a production build on a single port:
@@ -34,7 +34,9 @@ Other commands:
 | `npm test` | rules engine, program data, and API tests (Vitest) |
 | `npm run typecheck` | TypeScript check of the whole project |
 
-Environment variables: `PROGRESS_DB` sets another database file, and `PORT` sets the API/production port.
+Environment variables: `PROGRESS_DB` sets another database file, `PORT` sets the API/production port, and `HOST` sets the bind address (default `0.0.0.0`; use `127.0.0.1` to keep it local).
+
+The dev server listens on all interfaces and accepts `*.ts.net` hostnames, so the app is reachable over Tailscale at `http://<machine>.<tailnet>.ts.net:5173`. There is no login: anyone who can reach the port can edit the data.
 
 ## First steps
 
