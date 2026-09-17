@@ -78,6 +78,10 @@ Projections: **earned** (passed), **+ in progress**, **+ planned**. Each bucket 
 - Grade is on the 10-point scale, one decimal. Pass ≥ 5.0 (QC1175 Art. 11.4).
 - **ĐTB tích lũy (cumulative GPA)** = credit-weighted mean of official grades of *passed* courses with
   `countsInGpa` (QC1175 Art. 15.1b). **ĐTB** includes failed courses too (Art. 15.1a).
+- **Courses outside the GPA:** EXTRA by default (Art. 15.1c). Art. 15.1c also allows "other courses as
+  specified by the program", so the student can override inclusion per course (`gpa_overrides` table,
+  migration 2). Overrides affect ĐTB, ĐTB tích lũy, semester ĐTB for academic warnings, ranking, and the
+  thesis GPA check — never earned credits.
 - 4-point (QĐ651): `g ≥ 9 → 4.0`; `3 ≤ g < 9 → 1 + (g − 3) × 0.5`; `g < 3 → 0`. The cumulative 4-point
   GPA is the credit-weighted mean of per-course converted grades.
 - Ranking (QC1175 Art. 15.2b, intakes ≥ 2021): 9–10 Xuất sắc · 8–<9 Giỏi · 7–<8 Khá · 5–<7 Trung bình ·

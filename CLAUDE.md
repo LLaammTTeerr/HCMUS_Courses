@@ -31,7 +31,15 @@ failed save shows a Retry toast.
 - **Prerequisites stay soft** (warnings, never blocks). Hand-mapped ones must keep the original wording
   in `prereqNote`; `apcs-2024.test.ts` enforces this.
 - **Schema changes append a migration** to `MIGRATIONS` in `server/db.ts`. Never edit a shipped migration.
-- **Tests never touch `data/progress.db`.** Server tests use a temp file; manual runs can set `PROGRESS_DB`.
+- **Tests never touch `data/progress.db`**, which holds the user's real data. Server tests use a temp
+  file. For browser checks, run a second instance:
+  `PROGRESS_DB=/tmp/x.db PORT=5176 HOST=127.0.0.1 npx tsx server/index.ts` plus
+  `API_PORT=5176 npx vite --port 5177`. Stop it by PID, not `pkill -f`.
+- **GPA inclusion:** always go through `countsInGpa(program, code, record.gpaOverrides)`. The per-course
+  user overrides live in the `gpa_overrides` table; the program default is `Course.countsInGpa`, else
+  "not EXTRA".
+- **Store context lives in `src/state/storeContext.ts`**, separate from the provider, so hot reload keeps
+  consumers attached.
 - **Beware `pkill -f` in shells.** The pattern can match the shell's own command line; use `[x]yz`-style
   patterns.
 

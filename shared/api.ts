@@ -46,6 +46,8 @@ export const englishInput = z
     path: ['score2'],
   });
 
+export const gpaOverrideInput = z.object({ counts: z.boolean() });
+
 export type AttemptInput = z.infer<typeof attemptInput>;
 export type AttemptPatch = z.infer<typeof attemptPatch>;
 export type ProfilePatch = z.infer<typeof profilePatch>;

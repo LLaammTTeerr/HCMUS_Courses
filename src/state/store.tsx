@@ -1,37 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { AttemptPatch, EnglishInput, ProfilePatch } from '../../shared/api';
 import type { Attempt, NewAttempt, StudentRecord } from '../../shared/domain/types';
 import { api, ApiUnavailable } from '../api/client';
+import { StoreContext, type FailedOp, type LoadStatus, type StoreValue } from './storeContext';
 
-export type LoadStatus = 'loading' | 'ready' | 'offline' | 'error';
-
-export interface FailedOp {
-  key: number;
-  label: string;
-  message: string;
-  retry: () => void;
-}
-
-interface StoreValue {
-  record: StudentRecord | null;
-  status: LoadStatus;
-  loadError: string | null;
-  failures: FailedOp[];
-  /** Attempt ids whose last save failed. */
-  failedIds: Set<number>;
-  reload: () => void;
-  addAttempts: (attempts: NewAttempt[]) => Promise<Attempt[] | null>;
-  updateAttempt: (id: number, patch: AttemptPatch) => void;
-  deleteAttempts: (ids: number[]) => void;
-  updateProfile: (patch: ProfilePatch) => void;
-  putEnglish: (cert: EnglishInput) => void;
-  deleteEnglish: () => void;
-  dismissFailure: (key: number) => void;
-  openCourse: (code: string | null) => void;
-  openCode: string | null;
-}
-
-const StoreContext = createContext<StoreValue | null>(null);
+export { useStore } from './storeContext';
 
 /**
  * Holds the student record. Mutations update the UI immediately, then persist through the API.
@@ -138,19 +111,25 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     void persist('Remove English certificate', () => api.deleteEnglish());
   }, [persist]);
 
+  const setGpaOverride = useCallback((code: string, counts: boolean | null) => {
+    setRecord((r) => {
+      if (!r) return r;
+      const next = { ...r.gpaOverrides };
+      if (counts === null) delete next[code];
+      else next[code] = counts;
+      return { ...r, gpaOverrides: next };
+    });
+    void persist(`GPA setting for ${code}`, () =>
+      counts === null ? api.resetGpaOverride(code) : api.setGpaOverride(code, counts));
+  }, [persist]);
+
   const value = useMemo<StoreValue>(() => ({
     record, status, loadError, failures, failedIds, reload,
-    addAttempts, updateAttempt, deleteAttempts, updateProfile, putEnglish, deleteEnglish,
+    addAttempts, updateAttempt, deleteAttempts, updateProfile, putEnglish, deleteEnglish, setGpaOverride,
     dismissFailure: (key) => setFailures((f) => f.filter((x) => x.key !== key)),
     openCourse: setOpenCode,
     openCode,
-  }), [record, status, loadError, failures, failedIds, reload, addAttempts, updateAttempt, deleteAttempts, updateProfile, putEnglish, deleteEnglish, openCode]);
+  }), [record, status, loadError, failures, failedIds, reload, addAttempts, updateAttempt, deleteAttempts, updateProfile, putEnglish, deleteEnglish, setGpaOverride, openCode]);
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
-}
-
-export function useStore(): StoreValue {
-  const value = useContext(StoreContext);
-  if (!value) throw new Error('useStore must be used inside StoreProvider');
-  return value;
 }

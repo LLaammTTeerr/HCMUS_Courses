@@ -13,7 +13,7 @@ function derive(record: StudentRecord) {
   const program: Program = getProgram(record.profile.programId);
   const states = deriveCourseStates(program, record.attempts);
   const progress = computeProgress(program, states, record.profile.gradTrack);
-  const gpa = cumulativeGpa(program, states);
+  const gpa = cumulativeGpa(program, states, record.gpaOverrides);
   const warnings = [...planWarnings(program, record), ...academicWarnings(program, record)];
   return {
     program,

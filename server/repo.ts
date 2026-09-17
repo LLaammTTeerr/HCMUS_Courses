@@ -1,5 +1,5 @@
 import type { AttemptInput, AttemptPatch, EnglishInput, ProfilePatch } from '../shared/api';
-import type { Attempt, EnglishCert, Profile, StudentRecord } from '../shared/domain/types';
+import type { Attempt, EnglishCert, GpaOverrides, Profile, StudentRecord } from '../shared/domain/types';
 import type { Db } from './db';
 
 interface ProfileRow {
@@ -82,8 +82,27 @@ export function createRepo(db: Db) {
       db.prepare('DELETE FROM english_cert WHERE id = 1').run();
     },
 
+    getGpaOverrides(): GpaOverrides {
+      const rows = db.prepare('SELECT code, counts FROM gpa_overrides ORDER BY code').all() as { code: string; counts: number }[];
+      return Object.fromEntries(rows.map((r) => [r.code, r.counts === 1]));
+    },
+
+    setGpaOverride(code: string, counts: boolean): void {
+      db.prepare('INSERT INTO gpa_overrides (code, counts) VALUES (?, ?) ON CONFLICT(code) DO UPDATE SET counts = excluded.counts')
+        .run(code, counts ? 1 : 0);
+    },
+
+    deleteGpaOverride(code: string): void {
+      db.prepare('DELETE FROM gpa_overrides WHERE code = ?').run(code);
+    },
+
     getRecord(): StudentRecord {
-      return { profile: repo.getProfile(), attempts: repo.listAttempts(), english: repo.getEnglish() };
+      return {
+        profile: repo.getProfile(),
+        attempts: repo.listAttempts(),
+        english: repo.getEnglish(),
+        gpaOverrides: repo.getGpaOverrides(),
+      };
     },
   };
   return repo;

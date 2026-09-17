@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { countsInGpa } from '../../shared/domain/gpa';
 import type { BucketId, CourseStatus } from '../../shared/domain/types';
 import type { PageProps } from '../App';
 import { BUCKET_LABELS, BUCKET_ORDER, fmt, STATUS_LABELS, StatusBadge } from '../components/common';
@@ -77,7 +78,10 @@ export function CoursesPage({ record, derived }: PageProps) {
                         <td><div className="course-name"><span>{c.nameEn}</span><span className="vi">{c.nameVi}</span></div></td>
                         <td className="num">{c.credits}</td>
                         <td className="num faint">{c.suggestedSemester ? `S${c.suggestedSemester}` : '—'}</td>
-                        <td className="num">{fmt(s.officialGrade, 1)}</td>
+                        <td className="num">
+                          {fmt(s.officialGrade, 1)}
+                          {!countsInGpa(program, c.code, record.gpaOverrides) && <div className="faint" style={{ fontSize: 11 }} title="Not counted toward GPA">not in GPA</div>}
+                        </td>
                         <td>
                           <StatusBadge status={s.status} />
                           {s.activeSemester && s.status !== 'passed' && <span className="faint small"> S{s.activeSemester}</span>}

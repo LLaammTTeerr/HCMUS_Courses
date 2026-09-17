@@ -32,6 +32,11 @@ const MIGRATIONS: string[] = [
      issued TEXT NOT NULL,
      expires TEXT
    );`,
+  // 2 — per-course choice whether a course counts toward the GPA (QC1175 Art. 15.1c).
+  `CREATE TABLE gpa_overrides (
+     code TEXT PRIMARY KEY,
+     counts INTEGER NOT NULL CHECK (counts IN (0, 1))
+   );`,
 ];
 
 export function migrate(db: Db): void {

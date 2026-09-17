@@ -20,6 +20,7 @@ export function record(
   attempts: Attempt[],
   profile: Partial<Profile> = {},
   english: EnglishCert | null = null,
+  gpaOverrides: Record<string, boolean> = {},
 ): StudentRecord {
   return {
     profile: {
@@ -32,6 +33,7 @@ export function record(
     },
     attempts,
     english,
+    gpaOverrides,
   };
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { to4 } from '../../shared/domain/gpa';
+import { countsInGpa, defaultCountsInGpa, to4 } from '../../shared/domain/gpa';
 import { dependents, prereqStatus } from '../../shared/domain/prereqs';
 import { semesterLabel } from '../../shared/domain/semesters';
 import type { AttemptStatus, StudentRecord } from '../../shared/domain/types';
@@ -14,7 +14,7 @@ const statusFor = (semester: number, current: number, grade: number | null): Att
   grade !== null ? 'completed' : semester === current ? 'in-progress' : 'planned';
 
 export function CourseDrawer({ record, derived }: { record: StudentRecord; derived: Derived }) {
-  const { openCode, openCourse, updateAttempt, deleteAttempts, addAttempts, failedIds } = useStore();
+  const { openCode, openCourse, updateAttempt, deleteAttempts, addAttempts, failedIds, setGpaOverride } = useStore();
   const { program, states } = derived;
   const current = record.profile.currentSemester;
 
@@ -41,6 +41,9 @@ export function CourseDrawer({ record, derived }: { record: StudentRecord; deriv
   const prereqs = prereqStatus(program, states, course.code, referenceSemester);
   const unlocks = dependents(program, course.code);
   const addNeedsGrade = newSemester < current && newGrade === null;
+  const inGpa = countsInGpa(program, course.code, record.gpaOverrides);
+  const gpaDefault = defaultCountsInGpa(program, course.code);
+  const overridden = course.code in record.gpaOverrides;
 
   return (
     <>
@@ -60,6 +63,17 @@ export function CourseDrawer({ record, derived }: { record: StudentRecord; deriv
           <dt>Credits</dt><dd>{course.credits}</dd>
           <dt>Official grade</dt>
           <dd>{state.officialGrade === null ? '—' : `${fmt(state.officialGrade, 1)} · ${fmt(to4(state.officialGrade))} / 4`}</dd>
+          <dt>GPA</dt>
+          <dd>
+            <label className="row" style={{ gap: 6 }}>
+              <input type="checkbox" checked={inGpa} onChange={(e) => setGpaOverride(course.code, e.target.checked === gpaDefault ? null : e.target.checked)} />
+              Counts toward GPA &amp; graduation classification
+            </label>
+            <div className="small faint">
+              Program default: {gpaDefault ? 'counts' : 'not counted'}
+              {overridden && <> · <button className="icon-btn small" style={{ padding: 0, color: 'var(--accent)' }} onClick={() => setGpaOverride(course.code, null)}>reset</button></>}
+            </div>
+          </dd>
           <dt>Suggested</dt>
           <dd>{course.suggestedSemester ? `S${course.suggestedSemester} · ${semesterLabel(program, course.suggestedSemester)}` : 'Not in the official plan'}</dd>
         </dl>

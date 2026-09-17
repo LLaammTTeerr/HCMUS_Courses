@@ -1,6 +1,6 @@
 import { courseIndex } from '../programs/index';
 import { PASS_GRADE } from './courseState';
-import type { Attempt, CourseState, Program } from './types';
+import type { Attempt, CourseState, GpaOverrides, Program } from './types';
 
 /** Converts a 10-point grade to the 4-point scale (QĐ651/QĐ-KHTN, 2024). */
 export function to4(grade10: number): number {
@@ -20,9 +20,19 @@ export function rank(gpa10: number | null): string {
   return 'Kém';
 }
 
-/** Courses outside the GPA: Physical Education and Military Education (QC1175 Art. 15.1c). */
-export function countsInGpa(program: Program, code: string): boolean {
-  return courseIndex(program).get(code)?.bucket !== 'EXTRA';
+/** Program default: every course except Physical Education and Military Education (QC1175 Art. 15.1c). */
+export function defaultCountsInGpa(program: Program, code: string): boolean {
+  const course = courseIndex(program).get(code);
+  if (!course) return false;
+  return course.countsInGpa ?? course.bucket !== 'EXTRA';
+}
+
+/**
+ * Whether a course counts toward ĐTB and graduation classification. Art. 15.1c also allows "other
+ * courses as specified by the program", so the student can override the default per course.
+ */
+export function countsInGpa(program: Program, code: string, overrides: GpaOverrides = {}): boolean {
+  return overrides[code] ?? defaultCountsInGpa(program, code);
 }
 
 export interface GpaSummary {
@@ -33,13 +43,20 @@ export interface GpaSummary {
   credits: number;
   /** ĐTB — all graded courses including failed ones. */
   allGpa10: number | null;
+  /** Graded courses left out of the GPA (defaults and overrides), sorted. */
+  excluded: string[];
 }
 
-export function cumulativeGpa(program: Program, states: Map<string, CourseState>): GpaSummary {
+export function cumulativeGpa(program: Program, states: Map<string, CourseState>, overrides: GpaOverrides = {}): GpaSummary {
   const index = courseIndex(program);
   let credits = 0, sum10 = 0, sum4 = 0, allCredits = 0, allSum = 0;
+  const excluded: string[] = [];
   for (const s of states.values()) {
-    if (s.officialGrade === null || !countsInGpa(program, s.code)) continue;
+    if (s.officialGrade === null) continue;
+    if (!countsInGpa(program, s.code, overrides)) {
+      excluded.push(s.code);
+      continue;
+    }
     const cr = index.get(s.code)!.credits;
     allCredits += cr;
     allSum += s.officialGrade * cr;
@@ -54,6 +71,7 @@ export function cumulativeGpa(program: Program, states: Map<string, CourseState>
     gpa4: credits ? sum4 / credits : null,
     credits,
     allGpa10: allCredits ? allSum / allCredits : null,
+    excluded: excluded.sort(),
   };
 }
 
@@ -64,22 +82,33 @@ export interface SemesterStat {
   gpa10: number | null;
 }
 
-/** Per-semester results over completed attempts (for academic warnings, Art. 16). */
-export function semesterStats(program: Program, attempts: Attempt[]): SemesterStat[] {
+/**
+ * Per-semester results over completed attempts (for academic warnings, Art. 16). Credits exclude
+ * EXTRA courses; the semester ĐTB also leaves out courses that do not count toward the GPA.
+ */
+export function semesterStats(program: Program, attempts: Attempt[], overrides: GpaOverrides = {}): SemesterStat[] {
   const index = courseIndex(program);
-  const bySemester = new Map<number, SemesterStat & { sum: number }>();
+  const bySemester = new Map<number, SemesterStat & { sum: number; gpaCredits: number }>();
   for (const a of attempts) {
     const course = index.get(a.code);
-    if (a.status !== 'completed' || a.grade10 === null || !course || !countsInGpa(program, a.code)) continue;
-    const s = bySemester.get(a.semester) ?? { semester: a.semester, attemptedCredits: 0, passedCredits: 0, gpa10: null, sum: 0 };
-    s.attemptedCredits += course.credits;
-    s.sum += a.grade10 * course.credits;
-    if (a.grade10 >= PASS_GRADE) s.passedCredits += course.credits;
+    if (a.status !== 'completed' || a.grade10 === null || !course) continue;
+    const inGpa = countsInGpa(program, a.code, overrides);
+    if (course.bucket === 'EXTRA' && !inGpa) continue;
+    const s = bySemester.get(a.semester) ??
+      { semester: a.semester, attemptedCredits: 0, passedCredits: 0, gpa10: null, sum: 0, gpaCredits: 0 };
+    if (course.bucket !== 'EXTRA') {
+      s.attemptedCredits += course.credits;
+      if (a.grade10 >= PASS_GRADE) s.passedCredits += course.credits;
+    }
+    if (inGpa) {
+      s.sum += a.grade10 * course.credits;
+      s.gpaCredits += course.credits;
+    }
     bySemester.set(a.semester, s);
   }
   return [...bySemester.values()]
     .sort((a, b) => a.semester - b.semester)
-    .map(({ sum, ...s }) => ({ ...s, gpa10: s.attemptedCredits ? sum / s.attemptedCredits : null }));
+    .map(({ sum, gpaCredits, ...s }) => ({ ...s, gpa10: gpaCredits ? sum / gpaCredits : null }));
 }
 
 /** Study-year level from accumulated credits (Art. 15.3, 38 credits per year). */

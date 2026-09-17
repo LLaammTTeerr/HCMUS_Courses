@@ -89,7 +89,7 @@ export function checklist(program: Program, record: StudentRecord): ChecklistIte
   });
 
   if (profile.gradTrack === 'thesis') {
-    const { gpa10 } = cumulativeGpa(program, states);
+    const { gpa10 } = cumulativeGpa(program, states, record.gpaOverrides);
     const threshold = profile.thesisGpaThreshold;
     items.push({
       id: 'thesis-gpa', label: 'GPA eligible for thesis', source: 'QC1175 Art. 10.1d (threshold set by the faculty)',

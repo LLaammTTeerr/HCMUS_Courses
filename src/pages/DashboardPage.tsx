@@ -41,7 +41,9 @@ export function DashboardPage({ record, derived }: PageProps) {
         <div className="card kpi">
           <div className="label">ĐTB tích lũy</div>
           <div className="value">{fmt(gpa.gpa10)}<span className="faint" style={{ fontSize: 16 }}> · {fmt(gpa.gpa4)}/4</span></div>
-          <div className="sub">{rank(gpa.gpa10)} · over {gpa.credits} credits</div>
+          <div className="sub" title={gpa.excluded.length ? `Not counted: ${gpa.excluded.join(', ')}` : undefined}>
+            {rank(gpa.gpa10)} · over {gpa.credits} credits{gpa.excluded.length > 0 && ` · ${gpa.excluded.length} graded not counted`}
+          </div>
         </div>
         <div className="card kpi">
           <div className="label">Year level</div>

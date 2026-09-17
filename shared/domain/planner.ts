@@ -158,7 +158,7 @@ function trackWarnings(program: Program, record: StudentRecord, states: Map<stri
 export function academicWarnings(program: Program, record: StudentRecord): Warning[] {
   const warnings: Warning[] = [];
   let accumulated = 0;
-  for (const s of semesterStats(program, record.attempts)) {
+  for (const s of semesterStats(program, record.attempts, record.gpaOverrides)) {
     if (s.semester >= record.profile.currentSemester) break;
     const before = accumulated;
     accumulated += s.passedCredits;

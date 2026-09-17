@@ -15,6 +15,8 @@ export interface Course {
   prereqNote?: string;
   /** Semester in the official suggested plan (CTĐT §8). */
   suggestedSemester?: number;
+  /** Counts toward ĐTB / graduation classification. Defaults to true except EXTRA (QC1175 Art. 15.1c). */
+  countsInGpa?: boolean;
 }
 
 export interface ProgramRules {
@@ -93,10 +95,14 @@ export interface EnglishCert {
   expires: string | null;
 }
 
+/** Per-course choice whether a course counts toward the GPA, overriding the program default. */
+export type GpaOverrides = Record<string, boolean>;
+
 export interface StudentRecord {
   profile: Profile;
   attempts: Attempt[];
   english: EnglishCert | null;
+  gpaOverrides: GpaOverrides;
 }
 
 export type CourseStatus = 'passed' | 'in-progress' | 'planned' | 'failed' | 'not-taken';

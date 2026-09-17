@@ -44,6 +44,7 @@ describe('record and profile', () => {
       profile: { programId: 'apcs-2024', currentSemester: 7, gradTrack: 'undecided', militaryCert: false, thesisGpaThreshold: null },
       attempts: [],
       english: null,
+      gpaOverrides: {},
     });
   });
 
@@ -113,6 +114,22 @@ describe('attempts', () => {
   });
 });
 
+describe('GPA overrides', () => {
+  it('sets, replaces and resets a per-course GPA override', async () => {
+    expect(await (await call('PUT', '/gpa-overrides/baa00101', { counts: false })).json()).toEqual({ BAA00101: false });
+    expect(await (await call('PUT', '/gpa-overrides/BAA00030', { counts: true })).json()).toEqual({ BAA00030: true, BAA00101: false });
+    expect(await (await call('PUT', '/gpa-overrides/BAA00101', { counts: true })).json()).toEqual({ BAA00030: true, BAA00101: true });
+    expect(await (await call('DELETE', '/gpa-overrides/BAA00030')).json()).toEqual({ BAA00101: true });
+    expect((await (await call('GET', '/record')).json()).gpaOverrides).toEqual({ BAA00101: true });
+  });
+
+  it('rejects unknown courses and invalid bodies', async () => {
+    expect((await call('PUT', '/gpa-overrides/XX999', { counts: false })).status).toBe(400);
+    expect((await call('PUT', '/gpa-overrides/CS160', { counts: 'no' })).status).toBe(400);
+    expect((await (await call('GET', '/record')).json()).gpaOverrides).toEqual({});
+  });
+});
+
 describe('english certificate', () => {
   it('stores, replaces and deletes the certificate', async () => {
     await call('PUT', '/english', { type: 'IELTS', score: 6.5, issued: '2026-05-01' });
@@ -128,7 +145,7 @@ describe('database', () => {
   it('runs migrations idempotently', () => {
     migrate(db);
     migrate(db);
-    expect(db.prepare('SELECT version FROM schema_version').get()).toEqual({ version: 1 });
+    expect(db.prepare('SELECT version FROM schema_version').get()).toEqual({ version: 2 });
     expect(db.prepare('SELECT COUNT(*) AS n FROM profile').get()).toEqual({ n: 1 });
   });
 

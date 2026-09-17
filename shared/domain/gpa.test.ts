@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { deriveCourseStates } from './courseState';
-import { cumulativeGpa, rank, semesterStats, to4, yearLevel } from './gpa';
+import { countsInGpa, cumulativeGpa, rank, semesterStats, to4, yearLevel } from './gpa';
 import { done, inProgress, program } from './testUtils';
 
 describe('to4 (QĐ651)', () => {
@@ -39,8 +39,35 @@ describe('cumulativeGpa', () => {
 
   it('returns nulls when nothing is graded', () => {
     expect(cumulativeGpa(program, deriveCourseStates(program, []))).toEqual({
-      gpa10: null, gpa4: null, credits: 0, allGpa10: null,
+      gpa10: null, gpa4: null, credits: 0, allGpa10: null, excluded: [],
     });
+  });
+});
+
+describe('GPA overrides (courses not counted toward classification)', () => {
+  const attempts = [done('CS160', 1, 9), done('BAA00101', 1, 5), done('BAA00030', 1, 10)];
+
+  it('uses the program default when there is no override', () => {
+    expect(countsInGpa(program, 'BAA00101', {})).toBe(true);
+    expect(countsInGpa(program, 'BAA00030', {})).toBe(false);
+  });
+
+  it('excludes an overridden course from ĐTB tích lũy but not from earned credits', () => {
+    const states = deriveCourseStates(program, attempts);
+    const g = cumulativeGpa(program, states, { BAA00101: false });
+    expect(g.gpa10).toBe(9);
+    expect(g.credits).toBe(4);
+    expect(g.excluded).toEqual(['BAA00030', 'BAA00101']);
+  });
+
+  it('can include a course the program excludes by default', () => {
+    const g = cumulativeGpa(program, deriveCourseStates(program, attempts), { BAA00030: true });
+    expect(g.gpa10).toBeCloseTo((9 * 4 + 5 * 3 + 10 * 4) / 11, 10);
+  });
+
+  it('applies overrides to the semester ĐTB but keeps passed credits', () => {
+    const [s1] = semesterStats(program, attempts, { BAA00101: false });
+    expect(s1).toEqual({ semester: 1, attemptedCredits: 7, passedCredits: 7, gpa10: 9 });
   });
 });
 

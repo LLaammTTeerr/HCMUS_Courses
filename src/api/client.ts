@@ -1,5 +1,5 @@
 import type { AttemptInput, AttemptPatch, EnglishInput, ProfilePatch } from '../../shared/api';
-import type { Attempt, EnglishCert, Profile, StudentRecord } from '../../shared/domain/types';
+import type { Attempt, EnglishCert, GpaOverrides, Profile, StudentRecord } from '../../shared/domain/types';
 
 /** The API could not be reached (server not running). */
 export class ApiUnavailable extends Error {}
@@ -38,4 +38,6 @@ export const api = {
   deleteAttempts: (ids: number[]) => request<void>('POST', '/attempts/batch-delete', { ids }),
   putEnglish: (cert: EnglishInput) => request<EnglishCert>('PUT', '/english', cert),
   deleteEnglish: () => request<void>('DELETE', '/english'),
+  setGpaOverride: (code: string, counts: boolean) => request<GpaOverrides>('PUT', `/gpa-overrides/${code}`, { counts }),
+  resetGpaOverride: (code: string) => request<GpaOverrides>('DELETE', `/gpa-overrides/${code}`),
 };

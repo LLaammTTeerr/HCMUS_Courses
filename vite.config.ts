@@ -8,6 +8,7 @@ export default defineConfig({
     // Listen on all interfaces so the app is reachable over Tailscale (100.x IP or MagicDNS name).
     host: true,
     allowedHosts: ['.ts.net'],
-    proxy: { '/api': 'http://127.0.0.1:5174' },
+    // API_PORT lets a second instance (e.g. a test run on a scratch database) proxy elsewhere.
+    proxy: { '/api': `http://127.0.0.1:${process.env.API_PORT ?? 5174}` },
   },
 });

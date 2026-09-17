@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import type { Context } from 'hono';
 import { z } from 'zod';
 import {
-  attemptInput, attemptPatch, batchDeleteInput, batchInput, englishInput, profilePatch, type AttemptInput,
+  attemptInput, attemptPatch, batchDeleteInput, batchInput, englishInput, gpaOverrideInput, profilePatch, type AttemptInput,
 } from '../shared/api';
 import { courseIndex, getProgram, PROGRAM_IDS } from '../shared/programs/index';
 import type { Db } from './db';
@@ -96,6 +96,19 @@ export function createApp(db: Db) {
   app.delete('/english', (c) => {
     repo.deleteEnglish();
     return c.body(null, 204);
+  });
+
+  app.put('/gpa-overrides/:code', async (c) => {
+    const code = c.req.param('code').toUpperCase();
+    checkCodes([{ code }]);
+    const { counts } = await parseBody(c, gpaOverrideInput);
+    repo.setGpaOverride(code, counts);
+    return c.json(repo.getGpaOverrides());
+  });
+
+  app.delete('/gpa-overrides/:code', (c) => {
+    repo.deleteGpaOverride(c.req.param('code').toUpperCase());
+    return c.json(repo.getGpaOverrides());
   });
 
   // Registered last so unknown /api paths get JSON instead of the UI fallback.
