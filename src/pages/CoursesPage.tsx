@@ -71,9 +71,18 @@ export function CoursesPage({ record, derived }: PageProps) {
                 <h2>{BUCKET_LABELS[b]}</h2>
                 <span className="small muted">{passedCredits} credits passed</span>
               </div>
-              <table className="list">
+              <table className="list fixed">
+                <colgroup>
+                  <col style={{ width: 104 }} />
+                  <col />
+                  <col style={{ width: 120 }} />
+                  <col style={{ width: 52 }} />
+                  <col style={{ width: 68 }} />
+                  <col style={{ width: 88 }} />
+                  <col style={{ width: 150 }} />
+                </colgroup>
                 <thead>
-                  <tr><th style={{ width: 110 }}>Code</th><th>Course</th><th style={{ width: 110 }}>Type</th><th className="num">Cr</th><th className="num">Sugg.</th><th className="num">Grade</th><th style={{ width: 120 }}>Status</th></tr>
+                  <tr><th>Code</th><th>Course</th><th>Type</th><th className="num">Cr</th><th className="num">Sugg.</th><th className="num">Grade</th><th>Status</th></tr>
                 </thead>
                 <tbody>
                   {courses.map((c) => {

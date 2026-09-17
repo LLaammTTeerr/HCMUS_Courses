@@ -44,19 +44,26 @@ export function NextPage({ record, derived }: PageProps) {
               <div className="card-head" style={{ padding: '0 10px', marginBottom: 4 }}>
                 <h2>{title}</h2><span className="small muted">{rows.length}</span>
               </div>
-              <table className="list">
+              <table className="list fixed">
+                <colgroup>
+                  <col style={{ width: 104 }} />
+                  <col style={{ width: 120 }} />
+                  <col />
+                  <col style={{ width: '28%' }} />
+                  <col style={{ width: 120 }} />
+                </colgroup>
                 <tbody>
                   {rows.map((x) => {
                     const c = index.get(x.code)!;
                     return (
                       <tr key={x.code}>
-                        <td className="mono" style={{ width: 100 }}>
+                        <td className="mono">
                           <button className="icon-btn" style={{ fontWeight: 650, color: 'var(--text)' }} onClick={() => openCourse(x.code)}>{x.code}</button>
                         </td>
-                        <td style={{ width: 110 }}><RequirementBadge course={c} /></td>
+                        <td><RequirementBadge course={c} /></td>
                         <td><div className="course-name"><span>{c.nameEn}</span><span className="vi">{BUCKET_LABELS[c.bucket]} · {c.credits} cr{c.suggestedSemester ? ` · suggested S${c.suggestedSemester}` : ''}</span></div></td>
                         <td className="small muted">{x.reason}</td>
-                        <td className="num" style={{ width: 140 }}>
+                        <td className="num">
                           <button className="btn small" onClick={() => void addAttempts([{ code: x.code, semester: target, grade10: null, status: target === current ? 'in-progress' : 'planned' }])}>
                             Add to S{target}
                           </button>

@@ -155,6 +155,12 @@ label.field { display: flex; flex-direction: column; gap: 4px; font-size: 12px; 
 table.list { width: 100%; border-collapse: collapse; }
 table.list th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-3); font-weight: 600; padding: 6px 10px; border-bottom: 1px solid var(--border); }
 table.list td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+table.list th.num { text-align: right; }
+/* Fixed layout + <colgroup> so separate tables (one per bucket/tier) share the same column positions. */
+table.list.fixed { table-layout: fixed; min-width: 680px; }
+.card:has(> table.list.fixed) { overflow-x: auto; }
+table.list.fixed td, table.list.fixed th { overflow: hidden; text-overflow: ellipsis; }
+table.list.fixed .course-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 table.list tr:last-child td { border-bottom: none; }
 table.list tr.clickable { cursor: pointer; }
 table.list tr.clickable:hover td { background: var(--surface-2); }
