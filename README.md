@@ -64,8 +64,9 @@ All sources are official documents from https://www.ctda.hcmus.edu.vn; copies ar
 | English: IELTS 6.0 / TOEFL iBT 79 / TOEFL ITP 550 + TOEIC S&W 270 | QĐ 1985/QĐ-KHTN |
 | 4-point conversion `1 + (g − 3) × 0.5` | QĐ 651/QĐ-KHTN |
 
-GPA and graduation classification use the passed courses that count toward the GPA. Physical and
-Military Education are excluded by default. Article 15.1c also lets the program exclude other
+GPA and graduation classification use the passed courses that count toward the GPA. By default the
+app excludes Physical and Military Education and the five political theory courses (BAA00101–104,
+BAA00003). Introduction to Laws (BAA00004) still counts. Article 15.1c also lets the program exclude other
 courses, so each course's drawer has a **"Counts toward GPA & graduation classification"** toggle.
 Overridden courses show "not in GPA" in the course list, and the dashboard lists every graded course
 left out.

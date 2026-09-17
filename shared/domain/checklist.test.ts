@@ -44,11 +44,11 @@ describe('checklist (Art. 17)', () => {
   });
 
   it('uses GPA overrides for the thesis GPA check', () => {
-    const attempts = [done('CS160', 1, 9), done('BAA00101', 1, 5)];
+    const attempts = [done('CS160', 1, 9), done('WR227', 1, 5)];
     const th = (o: Record<string, boolean>) =>
       checklist(program, record(attempts, { gradTrack: 'thesis', thesisGpaThreshold: 8 }, null, o)).find((i) => i.id === 'thesis-gpa')!.status;
     expect(th({})).toBe('missing');
-    expect(th({ BAA00101: false })).toBe('done');
+    expect(th({ WR227: false })).toBe('done');
   });
 
   it('only shows the thesis GPA item on the thesis track and needs a threshold', () => {

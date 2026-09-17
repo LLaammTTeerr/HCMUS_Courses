@@ -45,29 +45,39 @@ describe('cumulativeGpa', () => {
 });
 
 describe('GPA overrides (courses not counted toward classification)', () => {
-  const attempts = [done('CS160', 1, 9), done('BAA00101', 1, 5), done('BAA00030', 1, 10)];
+  const attempts = [done('CS160', 1, 9), done('WR227', 1, 5), done('BAA00030', 1, 10)];
 
   it('uses the program default when there is no override', () => {
-    expect(countsInGpa(program, 'BAA00101', {})).toBe(true);
+    expect(countsInGpa(program, 'WR227', {})).toBe(true);
+    expect(countsInGpa(program, 'BAA00004', {})).toBe(true);
     expect(countsInGpa(program, 'BAA00030', {})).toBe(false);
+    expect(countsInGpa(program, 'BAA00101', {})).toBe(false);
+  });
+
+  it('leaves political theory courses out of ĐTB tích lũy by default', () => {
+    const g = cumulativeGpa(program, deriveCourseStates(program, [done('CS160', 1, 9), done('BAA00101', 1, 5), done('BAA00003', 2, 6)]));
+    expect(g.gpa10).toBe(9);
+    expect(g.excluded).toEqual(['BAA00003', 'BAA00101']);
+    expect(cumulativeGpa(program, deriveCourseStates(program, [done('CS160', 1, 9), done('BAA00101', 1, 5)]), { BAA00101: true }).gpa10)
+      .toBeCloseTo((9 * 4 + 5 * 3) / 7, 10);
   });
 
   it('excludes an overridden course from ĐTB tích lũy but not from earned credits', () => {
     const states = deriveCourseStates(program, attempts);
-    const g = cumulativeGpa(program, states, { BAA00101: false });
+    const g = cumulativeGpa(program, states, { WR227: false });
     expect(g.gpa10).toBe(9);
     expect(g.credits).toBe(4);
-    expect(g.excluded).toEqual(['BAA00030', 'BAA00101']);
+    expect(g.excluded).toEqual(['BAA00030', 'WR227']);
   });
 
   it('can include a course the program excludes by default', () => {
     const g = cumulativeGpa(program, deriveCourseStates(program, attempts), { BAA00030: true });
-    expect(g.gpa10).toBeCloseTo((9 * 4 + 5 * 3 + 10 * 4) / 11, 10);
+    expect(g.gpa10).toBeCloseTo((9 * 4 + 5 * 4 + 10 * 4) / 12, 10);
   });
 
   it('applies overrides to the semester ĐTB but keeps passed credits', () => {
-    const [s1] = semesterStats(program, attempts, { BAA00101: false });
-    expect(s1).toEqual({ semester: 1, attemptedCredits: 7, passedCredits: 7, gpa10: 9 });
+    const [s1] = semesterStats(program, attempts, { WR227: false });
+    expect(s1).toEqual({ semester: 1, attemptedCredits: 8, passedCredits: 8, gpa10: 9 });
   });
 });
 

@@ -78,7 +78,9 @@ Projections: **earned** (passed), **+ in progress**, **+ planned**. Each bucket 
 - Grade is on the 10-point scale, one decimal. Pass ≥ 5.0 (QC1175 Art. 11.4).
 - **ĐTB tích lũy (cumulative GPA)** = credit-weighted mean of official grades of *passed* courses with
   `countsInGpa` (QC1175 Art. 15.1b). **ĐTB** includes failed courses too (Art. 15.1a).
-- **Courses outside the GPA:** EXTRA by default (Art. 15.1c). Art. 15.1c also allows "other courses as
+- **Courses outside the GPA:** by default EXTRA (Art. 15.1c) and the political theory courses
+  BAA00101/102/103/104 and BAA00003 (`countsInGpa: false` in the program JSON, set at the student's
+  direction; not stated in CTĐT24). BAA00004 (law) counts. Art. 15.1c also allows "other courses as
   specified by the program", so the student can override inclusion per course (`gpa_overrides` table,
   migration 2). Overrides affect ĐTB, ĐTB tích lũy, semester ĐTB for academic warnings, ranking, and the
   thesis GPA check — never earned credits.

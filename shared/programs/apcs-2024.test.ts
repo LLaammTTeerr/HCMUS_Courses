@@ -43,6 +43,16 @@ describe('apcs-2024 program data', () => {
     expect(110 + r.bcMin + r.gradCredits).toBe(r.totalCredits);
   });
 
+  it('leaves Physical/Military Education and the political theory courses out of the GPA by default', () => {
+    // PE/Military: CTĐT §7.1.2 note. Political theory (lý luận chính trị): excluded at the student's
+    // direction under QC1175 Art. 15.1c ("other courses as specified"); BAA00004 (law) still counts.
+    const excluded = program.courses
+      .filter((c) => (c.countsInGpa ?? c.bucket !== 'EXTRA') === false)
+      .map((c) => c.code)
+      .sort();
+    expect(excluded).toEqual(['BAA00003', 'BAA00021', 'BAA00022', 'BAA00030', 'BAA00101', 'BAA00102', 'BAA00103', 'BAA00104']);
+  });
+
   it('only references existing courses in prerequisites and rules', () => {
     const idx = courseIndex(program);
     for (const c of program.courses) {
