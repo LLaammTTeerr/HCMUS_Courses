@@ -64,7 +64,13 @@ export function backupDb(file: string, dir: string, keep = 7, today = new Date()
   mkdirSync(dir, { recursive: true });
   const stamp = today.toISOString().slice(0, 10).replaceAll('-', '');
   const target = join(dir, `progress-${stamp}.db`);
-  if (!existsSync(target)) copyFileSync(file, target);
+  if (!existsSync(target)) {
+    // Fold the write-ahead log into the main file first (it may hold writes after an unclean shutdown).
+    const conn = new Database(file);
+    conn.pragma('wal_checkpoint(TRUNCATE)');
+    conn.close();
+    copyFileSync(file, target);
+  }
   const backups = readdirSync(dir).filter((f) => /^progress-\d{8}\.db$/.test(f)).sort();
   for (const old of backups.slice(0, Math.max(0, backups.length - keep))) rmSync(join(dir, old));
   return target;

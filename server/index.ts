@@ -2,7 +2,7 @@ import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { createApp } from './app';
 import { backupDb, openDb } from './db';
 
@@ -10,7 +10,7 @@ const root = resolve(import.meta.dirname, '..');
 const dbFile = process.env.PROGRESS_DB ?? resolve(root, 'data/progress.db');
 const port = Number(process.env.PORT ?? 5174);
 
-const backup = backupDb(dbFile, resolve(root, 'data/backups'));
+const backup = backupDb(dbFile, resolve(dirname(dbFile), 'backups'));
 const db = openDb(dbFile);
 
 const server = new Hono();

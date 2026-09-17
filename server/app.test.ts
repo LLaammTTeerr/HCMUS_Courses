@@ -1,4 +1,4 @@
-import { mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
@@ -132,9 +132,18 @@ describe('database', () => {
     expect(db.prepare('SELECT COUNT(*) AS n FROM profile').get()).toEqual({ n: 1 });
   });
 
+  it('includes writes still in the write-ahead log in the backup', () => {
+    const file = join(dir, 'progress.db');
+    db.prepare("INSERT INTO attempts (code, semester, status, grade10) VALUES ('CS160', 1, 'completed', 8)").run();
+    const target = backupDb(file, join(dir, 'wal-backups'))!;
+    const copy = openDb(target);
+    expect(copy.prepare('SELECT COUNT(*) AS n FROM attempts').get()).toEqual({ n: 1 });
+    copy.close();
+  });
+
   it('backs up once per day and keeps the newest copies', () => {
     const file = join(dir, 'source.db');
-    writeFileSync(file, 'data');
+    openDb(file).close();
     const backups = join(dir, 'backups');
     for (let day = 1; day <= 9; day++) backupDb(file, backups, 7, new Date(`2026-09-0${day}T12:00:00Z`));
     backupDb(file, backups, 7, new Date('2026-09-09T18:00:00Z'));

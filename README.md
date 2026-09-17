@@ -47,7 +47,7 @@ Environment variables: `PROGRESS_DB` sets another database file, and `PORT` sets
 ## Your data
 
 - `data/progress.db` is ignored by git. To version your data, remove `data/*.db` from `.gitignore`.
-- Each server start copies the database to `data/backups/progress-YYYYMMDD.db` (once per day, newest 7 kept).
+- Each server start copies the database to `backups/progress-YYYYMMDD.db` next to it (once per day, newest 7 kept).
 - To inspect the data: `sqlite3 data/progress.db 'select * from attempts'`.
 
 ## Where the rules come from

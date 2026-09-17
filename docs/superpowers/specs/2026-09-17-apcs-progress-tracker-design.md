@@ -1,6 +1,6 @@
 # APCS Progress Tracker — Design Spec
 
-Date: 2026-09-17 · Status: approved (brainstorming sections 1–3) · Owner: personal tool
+Date: 2026-09-17 · Status: implemented (v1) · Owner: personal tool
 
 ## 1. Purpose
 
@@ -247,7 +247,7 @@ Validation with zod: unknown course code (for the profile's program), grade outs
 - `npm run build && npm start` — API serves the built UI on 5174.
 - `npm test` — Vitest (shared + server).
 - On server start: copy existing `data/progress.db` to `data/backups/progress-YYYYMMDD.db` (once per day),
-  keep newest 7.
+  keep newest 7 (in `backups/` next to the database file; the WAL is checkpointed first).
 
 ## 5. UI
 
