@@ -92,7 +92,7 @@ Projections: **earned** (passed), **+ in progress**, **+ planned**. Each bucket 
 - Registration limits (Art. 7.2): 10 ≤ credits ≤ 22 per semester (all registered courses, incl. EXTRA).
 - Academic warning (Art. 16.1), checked for completed semesters: passed credits < 7 (unless cumulative
   ≥ 130), or semester ĐTB < 3.0.
-- Standard duration 12 semesters; max +3 years (18 semesters) (Art. 2.7).
+- Standard duration 12 semesters; max +3 years (21 semesters) (Art. 2.7).
 
 ### 3.5 Prerequisites (DESC21 "Prior-course")
 
