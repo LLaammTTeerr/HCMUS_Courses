@@ -8,49 +8,44 @@ Personal graduation tracker for HCMUS APCS intake 2024. The spec is in
 
 ```
 shared/   pure TypeScript: no React, no Node APIs. Imported by both server and UI.
-  programs/<id>.json    program facts (courses, buckets, rules, suggested semesters)
-  programs/index.ts     registry: getProgram(id), courseIndex(program)
-  domain/*.ts           rules engine, each module with a *.test.ts next to it
+  domain/program.ts     the ProgramModule interface + helpers (isCovered, group, creditsOf, buildContext)
+  domain/*.ts           program-independent engine, each module with a *.test.ts next to it
+  domain/golden.test.ts behaviour lock for APCS — a refactor must not change these numbers
+  programs/index.ts     registry: getProgram(id), listPrograms(), courseIndex(program)
+  programs/<id>/        one folder per program: courses.json + meta.json + index.ts (+ data.test.ts)
   api.ts                zod schemas and DTOs shared by server and client
 server/   Hono + better-sqlite3. Persistence only; it does no rule calculations.
   db.ts (migrations, backups) · repo.ts (SQL) · app.ts (routes, validation) · index.ts (entry)
 src/      React + Vite UI. Loads the record, computes everything via shared/domain.
-  state/store.tsx (optimistic mutations + retry) · state/derived.ts (useDerived) · pages/ · components/
+  state/store.tsx + state/storeContext.ts · state/derived.ts (useDerived) · pages/ · components/
 ```
 
-Data flow: `GET /api/record` loads a `StudentRecord`, `useDerived()` runs the domain functions on it,
-and the pages render the results. Mutations update the store immediately and then call the API; a
-failed save shows a Retry toast.
+Data flow: `GET /api/record` loads a `StudentRecord`, `useDerived()` runs the engine plus the program
+module on it, and the pages render `ProgressReport.groups` without knowing the program.
 
-## Rules of the codebase
+**Split of responsibilities**
 
-- **All rule logic lives in `shared/domain`, backed by unit tests.** UI and server never reimplement rules.
-- **Program facts belong in JSON, not code.** Numbers such as 163, 56, or 10–22 come from `program.rules`.
-- **Cite sources.** When adding a rule, reference the document and article in a comment
-  (e.g. `QC1175 Art. 16.1`).
-- **Prerequisites stay soft** (warnings, never blocks). Hand-mapped ones must keep the original wording
-  in `prereqNote`; `apcs-2024.test.ts` enforces this.
-- **Schema changes append a migration** to `MIGRATIONS` in `server/db.ts`. Never edit a shipped migration.
-- **Tests never touch `data/progress.db`**, which holds the user's real data. Server tests use a temp
-  file. For browser checks, run a second instance:
-  `PROGRESS_DB=/tmp/x.db PORT=5176 HOST=127.0.0.1 npx tsx server/index.ts` plus
-  `API_PORT=5176 npx vite --port 5177`. Stop it by PID, not `pkill -f`.
-- **GPA inclusion:** always go through `countsInGpa(program, code, record.gpaOverrides)`. The per-course
-  user overrides live in the `gpa_overrides` table; the program default is `Course.countsInGpa`, else
-  "not EXTRA".
-- **Store context lives in `src/state/storeContext.ts`**, separate from the provider, so hot reload keeps
-  consumers attached.
-- **Beware `pkill -f` in shells.** The pattern can match the shell's own command line; use `[x]yz`-style
-  patterns.
+| Shared engine | Program module (`shared/programs/<id>/index.ts`) |
+|---|---|
+| course state, grades, GPA and overrides, rankings | credit groups and their arithmetic |
+| semester labels, prerequisites, quick entry | which requirement a course serves (`courseNeed`) |
+| planner scheduling, balancing, credit limits, duplicates | which courses the plan still needs (`coursesToPlan`) |
+| Art. 17 checklist items shared by all programs | program-specific checklist items (English standard, thesis GPA) |
+| generic warnings | program-specific warnings (graduation track, specialization) |
 
 ## Common tasks
 
-**Adding a program (e.g. APCS 2025)**
+**Adding a program**
 
-1. Copy `shared/programs/apcs-2024.json` to `apcs-2025.json` and edit it from the new CTĐT.
+1. Create `shared/programs/<id>/` with `courses.json` (see the `Course` type: `group`, `requirement`,
+   `countsInCredits`, `countsInGpa`), `meta.json` (`ProgramMeta` + any rule numbers the module needs) and
+   `index.ts` implementing `ProgramModule`.
 2. Register it in `shared/programs/index.ts`.
-3. Copy `apcs-2024.test.ts` to `apcs-2025.test.ts` and update the expected numbers from the document.
-4. Switch the profile with `PUT /api/profile {"programId": "apcs-2025"}` (there is no UI selector yet).
+3. Add `data.test.ts` asserting the totals printed in the CTĐT, and rule tests for the shapes that are new.
+4. The sidebar program picker shows every registered program; switching keeps all attempts.
+
+**Program rules live in code, not data** (decided 2026-09-20): each program implements `ProgramModule`.
+The shared engine must never special-case a program id.
 
 **Adding a rule or warning**
 
