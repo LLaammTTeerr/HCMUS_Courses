@@ -42,9 +42,71 @@ const MIGRATIONS: string[] = [
    UPDATE profile SET choices = json_object('gradTrack', grad_track)
      WHERE grad_track IS NOT NULL AND grad_track <> 'undecided';
    ALTER TABLE profile DROP COLUMN grad_track;`,
+  // 4 — accounts: every record belongs to a user (docs/superpowers/specs/2026-09-21-accounts-design.md).
+  `CREATE TABLE users (
+     id INTEGER PRIMARY KEY AUTOINCREMENT,
+     username TEXT NOT NULL UNIQUE COLLATE NOCASE,
+     display_name TEXT NOT NULL,
+     password_hash TEXT NOT NULL,
+     is_admin INTEGER NOT NULL DEFAULT 0,
+     must_change_password INTEGER NOT NULL DEFAULT 0,
+     created_at TEXT NOT NULL DEFAULT (datetime('now')),
+     last_login TEXT
+   );
+   CREATE TABLE sessions (
+     token_hash TEXT PRIMARY KEY,
+     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+     created_at TEXT NOT NULL DEFAULT (datetime('now')),
+     expires_at TEXT NOT NULL
+   );
+   CREATE INDEX sessions_user ON sessions(user_id);
+   CREATE TABLE invites (
+     code_hash TEXT PRIMARY KEY,
+     created_by INTEGER NOT NULL REFERENCES users(id),
+     note TEXT,
+     created_at TEXT NOT NULL DEFAULT (datetime('now')),
+     expires_at TEXT,
+     used_by INTEGER REFERENCES users(id),
+     used_at TEXT
+   );
+   CREATE TABLE profiles (
+     user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+     program_id TEXT NOT NULL DEFAULT 'apcs-2024',
+     current_semester INTEGER NOT NULL DEFAULT 1,
+     choices TEXT NOT NULL DEFAULT '{}',
+     military_cert INTEGER NOT NULL DEFAULT 0,
+     thesis_gpa_threshold REAL
+   );
+   INSERT INTO profiles (user_id, program_id, current_semester, choices, military_cert, thesis_gpa_threshold)
+     SELECT 1, program_id, current_semester, choices, military_cert, thesis_gpa_threshold FROM profile;
+   DROP TABLE profile;
+   ALTER TABLE attempts ADD COLUMN user_id INTEGER NOT NULL DEFAULT 1;
+   CREATE INDEX attempts_user ON attempts(user_id);
+   CREATE TABLE english_certs (
+     user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+     type TEXT NOT NULL CHECK (type IN ('IELTS','TOEFL_IBT','TOEFL_ITP_TOEIC_SW')),
+     score REAL NOT NULL,
+     score2 REAL,
+     issued TEXT NOT NULL,
+     expires TEXT
+   );
+   INSERT INTO english_certs (user_id, type, score, score2, issued, expires)
+     SELECT 1, type, score, score2, issued, expires FROM english_cert;
+   DROP TABLE english_cert;
+   CREATE TABLE gpa_overrides_v4 (
+     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+     code TEXT NOT NULL,
+     counts INTEGER NOT NULL CHECK (counts IN (0, 1)),
+     PRIMARY KEY (user_id, code)
+   );
+   INSERT INTO gpa_overrides_v4 (user_id, code, counts) SELECT 1, code, counts FROM gpa_overrides;
+   DROP TABLE gpa_overrides;
+   ALTER TABLE gpa_overrides_v4 RENAME TO gpa_overrides;`,
 ];
 
 export function migrate(db: Db): void {
+  // Migrations rebuild tables and backfill rows whose owner is inserted afterwards (the bootstrap admin).
+  db.pragma('foreign_keys = OFF');
   db.exec('CREATE TABLE IF NOT EXISTS schema_version (version INTEGER NOT NULL)');
   const row = db.prepare('SELECT version FROM schema_version').get() as { version: number } | undefined;
   let version = row?.version ?? 0;
@@ -57,6 +119,7 @@ export function migrate(db: Db): void {
     apply(MIGRATIONS[version], version + 1);
     version++;
   }
+  db.pragma('foreign_keys = ON');
 }
 
 export function openDb(file: string): Db {

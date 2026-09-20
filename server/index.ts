@@ -4,7 +4,9 @@ import { Hono } from 'hono';
 import { existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { createApp } from './app';
+import { newTemporaryPassword } from './auth';
 import { backupDb, openDb } from './db';
+import { createUsers } from './users';
 
 const root = resolve(import.meta.dirname, '..');
 const dbFile = process.env.PROGRESS_DB ?? resolve(root, 'data/progress.db');
@@ -14,6 +16,18 @@ const hostname = process.env.HOST ?? '0.0.0.0';
 
 const backup = backupDb(dbFile, resolve(dirname(dbFile), 'backups'));
 const db = openDb(dbFile);
+
+// First run (or a database from before accounts existed): create the admin who owns the existing data.
+const users = createUsers(db);
+if (users.count() === 0) {
+  const username = (process.env.ADMIN_USER ?? 'admin').toLowerCase();
+  const generated = !process.env.ADMIN_PASSWORD;
+  const password = process.env.ADMIN_PASSWORD ?? newTemporaryPassword();
+  await users.create({ id: 1, username, displayName: process.env.ADMIN_NAME ?? username, password, isAdmin: true, mustChangePassword: generated });
+  console.log(generated
+    ? `Created admin "${username}" with password: ${password}  (change it after signing in)`
+    : `Created admin "${username}" with the password from ADMIN_PASSWORD`);
+}
 
 const server = new Hono();
 server.route('/', createApp(db));

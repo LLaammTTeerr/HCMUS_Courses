@@ -3,6 +3,7 @@ import type { Attempt, EnglishCert, GpaOverrides, Profile, StudentRecord } from 
 import type { Db } from './db';
 
 interface ProfileRow {
+  user_id: number;
   program_id: string;
   current_semester: number;
   choices: string;
@@ -32,88 +33,97 @@ function parseChoices(raw: string): Record<string, string> {
 
 export type Repo = ReturnType<typeof createRepo>;
 
+/** All queries are scoped to one user; nothing here can read another user's rows. */
 export function createRepo(db: Db) {
-  const getAttempt = db.prepare('SELECT id, code, semester, status, grade10 FROM attempts WHERE id = ?');
+  const getAttempt = db.prepare('SELECT id, code, semester, status, grade10 FROM attempts WHERE id = ? AND user_id = ?');
   const insertAttempt = db.prepare(
-    'INSERT INTO attempts (code, semester, status, grade10) VALUES (@code, @semester, @status, @grade10)',
+    'INSERT INTO attempts (user_id, code, semester, status, grade10) VALUES (@userId, @code, @semester, @status, @grade10)',
   );
 
   const repo = {
-    getProfile(): Profile {
-      return toProfile(db.prepare('SELECT * FROM profile WHERE id = 1').get() as ProfileRow);
+    getProfile(userId: number): Profile {
+      db.prepare('INSERT OR IGNORE INTO profiles (user_id) VALUES (?)').run(userId);
+      return toProfile(db.prepare('SELECT * FROM profiles WHERE user_id = ?').get(userId) as ProfileRow);
     },
 
-    updateProfile(patch: ProfilePatch): Profile {
-      const current = repo.getProfile();
+    updateProfile(userId: number, patch: ProfilePatch): Profile {
+      const current = repo.getProfile(userId);
       const next = { ...current, ...patch };
       db.prepare(
-        `UPDATE profile SET program_id = ?, current_semester = ?, choices = ?, military_cert = ?,
-         thesis_gpa_threshold = ? WHERE id = 1`,
-      ).run(next.programId, next.currentSemester, JSON.stringify(next.choices), next.militaryCert ? 1 : 0, next.thesisGpaThreshold);
-      return repo.getProfile();
+        `UPDATE profiles SET program_id = ?, current_semester = ?, choices = ?, military_cert = ?,
+         thesis_gpa_threshold = ? WHERE user_id = ?`,
+      ).run(next.programId, next.currentSemester, JSON.stringify(next.choices), next.militaryCert ? 1 : 0,
+        next.thesisGpaThreshold, userId);
+      return repo.getProfile(userId);
     },
 
-    listAttempts(): Attempt[] {
-      return db.prepare('SELECT id, code, semester, status, grade10 FROM attempts ORDER BY semester, id').all() as Attempt[];
+    listAttempts(userId: number): Attempt[] {
+      return db.prepare('SELECT id, code, semester, status, grade10 FROM attempts WHERE user_id = ? ORDER BY semester, id')
+        .all(userId) as Attempt[];
     },
 
-    getAttempt(id: number): Attempt | undefined {
-      return getAttempt.get(id) as Attempt | undefined;
+    getAttempt(userId: number, id: number): Attempt | undefined {
+      return getAttempt.get(id, userId) as Attempt | undefined;
     },
 
-    insertAttempts: db.transaction((attempts: AttemptInput[]): Attempt[] =>
-      attempts.map((a) => getAttempt.get(insertAttempt.run(a).lastInsertRowid) as Attempt),
+    insertAttempts: db.transaction((userId: number, attempts: AttemptInput[]): Attempt[] =>
+      attempts.map((a) => getAttempt.get(insertAttempt.run({ ...a, userId }).lastInsertRowid, userId) as Attempt),
     ),
 
-    updateAttempt(id: number, patch: AttemptPatch): Attempt | undefined {
-      const current = repo.getAttempt(id);
+    updateAttempt(userId: number, id: number, patch: AttemptPatch): Attempt | undefined {
+      const current = repo.getAttempt(userId, id);
       if (!current) return undefined;
       const next = { ...current, ...patch };
-      db.prepare('UPDATE attempts SET semester = ?, status = ?, grade10 = ? WHERE id = ?')
-        .run(next.semester, next.status, next.grade10, id);
-      return repo.getAttempt(id);
+      db.prepare('UPDATE attempts SET semester = ?, status = ?, grade10 = ? WHERE id = ? AND user_id = ?')
+        .run(next.semester, next.status, next.grade10, id, userId);
+      return repo.getAttempt(userId, id);
     },
 
-    deleteAttempts: db.transaction((ids: number[]): number =>
-      ids.reduce((n, id) => n + db.prepare('DELETE FROM attempts WHERE id = ?').run(id).changes, 0),
+    deleteAttempts: db.transaction((userId: number, ids: number[]): number =>
+      ids.reduce((n, id) => n + db.prepare('DELETE FROM attempts WHERE id = ? AND user_id = ?').run(id, userId).changes, 0),
     ),
 
-    getEnglish(): EnglishCert | null {
-      return (db.prepare('SELECT type, score, score2, issued, expires FROM english_cert WHERE id = 1').get() as EnglishCert) ?? null;
+    getEnglish(userId: number): EnglishCert | null {
+      return (db.prepare('SELECT type, score, score2, issued, expires FROM english_certs WHERE user_id = ?')
+        .get(userId) as EnglishCert) ?? null;
     },
 
-    putEnglish(cert: EnglishInput): EnglishCert {
+    putEnglish(userId: number, cert: EnglishInput): EnglishCert {
       db.prepare(
-        `INSERT INTO english_cert (id, type, score, score2, issued, expires) VALUES (1, @type, @score, @score2, @issued, @expires)
-         ON CONFLICT(id) DO UPDATE SET type = @type, score = @score, score2 = @score2, issued = @issued, expires = @expires`,
-      ).run(cert);
-      return repo.getEnglish()!;
+        `INSERT INTO english_certs (user_id, type, score, score2, issued, expires)
+         VALUES (@userId, @type, @score, @score2, @issued, @expires)
+         ON CONFLICT(user_id) DO UPDATE SET type = @type, score = @score, score2 = @score2, issued = @issued, expires = @expires`,
+      ).run({ ...cert, userId });
+      return repo.getEnglish(userId)!;
     },
 
-    deleteEnglish(): void {
-      db.prepare('DELETE FROM english_cert WHERE id = 1').run();
+    deleteEnglish(userId: number): void {
+      db.prepare('DELETE FROM english_certs WHERE user_id = ?').run(userId);
     },
 
-    getGpaOverrides(): GpaOverrides {
-      const rows = db.prepare('SELECT code, counts FROM gpa_overrides ORDER BY code').all() as { code: string; counts: number }[];
+    getGpaOverrides(userId: number): GpaOverrides {
+      const rows = db.prepare('SELECT code, counts FROM gpa_overrides WHERE user_id = ? ORDER BY code')
+        .all(userId) as { code: string; counts: number }[];
       return Object.fromEntries(rows.map((r) => [r.code, r.counts === 1]));
     },
 
-    setGpaOverride(code: string, counts: boolean): void {
-      db.prepare('INSERT INTO gpa_overrides (code, counts) VALUES (?, ?) ON CONFLICT(code) DO UPDATE SET counts = excluded.counts')
-        .run(code, counts ? 1 : 0);
+    setGpaOverride(userId: number, code: string, counts: boolean): void {
+      db.prepare(
+        `INSERT INTO gpa_overrides (user_id, code, counts) VALUES (?, ?, ?)
+         ON CONFLICT(user_id, code) DO UPDATE SET counts = excluded.counts`,
+      ).run(userId, code, counts ? 1 : 0);
     },
 
-    deleteGpaOverride(code: string): void {
-      db.prepare('DELETE FROM gpa_overrides WHERE code = ?').run(code);
+    deleteGpaOverride(userId: number, code: string): void {
+      db.prepare('DELETE FROM gpa_overrides WHERE user_id = ? AND code = ?').run(userId, code);
     },
 
-    getRecord(): StudentRecord {
+    getRecord(userId: number): StudentRecord {
       return {
-        profile: repo.getProfile(),
-        attempts: repo.listAttempts(),
-        english: repo.getEnglish(),
-        gpaOverrides: repo.getGpaOverrides(),
+        profile: repo.getProfile(userId),
+        attempts: repo.listAttempts(userId),
+        english: repo.getEnglish(userId),
+        gpaOverrides: repo.getGpaOverrides(userId),
       };
     },
   };

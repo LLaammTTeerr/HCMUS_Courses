@@ -4,21 +4,26 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { createApp } from './app';
 import { backupDb, migrate, openDb, type Db } from './db';
+import { createUsers } from './users';
 
 let dir: string;
 let db: Db;
 let app: ReturnType<typeof createApp>;
+let cookie: string;
 
-const call = (method: string, path: string, body?: unknown) =>
+const call = (method: string, path: string, body?: unknown, as = cookie) =>
   app.request(`/api${path}`, {
     method,
-    headers: { 'content-type': 'application/json' },
+    headers: { 'content-type': 'application/json', ...(as ? { cookie: as } : {}) },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 
-beforeEach(() => {
+beforeEach(async () => {
   dir = mkdtempSync(join(tmpdir(), 'apcs-test-'));
   db = openDb(join(dir, 'progress.db'));
+  const users = createUsers(db);
+  await users.create({ id: 1, username: 'owner', displayName: 'Owner', password: 'password-1234', isAdmin: true });
+  cookie = `session=${users.startSession(1)}`;
   app = createApp(db);
 });
 
@@ -28,6 +33,12 @@ afterEach(() => {
 });
 
 describe('routing', () => {
+  it('requires a session for the record endpoints', async () => {
+    expect((await call('GET', '/record', undefined, '')).status).toBe(401);
+    expect((await call('POST', '/attempts', { code: 'CS160', semester: 1, status: 'planned' }, '')).status).toBe(401);
+    expect((await call('GET', '/health', undefined, '')).status).toBe(200);
+  });
+
   it('answers unknown API paths with a JSON 404', async () => {
     const res = await call('GET', '/nope');
     expect(res.status).toBe(404);
@@ -41,6 +52,7 @@ describe('record and profile', () => {
     const res = await call('GET', '/record');
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
+      // user 1 inherits the pre-accounts profile row; new users start at semester 1.
       profile: { programId: 'apcs-2024', currentSemester: 7, choices: {}, militaryCert: false, thesisGpaThreshold: null },
       attempts: [],
       english: null,
@@ -147,8 +159,8 @@ describe('database', () => {
   it('runs migrations idempotently', () => {
     migrate(db);
     migrate(db);
-    expect(db.prepare('SELECT version FROM schema_version').get()).toEqual({ version: 3 });
-    expect(db.prepare('SELECT COUNT(*) AS n FROM profile').get()).toEqual({ n: 1 });
+    expect(db.prepare('SELECT version FROM schema_version').get()).toEqual({ version: 4 });
+    expect(db.prepare('SELECT COUNT(*) AS n FROM profiles').get()).toEqual({ n: 1 });
   });
 
   it('includes writes still in the write-ahead log in the backup', () => {
