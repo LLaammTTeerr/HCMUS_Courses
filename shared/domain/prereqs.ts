@@ -1,6 +1,7 @@
 import { courseIndex } from '../programs/index';
 import { PASS_GRADE } from './courseState';
-import type { CourseState, Program } from './types';
+import type { Program } from './program';
+import type { CourseState } from './types';
 
 export type PrereqLevel = 'ok' | 'weak' | 'missing';
 

@@ -1,23 +1,30 @@
 import { describe, expect, it } from 'vitest';
-import { courseIndex, getProgram } from './index';
-import type { BucketId } from '../domain/types';
+import { courseIndex } from '../index';
+import apcs2024 from './index';
+import coursesData from './courses.json';
+import metaData from './meta.json';
+
+type BucketId = 'A_REQ' | 'A_ELEC' | 'NONCS' | 'MATH' | 'PHYS' | 'B' | 'C' | 'GRAD' | 'EXTRA';
+type ApcsCourse = { code: string; credits: number; bucket: BucketId; prereqs: string[]; suggestedSemester?: number; countsInGpa?: boolean; prereqNote?: string };
 
 // Every number here is copied from CTĐT_APCS_2024 (docs/sources) — if a test fails,
 // the JSON drifted from the official document.
-const program = getProgram('apcs-2024');
-const byBucket = (b: BucketId) => program.courses.filter((c) => c.bucket === b);
+const program = apcs2024;
+const rules = metaData.rules;
+const courses = coursesData.courses as ApcsCourse[];
+const byBucket = (b: BucketId) => courses.filter((c) => c.bucket === b);
 const credits = (b: BucketId) => byBucket(b).reduce((s, c) => s + c.credits, 0);
 
 describe('apcs-2024 program data', () => {
   it('has the 69 courses of the appendix, unique codes', () => {
-    expect(program.courses).toHaveLength(69);
-    expect(new Set(program.courses.map((c) => c.code)).size).toBe(69);
+    expect(courses).toHaveLength(69);
+    expect(new Set(courses.map((c) => c.code)).size).toBe(69);
   });
 
   it('matches the bucket structure of §6–7', () => {
     expect(byBucket('A_REQ')).toHaveLength(10);
     expect(credits('A_REQ')).toBe(40);
-    expect(program.rules.aReqCredits).toBe(40);
+    expect(rules.aReqCredits).toBe(40);
     expect(byBucket('A_ELEC').map((c) => c.code).sort()).toEqual(['CS251', 'CS252', 'CS311', 'CS320', 'CS350', 'CS420']);
     expect(byBucket('NONCS')).toHaveLength(9);
     expect(credits('NONCS')).toBe(26);
@@ -38,7 +45,7 @@ describe('apcs-2024 program data', () => {
   });
 
   it('has required totals: 110 compulsory + 43 elective + 10 graduation = 163', () => {
-    const r = program.rules;
+    const r = { ...rules, ...program.meta };
     expect(credits('A_REQ') + 16 + credits('NONCS') + credits('MATH') + credits('PHYS')).toBe(110);
     expect(110 + r.bcMin + r.gradCredits).toBe(r.totalCredits);
   });
@@ -46,7 +53,7 @@ describe('apcs-2024 program data', () => {
   it('leaves Physical/Military Education, political theory and law out of the GPA by default', () => {
     // PE/Military: CTĐT §7.1.2 note. Political theory (lý luận chính trị) and BAA00004 (law): excluded at
     // the student's direction under QC1175 Art. 15.1c ("other courses as specified").
-    const excluded = program.courses
+    const excluded = courses
       .filter((c) => (c.countsInGpa ?? c.bucket !== 'EXTRA') === false)
       .map((c) => c.code)
       .sort();
@@ -55,11 +62,11 @@ describe('apcs-2024 program data', () => {
 
   it('only references existing courses in prerequisites and rules', () => {
     const idx = courseIndex(program);
-    for (const c of program.courses) {
+    for (const c of courses) {
       for (const p of c.prereqs) expect(idx.has(p), `${c.code} → ${p}`).toBe(true);
       expect(c.prereqs).not.toContain(c.code);
     }
-    const r = program.rules;
+    const r = { ...rules, ...program.meta };
     for (const code of [...r.thesis, ...r.capstone, ...r.peCourses, r.militaryCourse]) {
       expect(idx.has(code), code).toBe(true);
     }
@@ -75,21 +82,21 @@ describe('apcs-2024 program data', () => {
       for (const p of idx.get(code)!.prereqs) visit(p, [...path, code]);
       state.set(code, 'done');
     };
-    for (const c of program.courses) visit(c.code, []);
+    for (const c of courses) visit(c.code, []);
   });
 
   it('keeps suggested semesters inside the 12-semester plan', () => {
-    for (const c of program.courses) {
+    for (const c of courses) {
       if (c.suggestedSemester === undefined) continue;
       expect(c.suggestedSemester).toBeGreaterThanOrEqual(1);
-      expect(c.suggestedSemester).toBeLessThanOrEqual(program.rules.standardSemesters);
+      expect(c.suggestedSemester).toBeLessThanOrEqual(program.meta.standardSemesters);
     }
   });
 
   it('documents every prerequisite that was not a same-name course reference', () => {
     // DESC21 named these prerequisites by the exact course (same code or same title).
     const direct = new Set(['CS251', 'CS311', 'MTH252', 'MTH261', 'PH212', 'PH213', 'MTH253', 'STAT452']);
-    for (const c of program.courses) {
+    for (const c of courses) {
       if (c.prereqs.length === 0 || direct.has(c.code)) continue;
       expect(c.prereqNote, `${c.code} needs prereqNote`).toBeTruthy();
     }

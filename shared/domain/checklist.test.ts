@@ -14,7 +14,7 @@ const ielts = (issued: string, score = 6.5): EnglishCert => ({ type: 'IELTS', sc
 
 describe('checklist (Art. 17)', () => {
   it('reports everything done for a complete record', () => {
-    const s = statusOf(record(graduated(), { gradTrack: 'thesis', militaryCert: true, thesisGpaThreshold: 7 }, ielts('2026-06-01')));
+    const s = statusOf(record(graduated(), { choices: { gradTrack: 'thesis' }, militaryCert: true, thesisGpaThreshold: 7 }, ielts('2026-06-01')));
     expect(s).toEqual({
       total: 'done', 'required-courses': 'done', a: 'done', b: 'done', bc: 'done', grad: 'done',
       pe: 'done', military: 'done', english: 'done', it: 'unknown', 'thesis-gpa': 'done',
@@ -23,7 +23,7 @@ describe('checklist (Art. 17)', () => {
 
   it('distinguishes covered-by-plan from missing', () => {
     const attempts = graduated().filter((a) => a.code !== 'BAA00021' && a.code !== 'CS468');
-    const s = statusOf(record([...attempts, planned('BAA00021', 8), planned('CS468', 12)], { gradTrack: 'thesis' }));
+    const s = statusOf(record([...attempts, planned('BAA00021', 8), planned('CS468', 12)], { choices: { gradTrack: 'thesis' } }));
     expect(s.pe).toBe('covered-by-plan');
     expect(s.grad).toBe('covered-by-plan');
     expect(s.total).toBe('covered-by-plan');
@@ -46,14 +46,14 @@ describe('checklist (Art. 17)', () => {
   it('uses GPA overrides for the thesis GPA check', () => {
     const attempts = [done('CS160', 1, 9), done('WR227', 1, 5)];
     const th = (o: Record<string, boolean>) =>
-      checklist(program, record(attempts, { gradTrack: 'thesis', thesisGpaThreshold: 8 }, null, o)).find((i) => i.id === 'thesis-gpa')!.status;
+      checklist(program, record(attempts, { choices: { gradTrack: 'thesis' }, thesisGpaThreshold: 8 }, null, o)).find((i) => i.id === 'thesis-gpa')!.status;
     expect(th({})).toBe('missing');
     expect(th({ WR227: false })).toBe('done');
   });
 
   it('only shows the thesis GPA item on the thesis track and needs a threshold', () => {
     expect(statusOf(record(graduated())).hasOwnProperty('thesis-gpa')).toBe(false);
-    expect(statusOf(record(graduated(), { gradTrack: 'thesis' }))['thesis-gpa']).toBe('unknown');
-    expect(statusOf(record([done('CS160', 1, 6)], { gradTrack: 'thesis', thesisGpaThreshold: 7 }))['thesis-gpa']).toBe('missing');
+    expect(statusOf(record(graduated(), { choices: { gradTrack: 'thesis' } }))['thesis-gpa']).toBe('unknown');
+    expect(statusOf(record([done('CS160', 1, 6)], { choices: { gradTrack: 'thesis' }, thesisGpaThreshold: 7 }))['thesis-gpa']).toBe('missing');
   });
 });

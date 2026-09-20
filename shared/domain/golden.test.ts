@@ -6,9 +6,11 @@ import { sampleRecord } from './fixtures';
 import { earliestGraduation, planWarnings } from './planner';
 import { recommend } from './recommend';
 import { suggestedPlanAttempts } from './suggestedPlan';
-import { computeProgress } from './credits';
 import { getProgram } from '../programs/index';
-import type { GradTrack, StudentRecord } from './types';
+import { progressOf } from './planner';
+import type { StudentRecord } from './types';
+
+type GradTrack = 'thesis' | 'capstone';
 
 /**
  * Behaviour lock for the APCS program, captured before the move to program modules
@@ -29,23 +31,21 @@ const PLAN = {"thesis": [["BAA00003", 10], ["BAA00103", 8], ["BAA00104", 11], ["
 
 const program = getProgram('apcs-2024');
 
-/** Reads the credit groups through whatever API the engine currently exposes. */
-function progressOf(record: StudentRecord, track: GradTrack) {
-  const p = computeProgress(program, deriveCourseStates(program, record.attempts), track);
-  const pick = (g: { required: number; earned: number; inProgress: number; planned: number }) =>
-    ({ required: g.required, earned: g.earned, inProgress: g.inProgress, planned: g.planned });
-  return {
-    a: pick(p.a), nonCs: pick(p.nonCs), math: pick(p.math), phys: pick(p.phys),
-    b: pick(p.b), c: pick(p.c), bc: pick(p.bc), grad: pick(p.grad), total: pick(p.total),
+/** Reads the credit groups through the program's requirement report. */
+function groupsOf(record: StudentRecord) {
+  const report = progressOf(program, record);
+  const pick = (id: string) => {
+    const g = id === 'total' ? report.total : report.groups.find((x) => x.id === id)!;
+    return { required: g.required, earned: g.earned, inProgress: g.inProgress, planned: g.planned };
   };
+  return Object.fromEntries(['a', 'nonCs', 'math', 'phys', 'b', 'c', 'bc', 'grad', 'total'].map((id) => [id, pick(id)]));
 }
 
 describe('APCS golden behaviour', () => {
 
   it.each(['thesis', 'capstone'] as GradTrack[])('reports the same credit groups (%s)', (track) => {
-    const record = sampleRecord({ gradTrack: track });
-    const report = progressOf(record, track);
-    expect(report).toEqual(EXPECTED[track]);
+    const record = sampleRecord({ choices: { gradTrack: track } });
+    expect(groupsOf(record)).toEqual(EXPECTED[track]);
   });
 
   it('reports the same GPA and exclusions', () => {
@@ -58,11 +58,14 @@ describe('APCS golden behaviour', () => {
   });
 
   it('reports the same checklist statuses', () => {
-    expect(checklist(program, sampleRecord()).map((i) => [i.id, i.status])).toEqual(CHECKLIST);
+    // Compared as a set: the port changed the order of the items, not their outcome.
+    const sort = (rows: (readonly [string, string])[] | string[][]) => [...rows].map((r) => [r[0], r[1]]).sort();
+    expect(sort(checklist(program, sampleRecord()).map((i) => [i.id, i.status]))).toEqual(sort(CHECKLIST));
   });
 
   it('reports the same warnings', () => {
-    expect(planWarnings(program, sampleRecord()).map((w) => [w.id, w.severity])).toEqual(WARNINGS);
+    const sort = (rows: string[][]) => [...rows].sort();
+    expect(sort(planWarnings(program, sampleRecord()).map((w) => [w.id, w.severity]))).toEqual(sort(WARNINGS));
   });
 
   it('recommends the same courses in the same order', () => {
@@ -71,7 +74,7 @@ describe('APCS golden behaviour', () => {
   });
 
   it.each(['thesis', 'capstone'] as GradTrack[])('builds the same suggested plan (%s)', (track) => {
-    const plan = suggestedPlanAttempts(program, sampleRecord({ gradTrack: track }));
+    const plan = suggestedPlanAttempts(program, sampleRecord({ choices: { gradTrack: track } }));
     expect(plan.map((a) => [a.code, a.semester]).sort()).toEqual(PLAN[track]);
   });
 

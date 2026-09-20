@@ -1,24 +1,25 @@
 import { describe, expect, it } from 'vitest';
-import { deriveCourseStates } from './courseState';
-import { computeProgress } from './credits';
+import { progressOf } from './planner';
 import { planWarnings, semesterCredits } from './planner';
 import { parseQuickEntry } from './quickEntry';
 import { suggestedPlanAttempts } from './suggestedPlan';
 import { program, record } from './testUtils';
-import type { Attempt, GradTrack, StudentRecord } from './types';
+import type { Attempt, StudentRecord } from './types';
+
+type GradTrack = 'thesis' | 'capstone' | 'undecided';
 
 /** A student who followed the official plan for semesters 1–6 and takes semester 7's courses now. */
 function onTrackRecord(track: GradTrack): StudentRecord {
   let id = 1;
   const attempts: Attempt[] = program.courses
-    .filter((c) => c.suggestedSemester !== undefined && c.suggestedSemester <= 7 && c.bucket !== 'GRAD')
+    .filter((c) => c.suggestedSemester !== undefined && c.suggestedSemester <= 7 && c.requirement !== 'graduation')
     .filter((c) => !['MTH253', 'CS426', 'MTH346', 'CS418', 'CS419'].includes(c.code)) // skip optional electives
     .map((c) => ({
       id: id++, code: c.code, semester: c.suggestedSemester!,
       status: c.suggestedSemester! < 7 ? 'completed' : 'in-progress',
       grade10: c.suggestedSemester! < 7 ? 8 : null,
     }));
-  return record(attempts, { gradTrack: track, currentSemester: 7 });
+  return record(attempts, { choices: { gradTrack: track }, currentSemester: 7 });
 }
 
 function apply(r: StudentRecord): StudentRecord {
@@ -30,8 +31,7 @@ function apply(r: StudentRecord): StudentRecord {
 describe('suggestedPlanAttempts', () => {
   it.each(['thesis', 'capstone'] as GradTrack[])('completes every requirement for the %s track', (track) => {
     const r = apply(onTrackRecord(track));
-    const p = computeProgress(program, deriveCourseStates(program, r.attempts), track);
-    expect(p.satisfied.planned).toBe(true);
+    expect(progressOf(program, r).satisfied.planned).toBe(true);
   });
 
   it('only plans future semesters and respects the credit maximum', () => {
@@ -43,7 +43,7 @@ describe('suggestedPlanAttempts', () => {
       expect(a.semester).toBeGreaterThan(7);
     }
     for (const [sem, cr] of semesterCredits(program, apply(before).attempts)) {
-      if (sem > 7) expect(cr, `semester ${sem}`).toBeLessThanOrEqual(program.rules.semesterMax);
+      if (sem > 7) expect(cr, `semester ${sem}`).toBeLessThanOrEqual(program.meta.semesterMax);
     }
   });
 
@@ -63,7 +63,7 @@ MTH253 6 7\nPH213 6 6\nCS300 7\nCS311 7\nCS420 7\nBAA00102 7\nCS418 7`;
     const parsed = parseQuickEntry(program, lines, 7);
     expect(parsed.errors).toEqual([]);
     for (const track of ['thesis', 'capstone'] as GradTrack[]) {
-      const base = record(parsed.rows.map(({ line, ...a }) => ({ ...a, id: line })), { gradTrack: track });
+      const base = record(parsed.rows.map(({ line, ...a }) => ({ ...a, id: line })), { choices: { gradTrack: track } });
       const r = apply(base);
       const ids = planWarnings(program, r).map((w) => w.id);
       expect(ids, track).toEqual([]);

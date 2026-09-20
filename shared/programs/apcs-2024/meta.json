@@ -1,0 +1,66 @@
+{
+ "meta": {
+  "id": "apcs-2024",
+  "name": "APCS — Advanced Program in Computer Science, intake 2024",
+  "shortName": "APCS 2024",
+  "intakeYear": 2024,
+  "semestersPerYear": 3,
+  "standardSemesters": 12,
+  "maxSemesters": 21,
+  "semesterMin": 10,
+  "semesterMax": 22,
+  "totalCredits": 163,
+  "gradEarliestSemester": 11,
+  "sources": [
+   {
+    "id": "CTDT24",
+    "title": "CTĐT APCS khóa tuyển 2024 (QĐ 2700/QĐ-KHTN, 30/09/2024)",
+    "file": "docs/sources/CTDT_APCS_2024.pdf",
+    "url": "https://www.ctda.hcmus.edu.vn/vi/educational-program/chuong-trinh-tien-tien/"
+   },
+   {
+    "id": "DESC21",
+    "title": "Course Descriptions — BSc Advanced Program in CS (March 2021), field \"Prior-course\"",
+    "file": "docs/sources/APCS_Course_Descriptions_2021.pdf",
+    "url": "https://www.ctda.hcmus.edu.vn/wp-content/uploads/2015/07/APCS_Program_Descriptions.pdf"
+   },
+   {
+    "id": "QC1175",
+    "title": "Quy chế đào tạo trình độ đại học (QĐ 1175/QĐ-KHTN, 24/09/2021), in Sổ tay sinh viên 2024–2025",
+    "url": "https://www.ctda.hcmus.edu.vn/vi/goc-sinh-vien/so-tay-sinh-vien/"
+   },
+   {
+    "id": "QD1985",
+    "title": "Chuẩn ngoại ngữ đầu ra CTTT KHMT khóa 2024 (QĐ 1985/QĐ-KHTN)",
+    "file": "docs/sources/QD1985_English_Standard_K2024.pdf",
+    "url": "https://www.ctda.hcmus.edu.vn/vi/2024/08/quy-dinh-ve-chuan-ngoai-ngu-dau-ra-doi-voi-chuong-trinh-tien-tien-chuong-trinh-tang-cuong-tieng-anh-khoa-2024/"
+   },
+   {
+    "id": "QD651",
+    "title": "Cách thức quy đổi thang điểm 4 (QĐ 651/QĐ-KHTN, 02/04/2024)",
+    "file": "docs/sources/QD651_Grade_Conversion.pdf",
+    "url": "https://www.ctda.hcmus.edu.vn/vi/2025/02/cach-thuc-quy-doi-thang-diem-4/"
+   }
+  ],
+  "peCourses": [
+   "BAA00021",
+   "BAA00022"
+  ],
+  "militaryCourse": "BAA00030",
+  "englishDefaultValidityYears": 2
+ },
+ "rules": {
+  "aMin": 56,
+  "aReqCredits": 40,
+  "bMin": 8,
+  "bcMin": 43,
+  "gradCredits": 10,
+  "thesis": [
+   "CS468"
+  ],
+  "capstone": [
+   "CS469",
+   "CS470"
+  ]
+ }
+}

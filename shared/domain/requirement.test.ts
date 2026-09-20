@@ -12,8 +12,8 @@ describe('requirementKind (CTĐT §7: BB = compulsory, TC = elective)', () => {
   });
 
   it('distinguishes electives chosen within a group from free CS electives and graduation work', () => {
-    expect(kind('CS350')).toBe('group-elective');
-    expect(kind('MTH346')).toBe('group-elective');
+    expect(kind('CS350')).toBe('choose');
+    expect(kind('MTH346')).toBe('choose');
     expect(kind('CS414')).toBe('elective');
     expect(kind('CS468')).toBe('graduation');
     expect(kind('CS469')).toBe('graduation');

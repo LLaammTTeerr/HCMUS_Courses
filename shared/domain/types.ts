@@ -1,47 +1,26 @@
 // Core domain types. Pure data shapes — no runtime dependencies.
 
-/** Credit bucket a course belongs to (CTĐT §6–7). */
-export type BucketId = 'A_REQ' | 'A_ELEC' | 'NONCS' | 'MATH' | 'PHYS' | 'B' | 'C' | 'GRAD' | 'EXTRA';
+/** How a course is required (CTĐT column "Loại HP"). */
+export type RequirementKind = 'compulsory' | 'choose' | 'elective' | 'graduation';
 
 export interface Course {
   code: string;
   nameEn: string;
   nameVi: string;
   credits: number;
-  bucket: BucketId;
+  /** Display group inside the program, e.g. "Foundation" or "CS (A) — required". */
+  group: string;
+  requirement: RequirementKind;
   /** Prior courses ("học phần học trước") — soft requirement. */
   prereqs: string[];
   /** Original wording when prereqs were mapped by hand from prose or old course codes. */
   prereqNote?: string;
-  /** Semester in the official suggested plan (CTĐT §8). */
+  /** Semester in the official suggested plan. */
   suggestedSemester?: number;
-  /** Counts toward ĐTB / graduation classification. Defaults to true except EXTRA (QC1175 Art. 15.1c). */
+  /** Counts toward accumulated credits. Default true (APCS excludes PE/Military; CLC does not). */
+  countsInCredits?: boolean;
+  /** Counts toward ĐTB / graduation classification (QC1175 Art. 15.1c). Default true. */
   countsInGpa?: boolean;
-}
-
-export interface ProgramRules {
-  totalCredits: number;
-  /** Minimum credits in A_REQ + A_ELEC; surplus counts toward C. */
-  aMin: number;
-  aReqCredits: number;
-  bMin: number;
-  /** Minimum B + C (+ A overflow). */
-  bcMin: number;
-  gradCredits: number;
-  semesterMin: number;
-  semesterMax: number;
-  standardSemesters: number;
-  maxSemesters: number;
-  semestersPerYear: number;
-  intakeYear: number;
-  /** Graduation-work courses are recommended only from this semester on. */
-  gradEarliestSemester: number;
-  thesis: string[];
-  capstone: [string, string];
-  peCourses: string[];
-  militaryCourse: string;
-  /** Validity of an English certificate without an expiry date, in years. */
-  englishDefaultValidityYears: number;
 }
 
 export interface SourceRef {
@@ -49,14 +28,6 @@ export interface SourceRef {
   title: string;
   file?: string;
   url?: string;
-}
-
-export interface Program {
-  id: string;
-  name: string;
-  sources: SourceRef[];
-  rules: ProgramRules;
-  courses: Course[];
 }
 
 export type AttemptStatus = 'completed' | 'in-progress' | 'planned';
@@ -72,12 +43,11 @@ export interface Attempt {
 
 export type NewAttempt = Omit<Attempt, 'id'>;
 
-export type GradTrack = 'thesis' | 'capstone' | 'undecided';
-
 export interface Profile {
   programId: string;
   currentSemester: number;
-  gradTrack: GradTrack;
+  /** Selected options of the program's choices, e.g. { choices: { gradTrack: 'thesis' } }. */
+  choices: Record<string, string>;
   militaryCert: boolean;
   thesisGpaThreshold: number | null;
 }

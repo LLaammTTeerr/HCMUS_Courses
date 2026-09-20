@@ -1,5 +1,6 @@
 import { courseIndex } from '../programs/index';
-import type { Attempt, CourseState, Program } from './types';
+import type { Program } from './program';
+import type { Attempt, CourseState } from './types';
 
 export const PASS_GRADE = 5;
 

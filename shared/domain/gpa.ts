@@ -1,6 +1,7 @@
 import { courseIndex } from '../programs/index';
 import { PASS_GRADE } from './courseState';
-import type { Attempt, CourseState, GpaOverrides, Program } from './types';
+import type { Program } from './program';
+import type { Attempt, CourseState, GpaOverrides } from './types';
 
 /** Converts a 10-point grade to the 4-point scale (QĐ651/QĐ-KHTN, 2024). */
 export function to4(grade10: number): number {
@@ -20,11 +21,11 @@ export function rank(gpa10: number | null): string {
   return 'Kém';
 }
 
-/** Program default: every course except Physical Education and Military Education (QC1175 Art. 15.1c). */
+/** Program default from the course data (QC1175 Art. 15.1c). */
 export function defaultCountsInGpa(program: Program, code: string): boolean {
   const course = courseIndex(program).get(code);
   if (!course) return false;
-  return course.countsInGpa ?? course.bucket !== 'EXTRA';
+  return course.countsInGpa ?? true;
 }
 
 /**
@@ -93,10 +94,11 @@ export function semesterStats(program: Program, attempts: Attempt[], overrides: 
     const course = index.get(a.code);
     if (a.status !== 'completed' || a.grade10 === null || !course) continue;
     const inGpa = countsInGpa(program, a.code, overrides);
-    if (course.bucket === 'EXTRA' && !inGpa) continue;
+    const inCredits = course.countsInCredits ?? true;
+    if (!inCredits && !inGpa) continue;
     const s = bySemester.get(a.semester) ??
       { semester: a.semester, attemptedCredits: 0, passedCredits: 0, gpa10: null, sum: 0, gpaCredits: 0 };
-    if (course.bucket !== 'EXTRA') {
+    if (inCredits) {
       s.attemptedCredits += course.credits;
       if (a.grade10 >= PASS_GRADE) s.passedCredits += course.credits;
     }

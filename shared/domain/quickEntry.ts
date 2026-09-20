@@ -1,5 +1,6 @@
 import { courseIndex } from '../programs/index';
-import type { NewAttempt, Program } from './types';
+import type { Program } from './program';
+import type { NewAttempt } from './types';
 
 export interface QuickEntryRow extends NewAttempt {
   line: number;
@@ -18,7 +19,7 @@ export interface QuickEntryResult {
  */
 export function parseQuickEntry(program: Program, text: string, currentSemester: number): QuickEntryResult {
   const index = courseIndex(program);
-  const max = program.rules.maxSemesters;
+  const max = program.meta.maxSemesters;
   const rows: QuickEntryRow[] = [];
   const errors: QuickEntryResult['errors'] = [];
   const seen = new Set<string>();

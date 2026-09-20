@@ -41,7 +41,7 @@ describe('record and profile', () => {
     const res = await call('GET', '/record');
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
-      profile: { programId: 'apcs-2024', currentSemester: 7, gradTrack: 'undecided', militaryCert: false, thesisGpaThreshold: null },
+      profile: { programId: 'apcs-2024', currentSemester: 7, choices: {}, militaryCert: false, thesisGpaThreshold: null },
       attempts: [],
       english: null,
       gpaOverrides: {},
@@ -49,9 +49,11 @@ describe('record and profile', () => {
   });
 
   it('updates the profile partially', async () => {
-    const res = await call('PUT', '/profile', { gradTrack: 'capstone', militaryCert: true });
-    expect(await res.json()).toMatchObject({ gradTrack: 'capstone', militaryCert: true, currentSemester: 7 });
+    const res = await call('PUT', '/profile', { choices: { gradTrack: 'capstone' }, militaryCert: true });
+    expect(await res.json()).toMatchObject({ choices: { gradTrack: 'capstone' }, militaryCert: true, currentSemester: 7 });
     expect((await call('PUT', '/profile', { programId: 'nope' })).status).toBe(400);
+    expect((await call('PUT', '/profile', { choices: { nope: 'x' } })).status).toBe(400);
+    expect((await call('PUT', '/profile', { choices: { gradTrack: 'nope' } })).status).toBe(400);
   });
 });
 
@@ -145,7 +147,7 @@ describe('database', () => {
   it('runs migrations idempotently', () => {
     migrate(db);
     migrate(db);
-    expect(db.prepare('SELECT version FROM schema_version').get()).toEqual({ version: 2 });
+    expect(db.prepare('SELECT version FROM schema_version').get()).toEqual({ version: 3 });
     expect(db.prepare('SELECT COUNT(*) AS n FROM profile').get()).toEqual({ n: 1 });
   });
 

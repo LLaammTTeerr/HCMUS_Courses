@@ -1,8 +1,8 @@
-import type { BucketProgress } from '../../shared/domain/credits';
+import type { GroupProgress } from '../../shared/domain/program';
 
 interface Props {
   name: string;
-  value: BucketProgress;
+  value: GroupProgress;
   note?: string;
   /** Shown as "≈" when the target is a guideline rather than a hard rule. */
   approx?: boolean;

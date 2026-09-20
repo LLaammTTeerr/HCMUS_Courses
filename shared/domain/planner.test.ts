@@ -42,14 +42,14 @@ describe('plan warnings', () => {
   });
 
   it('errors when CS470 is not after CS469 on the capstone track', () => {
-    const r = record([planned('CS469', 11), planned('CS470', 11)], { gradTrack: 'capstone' });
+    const r = record([planned('CS469', 11), planned('CS470', 11)], { choices: { gradTrack: 'capstone' } });
     expect(planWarnings(program, r)).toContainEqual(expect.objectContaining({ id: 'capstone-order', severity: 'error' }));
-    const ok = record([planned('CS469', 11), planned('CS470', 12)], { gradTrack: 'capstone' });
+    const ok = record([planned('CS469', 11), planned('CS470', 12)], { choices: { gradTrack: 'capstone' } });
     expect(ids(ok)).not.toContain('capstone-order');
   });
 
   it('warns when the thesis track has no CS468 and when the other track is planned', () => {
-    const r = record([planned('CS469', 11)], { gradTrack: 'thesis' });
+    const r = record([planned('CS469', 11)], { choices: { gradTrack: 'thesis' } });
     expect(ids(r)).toEqual(expect.arrayContaining(['track-thesis-missing', 'track-other-CS469']));
   });
 
@@ -90,10 +90,10 @@ describe('earliestGraduation', () => {
   ];
 
   it('is the last planned semester when the plan satisfies every requirement', () => {
-    expect(earliestGraduation(program, record(complete(), { gradTrack: 'thesis' }))).toBe(12);
+    expect(earliestGraduation(program, record(complete(), { choices: { gradTrack: 'thesis' } }))).toBe(12);
   });
 
   it('is null when the plan is incomplete', () => {
-    expect(earliestGraduation(program, record(complete().slice(1), { gradTrack: 'thesis' }))).toBeNull();
+    expect(earliestGraduation(program, record(complete().slice(1), { choices: { gradTrack: 'thesis' } }))).toBeNull();
   });
 });

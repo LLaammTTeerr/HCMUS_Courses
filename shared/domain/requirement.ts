@@ -1,31 +1,21 @@
-import type { Course } from './types';
+import type { Course, RequirementKind } from './types';
 
 /**
- * How a course is required (CTĐT §7, column "Loại HP": BB = bắt buộc, TC = tự chọn):
- * - compulsory: must be passed (A required, Non-CS, Math, Physics, PE and Military Education)
- * - group-elective: choose within a group with a minimum (A: 16 cr from 6 courses, B: ≥ 8 cr)
- * - elective: CS electives (C), count toward B + C ≥ 43
- * - graduation: thesis or capstone track, choose one
+ * How a course is required (CTĐT column "Loại HP": BB = bắt buộc, TC = tự chọn):
+ * - compulsory: must be passed
+ * - choose: chosen inside a group with a minimum ("tự chọn bắt buộc")
+ * - elective: free elective counted toward a credit total
+ * - graduation: graduation work (thesis / capstone / graduation courses)
  */
-export type RequirementKind = 'compulsory' | 'group-elective' | 'elective' | 'graduation';
+export type { RequirementKind } from './types';
 
 export function requirementKind(course: Course): RequirementKind {
-  switch (course.bucket) {
-    case 'A_ELEC':
-    case 'B':
-      return 'group-elective';
-    case 'C':
-      return 'elective';
-    case 'GRAD':
-      return 'graduation';
-    default:
-      return 'compulsory';
-  }
+  return course.requirement;
 }
 
 export const REQUIREMENT_LABELS: Record<RequirementKind, { short: string; long: string }> = {
   compulsory: { short: 'Compulsory', long: 'Compulsory (bắt buộc) — must be passed' },
-  'group-elective': { short: 'Choose', long: 'Elective within a group (tự chọn bắt buộc) — choose enough credits' },
-  elective: { short: 'Elective', long: 'CS elective (tự chọn) — counts toward B + C' },
-  graduation: { short: 'Grad track', long: 'Graduation work — thesis or capstone, choose one' },
+  choose: { short: 'Choose', long: 'Chosen within a group (tự chọn bắt buộc) — choose enough credits' },
+  elective: { short: 'Elective', long: 'Elective (tự chọn) — counts toward an elective total' },
+  graduation: { short: 'Grad work', long: 'Graduation work — thesis, capstone or graduation courses' },
 };

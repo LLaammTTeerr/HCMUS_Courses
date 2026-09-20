@@ -1,19 +1,13 @@
+import type { Program } from '../../shared/domain/program';
 import { REQUIREMENT_LABELS, requirementKind } from '../../shared/domain/requirement';
-import type { BucketId, Course, CourseStatus } from '../../shared/domain/types';
+import type { Course, CourseStatus } from '../../shared/domain/types';
 
-export const BUCKET_LABELS: Record<BucketId, string> = {
-  A_REQ: 'CS (A) — required',
-  A_ELEC: 'CS (A) — choose 16 cr',
-  NONCS: 'Non Computer Science',
-  MATH: 'Math',
-  PHYS: 'Physics',
-  B: 'Math electives (B)',
-  C: 'CS electives (C)',
-  GRAD: 'Graduation work',
-  EXTRA: 'PE & Military (not counted)',
-};
-
-export const BUCKET_ORDER: BucketId[] = ['A_REQ', 'A_ELEC', 'NONCS', 'MATH', 'PHYS', 'B', 'C', 'GRAD', 'EXTRA'];
+/** Display groups of a program, in the order its course list defines them. */
+export function courseGroups(program: Program): string[] {
+  const seen: string[] = [];
+  for (const c of program.courses) if (!seen.includes(c.group)) seen.push(c.group);
+  return seen;
+}
 
 export const STATUS_LABELS: Record<CourseStatus, string> = {
   passed: 'Passed',

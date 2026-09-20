@@ -5,7 +5,7 @@ import type { Db } from './db';
 interface ProfileRow {
   program_id: string;
   current_semester: number;
-  grad_track: Profile['gradTrack'];
+  choices: string;
   military_cert: number;
   thesis_gpa_threshold: number | null;
 }
@@ -13,10 +13,22 @@ interface ProfileRow {
 const toProfile = (r: ProfileRow): Profile => ({
   programId: r.program_id,
   currentSemester: r.current_semester,
-  gradTrack: r.grad_track,
+  choices: parseChoices(r.choices),
   militaryCert: r.military_cert === 1,
   thesisGpaThreshold: r.thesis_gpa_threshold,
 });
+
+function parseChoices(raw: string): Record<string, string> {
+  try {
+    const value: unknown = JSON.parse(raw);
+    if (!value || typeof value !== 'object') return {};
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).filter(([, v]) => typeof v === 'string') as [string, string][],
+    );
+  } catch {
+    return {};
+  }
+}
 
 export type Repo = ReturnType<typeof createRepo>;
 
@@ -35,9 +47,9 @@ export function createRepo(db: Db) {
       const current = repo.getProfile();
       const next = { ...current, ...patch };
       db.prepare(
-        `UPDATE profile SET program_id = ?, current_semester = ?, grad_track = ?, military_cert = ?,
+        `UPDATE profile SET program_id = ?, current_semester = ?, choices = ?, military_cert = ?,
          thesis_gpa_threshold = ? WHERE id = 1`,
-      ).run(next.programId, next.currentSemester, next.gradTrack, next.militaryCert ? 1 : 0, next.thesisGpaThreshold);
+      ).run(next.programId, next.currentSemester, JSON.stringify(next.choices), next.militaryCert ? 1 : 0, next.thesisGpaThreshold);
       return repo.getProfile();
     },
 

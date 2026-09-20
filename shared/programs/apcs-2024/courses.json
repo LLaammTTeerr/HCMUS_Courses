@@ -1,0 +1,909 @@
+{
+ "courses": [
+  {
+   "code": "CS160",
+   "nameEn": "Introduction to Computer Science",
+   "nameVi": "Nhập môn Tin học",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "CS163",
+   "nameEn": "Data Structures",
+   "nameVi": "Cấu trúc dữ liệu",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [
+    "CS160"
+   ],
+   "prereqNote": "Introduction to Computer Science II (CS162, merged into CS160)",
+   "suggestedSemester": 2
+  },
+  {
+   "code": "CS201",
+   "nameEn": "Computer Systems Programming",
+   "nameVi": "Lập trình hệ thống",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [
+    "CS160"
+   ],
+   "prereqNote": "Introduction to Computer Science I, Introduction to Computer Science II (CS161/CS162 → CS160)",
+   "suggestedSemester": 4
+  },
+  {
+   "code": "CS202",
+   "nameEn": "Programming Systems",
+   "nameVi": "Các hệ thống lập trình",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [
+    "CS160"
+   ],
+   "prereqNote": "Introduction to Computer Science II (CS162 → CS160)",
+   "suggestedSemester": 3
+  },
+  {
+   "code": "CS250",
+   "nameEn": "Discrete Structures I",
+   "nameVi": "Cấu trúc rời rạc I",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "CS300",
+   "nameEn": "Elements of Software Engineering",
+   "nameVi": "Nhập môn Công nghệ phần mềm",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [
+    "CS160"
+   ],
+   "prereqNote": "Basic application programming skills",
+   "suggestedSemester": 7
+  },
+  {
+   "code": "CS323",
+   "nameEn": "Social, Ethical, and Legal Issues",
+   "nameVi": "Đạo đức khoa học",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "CS333",
+   "nameEn": "Introduction to Operating Systems",
+   "nameVi": "Nhập môn Hệ điều hành",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [
+    "CS201"
+   ],
+   "prereqNote": "Computer Systems",
+   "suggestedSemester": 8
+  },
+  {
+   "code": "CS486",
+   "nameEn": "Introduction to Database Systems",
+   "nameVi": "Nhập môn các hệ cơ sở dữ liệu",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [
+    "CS250"
+   ],
+   "prereqNote": "Discrete Mathematics",
+   "suggestedSemester": 6
+  },
+  {
+   "code": "ECE341",
+   "nameEn": "Computer Hardware",
+   "nameVi": "Phần cứng máy tính",
+   "credits": 4,
+   "group": "CS (A) — required",
+   "requirement": "compulsory",
+   "bucket": "A_REQ",
+   "prereqs": [
+    "CS201"
+   ],
+   "prereqNote": "System Programming",
+   "suggestedSemester": 5
+  },
+  {
+   "code": "CS251",
+   "nameEn": "Logical Structures",
+   "nameVi": "Cấu trúc logic",
+   "credits": 4,
+   "group": "CS (A) — choose 16 credits",
+   "requirement": "choose",
+   "bucket": "A_ELEC",
+   "prereqs": [
+    "CS250"
+   ],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "CS252",
+   "nameEn": "Computational Thinking",
+   "nameVi": "Tư duy tính toán",
+   "credits": 4,
+   "group": "CS (A) — choose 16 credits",
+   "requirement": "choose",
+   "bucket": "A_ELEC",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "CS311",
+   "nameEn": "Computational Structures",
+   "nameVi": "Cấu trúc tính toán",
+   "credits": 4,
+   "group": "CS (A) — choose 16 credits",
+   "requirement": "choose",
+   "bucket": "A_ELEC",
+   "prereqs": [
+    "CS250",
+    "CS163"
+   ],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "CS320",
+   "nameEn": "Principles of Programming Languages",
+   "nameVi": "Nguyên lý các ngôn ngữ lập trình",
+   "credits": 4,
+   "group": "CS (A) — choose 16 credits",
+   "requirement": "choose",
+   "bucket": "A_ELEC",
+   "prereqs": [
+    "CS202",
+    "CS251",
+    "CS311"
+   ],
+   "prereqNote": "CS 202 Programming Systems, CS 251 (listed as \"Data Structures II / Mathematical logic and proofs\"), CS 311 Computational Structures",
+   "suggestedSemester": 8
+  },
+  {
+   "code": "CS350",
+   "nameEn": "Algorithms and Complexity",
+   "nameVi": "Thuật toán và độ phức tạp",
+   "credits": 4,
+   "group": "CS (A) — choose 16 credits",
+   "requirement": "choose",
+   "bucket": "A_ELEC",
+   "prereqs": [
+    "MTH251"
+   ],
+   "prereqNote": "Calculus I",
+   "suggestedSemester": 8
+  },
+  {
+   "code": "CS420",
+   "nameEn": "Artificial Intelligence",
+   "nameVi": "Trí tuệ nhân tạo",
+   "credits": 4,
+   "group": "CS (A) — choose 16 credits",
+   "requirement": "choose",
+   "bucket": "A_ELEC",
+   "prereqs": [
+    "CS163"
+   ],
+   "prereqNote": "Data Structures and Algorithms (mapped to CS163 only; the official plan puts CS420 before CS350)",
+   "suggestedSemester": 7
+  },
+  {
+   "code": "CM102",
+   "nameEn": "Critical Thinking",
+   "nameVi": "Tư duy độc lập",
+   "credits": 4,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "SC203",
+   "nameEn": "Scientific Method",
+   "nameVi": "Phương pháp khoa học",
+   "credits": 4,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "WR227",
+   "nameEn": "Technical Writing",
+   "nameVi": "Kỹ năng viết tài liệu khoa học",
+   "credits": 4,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [
+    "SC203"
+   ],
+   "prereqNote": "Scientific Research Methodologies",
+   "suggestedSemester": 5
+  },
+  {
+   "code": "BAA00101",
+   "nameEn": "Marxist-Leninist Philosophy",
+   "nameVi": "Triết học Mác - Lênin",
+   "credits": 3,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 3,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00102",
+   "nameEn": "Marxist-Leninist Political Economics",
+   "nameVi": "Kinh tế chính trị Mác - Lênin",
+   "credits": 2,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 7,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00103",
+   "nameEn": "Scientific Socialism",
+   "nameVi": "Chủ nghĩa xã hội khoa học",
+   "credits": 2,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 8,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00104",
+   "nameEn": "History of Vietnamese Communist Party",
+   "nameVi": "Lịch sử Đảng Cộng sản Việt Nam",
+   "credits": 2,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 11,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00003",
+   "nameEn": "Ho Chi Minh's Ideology",
+   "nameVi": "Tư tưởng Hồ Chí Minh",
+   "credits": 2,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 10,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00004",
+   "nameEn": "Introduction to Laws",
+   "nameVi": "Pháp luật đại cương",
+   "credits": 3,
+   "group": "Non Computer Science",
+   "requirement": "compulsory",
+   "bucket": "NONCS",
+   "prereqs": [],
+   "suggestedSemester": 2,
+   "countsInGpa": false
+  },
+  {
+   "code": "MTH251",
+   "nameEn": "Calculus I",
+   "nameVi": "Vi tích phân I",
+   "credits": 4,
+   "group": "Math",
+   "requirement": "compulsory",
+   "bucket": "MATH",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "MTH252",
+   "nameEn": "Calculus II",
+   "nameVi": "Vi tích phân II",
+   "credits": 4,
+   "group": "Math",
+   "requirement": "compulsory",
+   "bucket": "MATH",
+   "prereqs": [
+    "MTH251"
+   ],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "MTH261",
+   "nameEn": "Introduction to Linear Algebra",
+   "nameVi": "Đại số tuyến tính",
+   "credits": 4,
+   "group": "Math",
+   "requirement": "compulsory",
+   "bucket": "MATH",
+   "prereqs": [
+    "MTH251",
+    "MTH252"
+   ],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "STAT451",
+   "nameEn": "Applied Statistics for Engineers and Scientists I",
+   "nameVi": "Xác suất thống kê cho CNTT I",
+   "credits": 4,
+   "group": "Math",
+   "requirement": "compulsory",
+   "bucket": "MATH",
+   "prereqs": [
+    "CS250"
+   ],
+   "prereqNote": "Discrete Structures I, Logical Structures (CS251 omitted: it is an elective and the official plan schedules it in the same semester)",
+   "suggestedSemester": 5
+  },
+  {
+   "code": "PH211",
+   "nameEn": "General Physics I",
+   "nameVi": "Vật lý đại cương I",
+   "credits": 4,
+   "group": "Physics",
+   "requirement": "compulsory",
+   "bucket": "PHYS",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "PH212",
+   "nameEn": "General Physics II",
+   "nameVi": "Vật lý đại cương II",
+   "credits": 4,
+   "group": "Physics",
+   "requirement": "compulsory",
+   "bucket": "PHYS",
+   "prereqs": [
+    "PH211",
+    "MTH251"
+   ],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "PH213",
+   "nameEn": "General Physics III",
+   "nameVi": "Vật lý đại cương III",
+   "credits": 4,
+   "group": "Physics",
+   "requirement": "compulsory",
+   "bucket": "PHYS",
+   "prereqs": [
+    "PH211",
+    "PH212",
+    "MTH251",
+    "MTH252"
+   ],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "MTH253",
+   "nameEn": "Calculus III",
+   "nameVi": "Vi tích phân III",
+   "credits": 4,
+   "group": "Math electives (B)",
+   "requirement": "choose",
+   "bucket": "B",
+   "prereqs": [
+    "MTH251",
+    "MTH252"
+   ],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH344",
+   "nameEn": "Group Theory",
+   "nameVi": "Lý thuyết nhóm",
+   "credits": 4,
+   "group": "Math electives (B)",
+   "requirement": "choose",
+   "bucket": "B",
+   "prereqs": [
+    "CS250"
+   ],
+   "prereqNote": "Discrete Mathematics",
+   "suggestedSemester": 10
+  },
+  {
+   "code": "MTH346",
+   "nameEn": "Number Theory",
+   "nameVi": "Lý thuyết số",
+   "credits": 4,
+   "group": "Math electives (B)",
+   "requirement": "choose",
+   "bucket": "B",
+   "prereqs": [
+    "MTH251",
+    "CS160",
+    "CS163"
+   ],
+   "prereqNote": "Basic calculus, Programming, Algorithms and Data structures, Algorithms Analysis (CS350 omitted: the official plan puts MTH346 before CS350)",
+   "suggestedSemester": 7
+  },
+  {
+   "code": "STAT452",
+   "nameEn": "Applied Statistics for Engineers and Scientists II",
+   "nameVi": "Xác suất thống kê cho CNTT II",
+   "credits": 4,
+   "group": "Math electives (B)",
+   "requirement": "choose",
+   "bucket": "B",
+   "prereqs": [
+    "STAT451"
+   ],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "CS404",
+   "nameEn": "Internship",
+   "nameVi": "Thực tập thực tế",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CM102",
+    "CS202",
+    "CS300",
+    "CS486",
+    "SC203",
+    "WR227"
+   ],
+   "prereqNote": "CM101, CS202, CS300, CS486, SC203, WR227 (CM101 → CM102)",
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS405",
+   "nameEn": "Open Economy, Entrepreneurship and Education",
+   "nameVi": "Kinh tế mở, khởi nghiệp và giáo dục",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS407",
+   "nameEn": "Technology Innovation and Leadership",
+   "nameVi": "Kỹ năng sáng tạo và lãnh đạo",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "SC203"
+   ],
+   "prereqNote": "Scientific Methods",
+   "suggestedSemester": 11
+  },
+  {
+   "code": "CS408",
+   "nameEn": "Computational Finance",
+   "nameVi": "Tính toán tài chính",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 11
+  },
+  {
+   "code": "CS409",
+   "nameEn": "Entrepreneurship",
+   "nameVi": "Khởi nghiệp trong lĩnh vực công nghệ",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS323"
+   ],
+   "prereqNote": "Social, Ethical, and Legal Issues (CS305 → CS323)",
+   "suggestedSemester": 11
+  },
+  {
+   "code": "CS411",
+   "nameEn": "Computer Graphics",
+   "nameVi": "Đồ họa máy tính",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 8
+  },
+  {
+   "code": "CS412",
+   "nameEn": "Computer Vision",
+   "nameVi": "Thị giác máy tính",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 10
+  },
+  {
+   "code": "CS414",
+   "nameEn": "Machine Learning",
+   "nameVi": "Máy học",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS415",
+   "nameEn": "Optimization Methods",
+   "nameVi": "Phương pháp tối ưu hóa",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 10
+  },
+  {
+   "code": "CS416",
+   "nameEn": "Data Modeling and Integration",
+   "nameVi": "Tích hợp và mô hình hóa dữ liệu",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS300",
+    "CS486"
+   ],
+   "prereqNote": "Software engineering class, database class",
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS417",
+   "nameEn": "Game Theory, Multi-Agent and Social Algorithms",
+   "nameVi": "Lý thuyết game, hệ thống đa tác nhân và thuật toán xã hội",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS418",
+   "nameEn": "Introduction to Natural Language Processing",
+   "nameVi": "Nhập môn xử lý ngôn ngữ tự nhiên",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "CS419",
+   "nameEn": "Introduction to Information Retrieval",
+   "nameVi": "Nhập môn truy xuất thông tin",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS160",
+    "CS163",
+    "MTH251",
+    "MTH261"
+   ],
+   "prereqNote": "Introduction to programming language, Data Structure, Calculus, Linear Algebra",
+   "suggestedSemester": 7
+  },
+  {
+   "code": "CS421",
+   "nameEn": "Software Requirements Engineering",
+   "nameVi": "Phân tích và quản lý yêu cầu phần mềm",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS300"
+   ],
+   "prereqNote": "Introduction to Software Engineering",
+   "suggestedSemester": 11
+  },
+  {
+   "code": "CS422",
+   "nameEn": "Software Analysis and Design",
+   "nameVi": "Phân tích và thiết kế phần mềm",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 8
+  },
+  {
+   "code": "CS423",
+   "nameEn": "Software Testing",
+   "nameVi": "Kiểm chứng phần mềm",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS202",
+    "CS486",
+    "CS300",
+    "CS424"
+   ],
+   "prereqNote": "OOP, Database, Software Engineering, Web Application Development",
+   "suggestedSemester": 10
+  },
+  {
+   "code": "CS424",
+   "nameEn": "Web Application Development",
+   "nameVi": "Phát triển ứng dụng web",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS160",
+    "CS486",
+    "CS300"
+   ],
+   "prereqNote": "Introduction to Computer Science, Introduction to Databases, Elements of Software Engineering"
+  },
+  {
+   "code": "CS426",
+   "nameEn": "Mobile Application Development",
+   "nameVi": "Phát triển ứng dụng trên thiết bị di động",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS202"
+   ],
+   "prereqNote": "Programming Systems",
+   "suggestedSemester": 6
+  },
+  {
+   "code": "CS427",
+   "nameEn": "3D Visualization and Game Development",
+   "nameVi": "Trực quan hóa 3D và phát triển game",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS202"
+   ],
+   "prereqNote": "Programming Systems",
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS428",
+   "nameEn": "E-commerce",
+   "nameVi": "Thương mại điện tử",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS430",
+   "nameEn": "Human - Computer Interaction",
+   "nameVi": "Tương tác người - máy",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS431",
+   "nameEn": "Wireless Network",
+   "nameVi": "Mạng không dây",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 12
+  },
+  {
+   "code": "CS432",
+   "nameEn": "Cryptography",
+   "nameVi": "Mã hóa",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 12
+  },
+  {
+   "code": "CS433",
+   "nameEn": "Network Security",
+   "nameVi": "An ninh mạng",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS494"
+   ],
+   "prereqNote": "Computer networks",
+   "suggestedSemester": 12
+  },
+  {
+   "code": "CS434",
+   "nameEn": "Computer Security",
+   "nameVi": "An ninh máy tính",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS202"
+   ],
+   "prereqNote": "Programming Systems",
+   "suggestedSemester": 9
+  },
+  {
+   "code": "CS435",
+   "nameEn": "Introduction to Big Data Analytics",
+   "nameVi": "Nhập môn phân tích dữ liệu lớn",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [],
+   "suggestedSemester": 10
+  },
+  {
+   "code": "CS494",
+   "nameEn": "Internetworking Protocols",
+   "nameVi": "Các giao thức liên mạng",
+   "credits": 4,
+   "group": "CS electives (C)",
+   "requirement": "elective",
+   "bucket": "C",
+   "prereqs": [
+    "CS160"
+   ],
+   "prereqNote": "Introduction to Programming (C, C++, Java) or equivalent",
+   "suggestedSemester": 8
+  },
+  {
+   "code": "CS468",
+   "nameEn": "Thesis",
+   "nameVi": "Khóa luận tốt nghiệp",
+   "credits": 10,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "bucket": "GRAD",
+   "prereqs": [],
+   "suggestedSemester": 12
+  },
+  {
+   "code": "CS469",
+   "nameEn": "Capstone Project I",
+   "nameVi": "Đồ án tốt nghiệp thực tế I",
+   "credits": 5,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "bucket": "GRAD",
+   "prereqs": [
+    "CS350",
+    "CS320",
+    "CS333",
+    "CS300"
+   ],
+   "prereqNote": "Any programming-intensive CS elective, CS350, CS320, CS333, CS300 (the \"any elective\" part is not enforced)",
+   "suggestedSemester": 11
+  },
+  {
+   "code": "CS470",
+   "nameEn": "Capstone Project II",
+   "nameVi": "Đồ án tốt nghiệp thực tế II",
+   "credits": 5,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "bucket": "GRAD",
+   "prereqs": [
+    "CS469",
+    "CS350",
+    "CS320",
+    "CS333",
+    "CS300"
+   ],
+   "prereqNote": "Capstone Project I, Any programming-intensive CS elective, CS350, CS320, CS333, CS300 (the \"any elective\" part is not enforced)",
+   "suggestedSemester": 12
+  },
+  {
+   "code": "BAA00021",
+   "nameEn": "Physical Education 1",
+   "nameVi": "Thể dục 1",
+   "credits": 2,
+   "group": "PE & Military Education",
+   "requirement": "compulsory",
+   "bucket": "EXTRA",
+   "prereqs": [],
+   "suggestedSemester": 4,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00022",
+   "nameEn": "Physical Education 2",
+   "nameVi": "Thể dục 2",
+   "credits": 2,
+   "group": "PE & Military Education",
+   "requirement": "compulsory",
+   "bucket": "EXTRA",
+   "prereqs": [],
+   "suggestedSemester": 5,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00030",
+   "nameEn": "Military Education",
+   "nameVi": "Giáo dục quốc phòng - An ninh",
+   "credits": 4,
+   "group": "PE & Military Education",
+   "requirement": "compulsory",
+   "bucket": "EXTRA",
+   "prereqs": [],
+   "suggestedSemester": 1,
+   "countsInCredits": false,
+   "countsInGpa": false
+  }
+ ]
+}

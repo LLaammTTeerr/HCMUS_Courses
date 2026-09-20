@@ -7,7 +7,7 @@ import { courseIndex } from '../../shared/programs/index';
 import type { Derived } from '../state/derived';
 import { useStore } from '../state/store';
 import { REQUIREMENT_LABELS, requirementKind } from '../../shared/domain/requirement';
-import { BUCKET_LABELS, fmt, RequirementBadge, StatusBadge } from './common';
+import { fmt, RequirementBadge, StatusBadge } from './common';
 import { GradeInput } from './GradeInput';
 import { SemesterSelect } from './SemesterSelect';
 
@@ -60,7 +60,7 @@ export function CourseDrawer({ record, derived }: { record: StudentRecord; deriv
         </div>
 
         <dl className="kv">
-          <dt>Bucket</dt><dd>{BUCKET_LABELS[course.bucket]}</dd>
+          <dt>Group</dt><dd>{course.group}</dd>
           <dt>Requirement</dt><dd>{REQUIREMENT_LABELS[requirementKind(course)].long}</dd>
           <dt>Credits</dt><dd>{course.credits}</dd>
           <dt>Official grade</dt>

@@ -1,5 +1,5 @@
 import { semesterLabel } from '../../shared/domain/semesters';
-import type { Program } from '../../shared/domain/types';
+import type { Program } from '../../shared/domain/program';
 
 interface Props {
   program: Program;
@@ -11,7 +11,7 @@ interface Props {
   ariaLabel?: string;
 }
 
-export function SemesterSelect({ program, value, onChange, from = 1, to = program.rules.maxSemesters, className = 'input', ariaLabel }: Props) {
+export function SemesterSelect({ program, value, onChange, from = 1, to = program.meta.maxSemesters, className = 'input', ariaLabel }: Props) {
   const options = [];
   for (let s = from; s <= to; s++) options.push(s);
   return (

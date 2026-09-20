@@ -1,8 +1,8 @@
-import type { Program } from './types';
+import type { Program } from './program';
 
 function parts(program: Program, n: number) {
-  const perYear = program.rules.semestersPerYear;
-  return { term: ((n - 1) % perYear) + 1, year: program.rules.intakeYear + Math.floor((n - 1) / perYear) };
+  const perYear = program.meta.semestersPerYear;
+  return { term: ((n - 1) % perYear) + 1, year: program.meta.intakeYear + Math.floor((n - 1) / perYear) };
 }
 
 /** "HK1 2026–2027" for semester 7 of a 2024 intake. */

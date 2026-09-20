@@ -1,4 +1,5 @@
 import { getProgram } from '../programs/index';
+import apcsCourses from '../programs/apcs-2024/courses.json';
 import type { Attempt, EnglishCert, Profile, StudentRecord } from './types';
 
 export const program = getProgram('apcs-2024');
@@ -26,7 +27,7 @@ export function record(
     profile: {
       programId: 'apcs-2024',
       currentSemester: 7,
-      gradTrack: 'undecided',
+      choices: {},
       militaryCert: false,
       thesisGpaThreshold: null,
       ...profile,
@@ -42,5 +43,8 @@ export function passAll(codes: string[], semester = 1, grade = 8): Attempt[] {
   return codes.map((c) => done(c, semester, grade));
 }
 
+/** APCS credit blocks, for tests that reason in terms of A/B/C. */
 export const codesIn = (...buckets: string[]) =>
-  program.courses.filter((c) => buckets.includes(c.bucket)).map((c) => c.code);
+  (apcsCourses.courses as { code: string; bucket: string }[])
+    .filter((c) => buckets.includes(c.bucket))
+    .map((c) => c.code);

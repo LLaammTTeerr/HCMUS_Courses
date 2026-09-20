@@ -1,4 +1,5 @@
-import type { EnglishCert, EnglishType, Program } from './types';
+import type { Program } from './program';
+import type { EnglishCert, EnglishType } from './types';
 
 /** Minimum scores for APCS K2024 (QĐ1985/QĐ-KHTN, Art. 2). */
 export const ENGLISH_MINIMUMS: Record<EnglishType, { label: string; score: number; score2?: number }> = {
@@ -18,5 +19,5 @@ export function englishMeets(cert: EnglishCert): boolean {
 export function englishValidUntil(program: Program, cert: EnglishCert): string {
   if (cert.expires) return cert.expires;
   const [y, m, d] = cert.issued.split('-');
-  return `${Number(y) + program.rules.englishDefaultValidityYears}-${m}-${d}`;
+  return `${Number(y) + program.meta.englishDefaultValidityYears}-${m}-${d}`;
 }

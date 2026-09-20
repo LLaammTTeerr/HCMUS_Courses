@@ -7,8 +7,8 @@ import { fmt } from '../components/common';
 import { WarningList } from '../components/WarningList';
 
 export function DashboardPage({ record, derived }: PageProps) {
-  const { program, progress: p, gpa, graduation, warnings } = derived;
-  const r = program.rules;
+  const { program, report, gpa, graduation, warnings } = derived;
+  const meta = program.meta;
 
   if (record.attempts.length === 0) {
     return (
@@ -21,22 +21,20 @@ export function DashboardPage({ record, derived }: PageProps) {
     );
   }
 
-  const overflowNote = p.overflowA.planned > 0 ? `includes +${p.overflowA.earned} (+${p.overflowA.planned} with plan) surplus from A` : undefined;
-
   return (
     <>
       <div className="page-head">
         <div>
           <h1>Dashboard</h1>
-          <p>{program.name}</p>
+          <p>{program.meta.name}</p>
         </div>
       </div>
 
       <div className="kpis">
         <div className="card kpi">
           <div className="label">Credits earned</div>
-          <div className="value">{p.total.earned}<span className="faint" style={{ fontSize: 16 }}> / {r.totalCredits}</span></div>
-          <div className="sub">{p.total.inProgress - p.total.earned} in progress · {p.total.planned} with plan</div>
+          <div className="value">{report.total.earned}<span className="faint" style={{ fontSize: 16 }}> / {meta.totalCredits}</span></div>
+          <div className="sub">{report.total.inProgress - report.total.earned} in progress · {report.total.planned} with plan</div>
         </div>
         <div className="card kpi">
           <div className="label">ĐTB tích lũy</div>
@@ -63,15 +61,10 @@ export function DashboardPage({ record, derived }: PageProps) {
           <BarLegend />
         </div>
         <div className="bars">
-          <BucketBar name="Total" value={p.total} />
-          <BucketBar name="Computer Science (A)" value={p.a} note={`required ${p.aReq.earned}/${p.aReq.required} · electives ${p.aElec.earned}/${p.aElec.required}${p.overflowA.earned ? ` · +${p.overflowA.earned} surplus counts toward C` : ''}`} />
-          <BucketBar name="Non Computer Science" value={p.nonCs} />
-          <BucketBar name="Math" value={p.math} />
-          <BucketBar name="Physics" value={p.phys} />
-          <BucketBar name="Math electives (B)" value={p.b} />
-          <BucketBar name="CS electives (C)" value={p.c} approx note={overflowNote} />
-          <BucketBar name="B + C electives" value={p.bc} />
-          <BucketBar name={`Graduation work (${record.profile.gradTrack})`} value={p.grad} />
+          <BucketBar name="Total" value={report.total} />
+          {report.groups.map((g) => (
+            <BucketBar key={g.id} name={g.label} value={g} note={g.note} approx={g.approx} />
+          ))}
         </div>
       </div>
 

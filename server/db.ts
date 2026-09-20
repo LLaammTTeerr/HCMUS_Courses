@@ -37,6 +37,11 @@ const MIGRATIONS: string[] = [
      code TEXT PRIMARY KEY,
      counts INTEGER NOT NULL CHECK (counts IN (0, 1))
    );`,
+  // 3 — programs define their own choices (graduation track, specialization), so one column is not enough.
+  `ALTER TABLE profile ADD COLUMN choices TEXT NOT NULL DEFAULT '{}';
+   UPDATE profile SET choices = json_object('gradTrack', grad_track)
+     WHERE grad_track IS NOT NULL AND grad_track <> 'undecided';
+   ALTER TABLE profile DROP COLUMN grad_track;`,
 ];
 
 export function migrate(db: Db): void {

@@ -33,7 +33,7 @@ export function createApp(db: Db) {
     const program = getProgram(repo.getProfile().programId);
     const index = courseIndex(program);
     for (const a of attempts) {
-      if (!index.has(a.code)) throw new BadRequest(`Unknown course code ${a.code} for ${program.id}`);
+      if (!index.has(a.code)) throw new BadRequest(`Unknown course code ${a.code} for ${program.meta.id}`);
     }
   };
   const idParam = (c: Context) => {
@@ -55,6 +55,14 @@ export function createApp(db: Db) {
     const patch = await parseBody(c, profilePatch);
     if (patch.programId !== undefined && !PROGRAM_IDS.includes(patch.programId)) {
       throw new BadRequest(`Unknown program ${patch.programId}`);
+    }
+    if (patch.choices !== undefined) {
+      const program = getProgram(patch.programId ?? repo.getProfile().programId);
+      for (const [id, value] of Object.entries(patch.choices)) {
+        const choice = program.choices.find((x) => x.id === id);
+        if (!choice) throw new BadRequest(`Unknown choice ${id} for ${program.meta.id}`);
+        if (!choice.options.some((o) => o.id === value)) throw new BadRequest(`Unknown option ${value} for choice ${id}`);
+      }
     }
     return c.json(repo.updateProfile(patch));
   });

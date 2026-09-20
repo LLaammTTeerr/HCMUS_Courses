@@ -28,7 +28,8 @@ export const batchDeleteInput = z.object({ ids: z.array(z.number().int()).min(1)
 export const profilePatch = z.object({
   programId: z.string().optional(),
   currentSemester: z.number().int().min(1).optional(),
-  gradTrack: z.enum(['thesis', 'capstone', 'undecided']).optional(),
+  /** Whole map of program choices, e.g. { gradTrack: 'thesis', specialization: 'networks' }. */
+  choices: z.record(z.string(), z.string()).optional(),
   militaryCert: z.boolean().optional(),
   thesisGpaThreshold: z.number().min(0).max(10).nullable().optional(),
 });

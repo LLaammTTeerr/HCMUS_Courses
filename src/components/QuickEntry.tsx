@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { parseQuickEntry } from '../../shared/domain/quickEntry';
-import type { Program } from '../../shared/domain/types';
+import type { Program } from '../../shared/domain/program';
 import { courseIndex } from '../../shared/programs/index';
 import { useStore } from '../state/store';
 import { StatusBadge } from './common';

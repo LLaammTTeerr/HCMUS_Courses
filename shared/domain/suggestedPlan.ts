@@ -1,8 +1,8 @@
 import { courseIndex } from '../programs/index';
 import { deriveCourseStates } from './courseState';
-import { computeProgress, isCovered, REQUIRED_BUCKETS } from './credits';
+import { buildContext, isCovered, type Program } from './program';
 import { courseSemester, semesterCredits } from './planner';
-import type { Course, NewAttempt, Program, StudentRecord } from './types';
+import type { Course, NewAttempt, StudentRecord } from './types';
 
 /**
  * Builds planned attempts that complete the program, following the official suggested semesters:
@@ -15,16 +15,16 @@ import type { Course, NewAttempt, Program, StudentRecord } from './types';
  * semester to the minimum, up to three extra electives are added.
  */
 export function suggestedPlanAttempts(program: Program, record: StudentRecord): NewAttempt[] {
-  const r = program.rules;
+  const r = program.meta;
   const { currentSemester } = record.profile;
   const first = currentSemester + 1;
   const last = Math.max(r.standardSemesters, first);
 
-  const selection = selectCourses(program, record);
-  const gradCourses = selection.filter((c) => c.bucket === 'GRAD');
-  const others = selection.filter((c) => c.bucket !== 'GRAD');
-
   const states = deriveCourseStates(program, record.attempts);
+  const selection = program.coursesToPlan(buildContext(program, record, states));
+  const gradCourses = selection.filter((c) => c.requirement === 'graduation');
+  const others = selection.filter((c) => c.requirement !== 'graduation');
+
   const load = semesterCredits(program, record.attempts);
   const placedAt = new Map<string, number>();
   const result: NewAttempt[] = [];
@@ -69,7 +69,7 @@ export function suggestedPlanAttempts(program: Program, record: StudentRecord): 
     last,
     semesterOf: (code) => inPlan.get(code)?.semester ?? gradSemesters.get(code) ?? courseSemester(states.get(code)),
     fillers: program.courses.filter((c) =>
-      ['A_ELEC', 'B', 'C'].includes(c.bucket) && !inPlan.has(c.code) && !isCovered(states.get(c.code), 'planned')),
+      ['choose', 'elective'].includes(c.requirement) && !inPlan.has(c.code) && !isCovered(states.get(c.code), 'planned')),
     onAdd: (a) => inPlan.set(a.code, a),
   });
 
@@ -98,7 +98,7 @@ interface BalanceInput {
  * semester and searches again.
  */
 function balance(program: Program, input: BalanceInput): void {
-  const r = program.rules;
+  const r = program.meta;
   const index = courseIndex(program);
   const { plan, load, first, last, semesterOf } = input;
   const loadOf = (s: number) => load.get(s) ?? 0;
@@ -192,56 +192,4 @@ function balance(program: Program, input: BalanceInput): void {
 function findSemester(from: number, to: number, ok: (s: number) => boolean): number | null {
   for (let s = from; s <= to; s++) if (ok(s)) return s;
   return null;
-}
-
-/** Chooses which uncovered courses the plan needs, in prerequisite-respecting suggested order. */
-function selectCourses(program: Program, record: StudentRecord): Course[] {
-  const r = program.rules;
-  const index = courseIndex(program);
-  const { gradTrack } = record.profile;
-  const states = deriveCourseStates(program, record.attempts);
-  const progress = computeProgress(program, states, gradTrack);
-  const covered = (code: string) => isCovered(states.get(code), 'planned');
-
-  const trackCourses = gradTrack === 'thesis' ? r.thesis : gradTrack === 'capstone' ? [...r.capstone] : [];
-  const forced = new Set<string>();
-  const force = (code: string) => {
-    if (forced.has(code)) return;
-    forced.add(code);
-    index.get(code)!.prereqs.forEach(force);
-  };
-  trackCourses.forEach(force);
-
-  const bucketOrder = (c: Course) => (REQUIRED_BUCKETS.includes(c.bucket) ? 0 : c.bucket === 'GRAD' ? 2 : 1);
-  const pending = program.courses
-    .filter((c) => !covered(c.code) && (c.bucket !== 'GRAD' || trackCourses.includes(c.code)))
-    .sort((x, y) =>
-      (x.suggestedSemester ?? 99) - (y.suggestedSemester ?? 99) || bucketOrder(x) - bucketOrder(y) || x.code.localeCompare(y.code));
-
-  let a = progress.a.planned, b = progress.b.planned, c = progress.c.planned - progress.overflowA.planned;
-  const bc = () => b + c + Math.max(0, a - r.aMin);
-  const needed = (course: Course) => {
-    if (REQUIRED_BUCKETS.includes(course.bucket) || course.bucket === 'GRAD' || forced.has(course.code)) return true;
-    if (course.bucket === 'A_ELEC') return a < r.aMin;
-    if (course.bucket === 'B') return b < r.bMin;
-    if (course.bucket === 'C') return bc() < r.bcMin;
-    return false;
-  };
-
-  // Walk candidates in suggested order, taking a course only after its selected prior courses.
-  const selected = new Set(pending.filter(needed).map((x) => x.code));
-  const chosen: Course[] = [];
-  while (pending.length > 0) {
-    const i = pending.findIndex((course) => course.prereqs.every((p) => !selected.has(p) || !pending.some((q) => q.code === p)));
-    const course = pending.splice(i === -1 ? 0 : i, 1)[0];
-    if (!needed(course)) {
-      selected.delete(course.code);
-      continue;
-    }
-    chosen.push(course);
-    if (course.bucket === 'A_REQ' || course.bucket === 'A_ELEC') a += course.credits;
-    if (course.bucket === 'B') b += course.credits;
-    if (course.bucket === 'C') c += course.credits;
-  }
-  return chosen;
 }

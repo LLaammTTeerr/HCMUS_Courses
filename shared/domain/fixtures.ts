@@ -46,7 +46,7 @@ export function sampleRecord(overrides: Partial<StudentRecord['profile']> = {}):
     profile: {
       programId: 'apcs-2024',
       currentSemester: 7,
-      gradTrack: 'thesis',
+      choices: { gradTrack: 'thesis' },
       militaryCert: true,
       thesisGpaThreshold: 7,
       ...overrides,

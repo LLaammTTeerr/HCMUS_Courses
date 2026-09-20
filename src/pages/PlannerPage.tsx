@@ -1,27 +1,22 @@
 import { useMemo, useState, type DragEvent } from 'react';
-import { courseSemester, semesterCredits } from '../../shared/domain/planner';
+import { semesterCredits } from '../../shared/domain/planner';
 import { semesterLabel } from '../../shared/domain/semesters';
 import { suggestedPlanAttempts } from '../../shared/domain/suggestedPlan';
-import type { Attempt, Course, GradTrack } from '../../shared/domain/types';
+import type { Attempt, Course } from '../../shared/domain/types';
 import { courseIndex } from '../../shared/programs/index';
 import type { PageProps } from '../App';
-import { BUCKET_LABELS, BUCKET_ORDER, RequirementBadge } from '../components/common';
+import { courseGroups, RequirementBadge } from '../components/common';
 import { WarningList } from '../components/WarningList';
 import { useStore } from '../state/store';
 
 type DragPayload = { kind: 'course'; code: string } | { kind: 'attempt'; id: number };
 const MIME = 'application/x-apcs-plan';
 
-const TRACKS: { id: GradTrack; label: string }[] = [
-  { id: 'thesis', label: 'Thesis (CS468)' },
-  { id: 'capstone', label: 'Capstone (CS469 → CS470)' },
-  { id: 'undecided', label: 'Undecided' },
-];
-
 export function PlannerPage({ record, derived }: PageProps) {
   const { addAttempts, updateAttempt, deleteAttempts, updateProfile, openCourse } = useStore();
   const { program, states, warnings } = derived;
-  const r = program.rules;
+  const r = program.meta;
+  const groups = courseGroups(program);
   const index = courseIndex(program);
   const current = record.profile.currentSemester;
   const [dropTarget, setDropTarget] = useState<number | 'tray' | null>(null);
@@ -50,7 +45,7 @@ export function PlannerPage({ record, derived }: PageProps) {
   const tray = program.courses
     .filter((c) => ['not-taken', 'failed'].includes(states.get(c.code)!.status))
     .filter((c) => !q || c.code.toLowerCase().includes(q) || c.nameEn.toLowerCase().includes(q))
-    .sort((a, b) => BUCKET_ORDER.indexOf(a.bucket) - BUCKET_ORDER.indexOf(b.bucket) || (a.suggestedSemester ?? 99) - (b.suggestedSemester ?? 99));
+    .sort((a, b) => groups.indexOf(a.group) - groups.indexOf(b.group) || (a.suggestedSemester ?? 99) - (b.suggestedSemester ?? 99));
 
   const statusFor = (semester: number): 'in-progress' | 'planned' => (semester === current ? 'in-progress' : 'planned');
 
@@ -103,9 +98,6 @@ export function PlannerPage({ record, derived }: PageProps) {
     if (dropTarget !== target) setDropTarget(target);
   };
 
-  const trackCourses = record.profile.gradTrack === 'thesis' ? r.thesis : record.profile.gradTrack === 'capstone' ? r.capstone : [];
-  const gradSemesters = trackCourses.map((c) => `${c} ${courseSemester(states.get(c)) ? `S${courseSemester(states.get(c))}` : 'not planned'}`);
-
   return (
     <>
       <div className="page-head">
@@ -125,20 +117,30 @@ export function PlannerPage({ record, derived }: PageProps) {
         </div>
       </div>
 
-      <div className="card row" style={{ marginBottom: 14, justifyContent: 'space-between' }}>
-        <div className="row">
-          <b>Graduation work</b>
-          <div className="segmented" role="radiogroup" aria-label="Graduation track">
-            {TRACKS.map((t) => (
-              <button key={t.id} role="radio" aria-checked={record.profile.gradTrack === t.id}
-                className={record.profile.gradTrack === t.id ? 'on' : ''} onClick={() => updateProfile({ gradTrack: t.id })}>
-                {t.label}
-              </button>
-            ))}
-          </div>
-          {gradSemesters.length > 0 && <span className="small muted">{gradSemesters.join(' · ')}</span>}
-        </div>
-        <div className="row">
+      <div className="card stack" style={{ marginBottom: 14, gap: 10 }}>
+        {program.choices.map((choice) => {
+          const selected = record.profile.choices[choice.id] ?? null;
+          const option = choice.options.find((o) => o.id === selected);
+          return (
+            <div key={choice.id} className="row" style={{ justifyContent: 'space-between' }}>
+              <div className="row">
+                <b>{choice.label}</b>
+                <div className="segmented" role="radiogroup" aria-label={choice.label}>
+                  {choice.options.map((o) => (
+                    <button key={o.id} role="radio" aria-checked={selected === o.id}
+                      className={selected === o.id ? 'on' : ''}
+                      onClick={() => updateProfile({ choices: { ...record.profile.choices, [choice.id]: o.id } })}>
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+                {option?.note && <span className="small muted">{option.note}</span>}
+                {!selected && choice.required && <span className="small" style={{ color: 'var(--warn)' }}>not chosen yet</span>}
+              </div>
+            </div>
+          );
+        })}
+        <div className="row" style={{ justifyContent: 'space-between' }}>
           <label className="row small muted">
             <input type="checkbox" checked={showPast} onChange={(e) => setShowPast(e.target.checked)} />
             Show past semesters{pastCount > 0 && !showPast ? ` (${pastCount} attempts)` : ''}
@@ -166,7 +168,7 @@ export function PlannerPage({ record, derived }: PageProps) {
           <div className="tray-list">
             {tray.map((c, i) => (
               <div key={c.code}>
-                {(i === 0 || tray[i - 1].bucket !== c.bucket) && <div className="small faint" style={{ margin: '6px 0 2px' }}>{BUCKET_LABELS[c.bucket]}</div>}
+                {(i === 0 || tray[i - 1].group !== c.group) && <div className="small faint" style={{ margin: '6px 0 2px' }}>{c.group}</div>}
                 <PlanCard course={c} className={states.get(c.code)!.status === 'failed' ? 'failed' : 'course'}
                   payload={{ kind: 'course', code: c.code }} onOpen={() => openCourse(c.code)} />
               </div>

@@ -1,10 +1,15 @@
 import { courseIndex } from '../programs/index';
 import { deriveCourseStates } from './courseState';
-import { computeProgress, isCovered } from './credits';
 import { semesterStats } from './gpa';
 import { prereqStatus } from './prereqs';
+import { buildContext, type Program, type ProgressReport } from './program';
 import { semesterLabel } from './semesters';
-import type { Attempt, CourseState, Program, StudentRecord, Warning } from './types';
+import type { Attempt, CourseState, StudentRecord, Warning } from './types';
+
+/** The program's requirement report for a record. */
+export function progressOf(program: Program, record: StudentRecord, states?: Map<string, CourseState>): ProgressReport {
+  return program.progress(buildContext(program, record, states ?? deriveCourseStates(program, record.attempts)));
+}
 
 /** Registered credits per semester (all attempts, including EXTRA courses — QC1175 Art. 7.2). */
 export function semesterCredits(program: Program, attempts: Attempt[]): Map<number, number> {
@@ -24,7 +29,7 @@ export function courseSemester(state: CourseState | undefined): number | null {
 
 export function planWarnings(program: Program, record: StudentRecord): Warning[] {
   const { profile, attempts } = record;
-  const r = program.rules;
+  const r = program.meta;
   const current = profile.currentSemester;
   const index = courseIndex(program);
   const states = deriveCourseStates(program, attempts);
@@ -91,69 +96,25 @@ export function planWarnings(program: Program, record: StudentRecord): Warning[]
     }
   }
 
-  warnings.push(...trackWarnings(program, record, states));
+  warnings.push(...program.warnings(buildContext(program, record, states)));
 
-  // Projected shortfalls with the whole plan.
-  const p = computeProgress(program, states, profile.gradTrack);
-  const short = (id: string, name: string, value: number, required: number) => {
-    if (value < required) {
-      warnings.push({ id: `short-${id}`, severity: 'warning', link: 'planner',
-        message: `${name}: ${value} / ${required} credits even with the plan` });
+  // Projected shortfalls with the whole plan, from the program's own requirement groups.
+  const report = program.progress(buildContext(program, record, states));
+  for (const g of [...report.groups, report.total]) {
+    if (g.planned < g.required && !g.approx && g.warn !== false) {
+      warnings.push({ id: `short-${g.id}`, severity: 'warning', link: 'planner',
+        message: `${g.label}: ${g.planned} / ${g.required} credits even with the plan` });
     }
-  };
-  short('total', 'Total', p.total.planned, r.totalCredits);
-  short('a', 'Computer Science (A)', p.a.planned, r.aMin);
-  short('b', 'Math electives (B)', p.b.planned, r.bMin);
-  short('bc', 'B + C electives', p.bc.planned, r.bcMin);
-  if (p.missingRequired.planned.length > 0) {
-    const list = p.missingRequired.planned;
+  }
+  const missing = report.groups.flatMap((g) => g.missing?.planned ?? []);
+  if (missing.length > 0) {
     warnings.push({ id: 'short-required', severity: 'warning', link: 'planner',
-      message: `Required courses not passed or planned: ${list.slice(0, 8).join(', ')}${list.length > 8 ? ` +${list.length - 8} more` : ''}` });
+      message: `Required courses not passed or planned: ${missing.slice(0, 8).join(', ')}${missing.length > 8 ? ` +${missing.length - 8} more` : ''}` });
   }
 
   // Duplicate attempts of one course repeat per-course warnings; keep one per id (ids are React keys).
   const seen = new Set<string>();
   return warnings.filter((w) => !seen.has(w.id) && !!seen.add(w.id));
-}
-
-function trackWarnings(program: Program, record: StudentRecord, states: Map<string, CourseState>): Warning[] {
-  const { thesis, capstone } = program.rules;
-  const track = record.profile.gradTrack;
-  const covered = (code: string) => isCovered(states.get(code), 'planned');
-  const touched = (code: string) => (states.get(code)?.attempts.length ?? 0) > 0;
-  const warnings: Warning[] = [];
-
-  if (track === 'thesis') {
-    if (!thesis.every(covered)) {
-      warnings.push({ id: 'track-thesis-missing', severity: 'warning', link: 'planner',
-        message: `Thesis track: plan ${thesis.join(', ')}` });
-    }
-    for (const code of capstone.filter(touched)) {
-      warnings.push({ id: `track-other-${code}`, severity: 'warning', code, link: 'planner',
-        message: `${code} belongs to the capstone track, but the track is set to thesis` });
-    }
-  } else if (track === 'capstone') {
-    if (!capstone.every(covered)) {
-      warnings.push({ id: 'track-capstone-missing', severity: 'warning', link: 'planner',
-        message: `Capstone track: plan both ${capstone.join(' and ')} (${capstone[0]} alone earns no credit)` });
-    }
-    for (const code of thesis.filter(touched)) {
-      warnings.push({ id: `track-other-${code}`, severity: 'warning', code, link: 'planner',
-        message: `${code} belongs to the thesis track, but the track is set to capstone` });
-    }
-  } else if (!thesis.every(covered) && !capstone.every(covered)) {
-    warnings.push({ id: 'track-undecided', severity: 'info', link: 'planner',
-      message: 'Graduation work: choose thesis (CS468) or capstone (CS469 + CS470)' });
-  }
-
-  const [first, second] = capstone;
-  const s1 = courseSemester(states.get(first));
-  const s2 = courseSemester(states.get(second));
-  if (s2 !== null && (s1 === null || s2 <= s1)) {
-    warnings.push({ id: 'capstone-order', severity: 'error', code: second, link: 'planner',
-      message: `${second} must be taken in a semester after ${first} (${first} must be completed first)` });
-  }
-  return warnings;
 }
 
 /** Academic warnings for finished semesters (QC1175 Art. 16.1). */
@@ -183,7 +144,7 @@ export function academicWarnings(program: Program, record: StudentRecord): Warni
  */
 export function earliestGraduation(program: Program, record: StudentRecord): number | null {
   const states = deriveCourseStates(program, record.attempts);
-  if (!computeProgress(program, states, record.profile.gradTrack).satisfied.planned) return null;
+  if (!program.progress(buildContext(program, record, states)).satisfied.planned) return null;
   const active = record.attempts.filter((a) => a.status !== 'completed').map((a) => a.semester);
   return Math.max(record.profile.currentSemester, ...active);
 }

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { countsInGpa } from '../../shared/domain/gpa';
-import type { BucketId, CourseStatus } from '../../shared/domain/types';
+import type { CourseStatus } from '../../shared/domain/types';
 import type { PageProps } from '../App';
 import { REQUIREMENT_LABELS, requirementKind, type RequirementKind } from '../../shared/domain/requirement';
-import { BUCKET_LABELS, BUCKET_ORDER, fmt, RequirementBadge, STATUS_LABELS, StatusBadge } from '../components/common';
+import { courseGroups, fmt, RequirementBadge, STATUS_LABELS, StatusBadge } from '../components/common';
 import { QuickEntry } from '../components/QuickEntry';
 import { useStore } from '../state/store';
 
@@ -15,14 +15,15 @@ export function CoursesPage({ record, derived }: PageProps) {
   const quick = params.get('quick') === '1';
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<CourseStatus | 'all'>('all');
-  const [bucket, setBucket] = useState<BucketId | 'all'>('all');
+  const [bucket, setBucket] = useState<string>('all');
   const [kind, setKind] = useState<RequirementKind | 'all'>('all');
 
+  const groups = courseGroups(program);
   const q = query.trim().toLowerCase();
   const visible = program.courses.filter((c) => {
     const s = states.get(c.code)!;
     if (status !== 'all' && s.status !== status) return false;
-    if (bucket !== 'all' && c.bucket !== bucket) return false;
+    if (bucket !== 'all' && c.group !== bucket) return false;
     if (kind !== 'all' && requirementKind(c) !== kind) return false;
     return !q || c.code.toLowerCase().includes(q) || c.nameEn.toLowerCase().includes(q) || c.nameVi.toLowerCase().includes(q);
   });
@@ -47,9 +48,9 @@ export function CoursesPage({ record, derived }: PageProps) {
           <option value="all">All statuses</option>
           {(Object.keys(STATUS_LABELS) as CourseStatus[]).map((s) => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}
         </select>
-        <select className="input" value={bucket} onChange={(e) => setBucket(e.target.value as BucketId | 'all')} aria-label="Filter by bucket">
-          <option value="all">All buckets</option>
-          {BUCKET_ORDER.map((b) => <option key={b} value={b}>{BUCKET_LABELS[b]}</option>)}
+        <select className="input" value={bucket} onChange={(e) => setBucket(e.target.value)} aria-label="Filter by group">
+          <option value="all">All groups</option>
+          {groups.map((g) => <option key={g} value={g}>{g}</option>)}
         </select>
         <select className="input" value={kind} onChange={(e) => setKind(e.target.value as RequirementKind | 'all')} aria-label="Filter by requirement">
           <option value="all">Compulsory & elective</option>
@@ -59,16 +60,16 @@ export function CoursesPage({ record, derived }: PageProps) {
       </div>
 
       <div className="stack">
-        {BUCKET_ORDER.map((b) => {
-          const courses = visible.filter((c) => c.bucket === b);
+        {groups.map((b) => {
+          const courses = visible.filter((c) => c.group === b);
           if (courses.length === 0) return null;
           const passedCredits = program.courses
-            .filter((c) => c.bucket === b && states.get(c.code)!.status === 'passed')
+            .filter((c) => c.group === b && states.get(c.code)!.status === 'passed')
             .reduce((sum, c) => sum + c.credits, 0);
           return (
             <section key={b} className="card" style={{ padding: '12px 8px' }}>
               <div className="card-head" style={{ padding: '0 10px', marginBottom: 4 }}>
-                <h2>{BUCKET_LABELS[b]}</h2>
+                <h2>{b}</h2>
                 <span className="small muted">{passedCredits} credits passed</span>
               </div>
               <table className="list fixed">

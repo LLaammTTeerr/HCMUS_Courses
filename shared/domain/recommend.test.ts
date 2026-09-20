@@ -44,9 +44,9 @@ describe('recommend', () => {
   it('offers graduation work only from semester 11 and for the chosen track', () => {
     const base = passAll(['CS350', 'CS320', 'CS333', 'CS300', 'MTH251', 'CS251', 'CS311', 'CS202', 'CS201', 'CS160', 'CS163', 'CS250'], 3);
     expect(recommend(program, record(base), 10).map((x) => x.code)).not.toContain('CS469');
-    expect(recommend(program, record(base, { gradTrack: 'capstone' }), 11).map((x) => x.code)).toContain('CS469');
-    expect(recommend(program, record(base, { gradTrack: 'capstone' }), 11).map((x) => x.code)).not.toContain('CS468');
-    expect(recommend(program, record(base, { gradTrack: 'thesis' }), 11).map((x) => x.code)).not.toContain('CS469');
+    expect(recommend(program, record(base, { choices: { gradTrack: 'capstone' } }), 11).map((x) => x.code)).toContain('CS469');
+    expect(recommend(program, record(base, { choices: { gradTrack: 'capstone' } }), 11).map((x) => x.code)).not.toContain('CS468');
+    expect(recommend(program, record(base, { choices: { gradTrack: 'thesis' } }), 11).map((x) => x.code)).not.toContain('CS469');
   });
 
   it('keeps failed courses eligible for retake and flags weak prior courses', () => {
