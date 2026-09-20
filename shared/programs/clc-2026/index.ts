@@ -128,12 +128,16 @@ function progress(ctx: RuleContext): ProgressReport {
   ];
 
   const total = group('total', 'Total', meta.totalCredits, pick('total'));
+  // PE and Military Education are outside the 138 credits but must still be passed (QC1175 Art. 17.3c).
+  const extrasPassed = (level: Level) =>
+    [...meta.peCourses, meta.militaryCourse].every((code) => isCovered(states.get(code), level));
   const courseCountsOk = (level: Level) =>
     !!spec &&
     at(level).specCompCourses >= spec.compulsory.minCourses &&
     at(level).specElecCourses >= spec.elective.minCourses;
   const satisfiedAt = (level: Level) =>
-    groups.every((g) => g[level] >= g.required) && total[level] >= total.required && courseCountsOk(level);
+    groups.every((g) => g[level] >= g.required) && total[level] >= total.required &&
+    courseCountsOk(level) && extrasPassed(level);
 
   return { groups, total, satisfied: { earned: satisfiedAt('earned'), planned: satisfiedAt('planned') } };
 }

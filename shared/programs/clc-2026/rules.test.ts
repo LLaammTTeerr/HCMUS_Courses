@@ -108,6 +108,17 @@ describe('CLC rules', () => {
     expect(report.total.planned).toBeGreaterThanOrEqual(138);
   });
 
+  it('is not satisfied while PE or Military Education is missing', () => {
+    const base = record([], { specialization: 'networks', gradTrack: 'thesis' });
+    const plan = suggestedPlanAttempts(program, base);
+    const complete = plan.map((a, i) => ({ ...a, id: 20_000 + i, status: 'completed' as const, grade10: 8 }));
+    expect(progressOf(program, { ...base, attempts: complete }).satisfied.earned).toBe(true);
+    const withoutMilitary = complete.filter((a) => a.code !== 'BAA00030');
+    expect(progressOf(program, { ...base, attempts: withoutMilitary }).satisfied.earned).toBe(false);
+    const withoutPe = complete.filter((a) => a.code !== 'BAA00021');
+    expect(progressOf(program, { ...base, attempts: withoutPe }).satisfied.earned).toBe(false);
+  });
+
   it('exposes the two program choices', () => {
     expect(program.choices.map((c) => c.id)).toEqual(['specialization', 'gradTrack']);
     expect(buildContext(program, record([], { specialization: 'data-science' }), new Map()).choice('specialization')).toBe('data-science');

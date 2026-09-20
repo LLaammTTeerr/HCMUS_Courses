@@ -27,7 +27,13 @@ export function ProgramPicker({ record }: { record: StudentRecord }) {
       return;
     }
     setPending(null);
-    updateProfile({ programId: id, choices: {}, currentSemester: currentSemesterOn(getProgram(id)) });
+    const target = getProgram(id);
+    // Keep choices the target program also defines, so switching back and forth is not destructive.
+    const choices = Object.fromEntries(
+      Object.entries(record.profile.choices).filter(([key, value]) =>
+        target.choices.some((c) => c.id === key && c.options.some((o) => o.id === value))),
+    );
+    updateProfile({ programId: id, choices, currentSemester: currentSemesterOn(target) });
   };
 
   return (
