@@ -2,6 +2,7 @@ import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { semesterLabel } from '../shared/domain/semesters';
 import type { StudentRecord } from '../shared/domain/types';
 import { CourseDrawer } from './components/CourseDrawer';
+import { ProgramPicker } from './components/ProgramPicker';
 import { SemesterSelect } from './components/SemesterSelect';
 import { ChecklistPage } from './pages/ChecklistPage';
 import { CoursesPage } from './pages/CoursesPage';
@@ -67,6 +68,7 @@ function Shell({ record }: { record: StudentRecord }) {
           <NavLink to="/checklist">Checklist {missingChecks > 0 && <span className="count">{missingChecks}</span>}</NavLink>
         </nav>
         <div className="sidebar-footer">
+          <ProgramPicker record={record} />
           <span>Current semester</span>
           <SemesterSelect program={program} value={current} onChange={(s) => updateProfile({ currentSemester: s })} ariaLabel="Current semester" />
           <span className="faint">{semesterLabel(program, current)} · in progress</span>
