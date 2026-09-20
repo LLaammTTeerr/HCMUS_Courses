@@ -77,8 +77,21 @@ Everyone who uses the site has their own account and their own courses; nobody c
 
 ## Your data
 
+- **In the app:** *Your data* → download a **JSON backup** (everything: courses, programme, choices,
+  certificate, GPA settings) or a **CSV** of your courses for a spreadsheet. Restoring a JSON file
+  replaces your own account's data and touches nobody else's.
 - `data/progress.db` is ignored by git. To version your data, remove `data/*.db` from `.gitignore`.
-- Each server start copies the database to `backups/progress-YYYYMMDD.db` next to it (once per day, newest 7 kept).
+- **Automatic:** each server start copies the database to `data/backups/progress-YYYYMMDD.db`
+  (once per day, newest 7 kept).
+- **Scheduled / off-machine:** `npm run backup [directory]` folds in the write-ahead log and copies the
+  database, and is safe to run while the app is up. For a nightly copy somewhere else:
+
+  ```cron
+  # crontab -e
+  15 2 * * *  cd ~/Projects/HCMUS_Courses && /usr/bin/npm run backup -- ~/Backups/hcmus >> /tmp/hcmus-backup.log 2>&1
+  ```
+
+  `BACKUP_KEEP` (default 7) sets how many copies are kept in the target directory.
 - To inspect the data: `sqlite3 data/progress.db 'select * from attempts'`.
 
 ## Adding another programme

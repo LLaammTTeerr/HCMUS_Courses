@@ -195,6 +195,76 @@ describe('sessions renew while in use', () => {
   });
 });
 
+describe('export and restore', () => {
+  it('exports a snapshot the owner can restore later', async () => {
+    await call('POST', '/attempts', { code: 'CS160', semester: 1, status: 'completed', grade10: 8.5 }, adminCookie);
+    await call('PUT', '/english', { type: 'IELTS', score: 7, issued: '2026-01-01' }, adminCookie);
+    await call('PUT', '/gpa-overrides/CS160', { counts: false }, adminCookie);
+    await call('PUT', '/profile', { currentSemester: 6, choices: { gradTrack: 'thesis' } }, adminCookie);
+
+    const res = await call('GET', '/export', undefined, adminCookie);
+    expect(res.headers.get('content-disposition')).toContain('hcmus-progress-owner');
+    const snapshot = await res.json();
+    expect(snapshot).toMatchObject({
+      format: 'hcmus-progress-export', version: 1, username: 'owner',
+      profile: { currentSemester: 6, choices: { gradTrack: 'thesis' } },
+      gpaOverrides: { CS160: false },
+    });
+    expect(snapshot.attempts).toEqual([{ code: 'CS160', semester: 1, status: 'completed', grade10: 8.5 }]);
+    expect(snapshot.english).toMatchObject({ type: 'IELTS', score: 7 });
+
+    // Change everything, then restore.
+    const record = await (await call('GET', '/record', undefined, adminCookie)).json();
+    await call('POST', '/attempts/batch-delete', { ids: record.attempts.map((a: { id: number }) => a.id) }, adminCookie);
+    await call('PUT', '/profile', { currentSemester: 2, choices: {} }, adminCookie);
+    const restored = await (await call('POST', '/import', snapshot, adminCookie)).json();
+    expect(restored.attempts).toHaveLength(1);
+    expect(restored.attempts[0]).toMatchObject({ code: 'CS160', grade10: 8.5 });
+    expect(restored.profile).toMatchObject({ currentSemester: 6, choices: { gradTrack: 'thesis' } });
+    expect(restored.gpaOverrides).toEqual({ CS160: false });
+    expect(restored.english).toMatchObject({ type: 'IELTS' });
+  });
+
+  it('replaces rather than merges, and never touches another account', async () => {
+    const mai = (await register('mai', await invite())).cookie;
+    await call('POST', '/attempts', { code: 'CS160', semester: 1, status: 'completed', grade10: 9 }, mai);
+    await call('POST', '/attempts', { code: 'CS163', semester: 2, status: 'completed', grade10: 7 }, adminCookie);
+    const snapshot = await (await call('GET', '/export', undefined, mai)).json();
+
+    const afterImport = await (await call('POST', '/import', snapshot, mai)).json();
+    expect(afterImport.attempts).toHaveLength(1);
+    const ours = await (await call('GET', '/record', undefined, adminCookie)).json();
+    expect(ours.attempts).toHaveLength(1);
+    expect(ours.attempts[0].code).toBe('CS163');
+  });
+
+  it('refuses a file that does not fit the program', async () => {
+    const snapshot = await (await call('GET', '/export', undefined, adminCookie)).json();
+    expect((await call('POST', '/import', { ...snapshot, format: 'something-else' }, adminCookie)).status).toBe(400);
+    expect((await call('POST', '/import', { ...snapshot, profile: { ...snapshot.profile, programId: 'nope' } }, adminCookie)).status).toBe(400);
+    const foreign = { ...snapshot, attempts: [{ code: 'CSC10012', semester: 1, status: 'completed', grade10: 8 }] };
+    const res = await call('POST', '/import', foreign, adminCookie);
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toContain('CSC10012');
+    const noGrade = { ...snapshot, attempts: [{ code: 'CS160', semester: 1, status: 'completed', grade10: null }] };
+    expect((await call('POST', '/import', noGrade, adminCookie)).status).toBe(400);
+  });
+
+  it('exports courses as CSV', async () => {
+    await call('POST', '/attempts', { code: 'CS160', semester: 1, status: 'completed', grade10: 8.5 }, adminCookie);
+    const res = await call('GET', '/export.csv', undefined, adminCookie);
+    expect(res.headers.get('content-type')).toContain('text/csv');
+    const text = await res.text();
+    expect(text.split('\n')[0]).toBe('code,name,credits,semester,status,grade10');
+    expect(text).toContain('CS160,Introduction to Computer Science,4,1,completed,8.5');
+  });
+
+  it('needs a session', async () => {
+    expect((await call('GET', '/export', undefined, '')).status).toBe(401);
+    expect((await call('POST', '/import', {}, '')).status).toBe(401);
+  });
+});
+
 describe('rate limiting', () => {
   it('blocks after ten failed logins from the same address', async () => {
     const headers = { 'x-forwarded-for': '10.0.0.9' };

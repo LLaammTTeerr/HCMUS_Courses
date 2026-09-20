@@ -7,6 +7,7 @@ import { SemesterSelect } from './components/SemesterSelect';
 import { AuthPage } from './pages/AuthPage';
 import { ChangePassword } from './pages/ChangePassword';
 import { ChecklistPage } from './pages/ChecklistPage';
+import { DataPage } from './pages/DataPage';
 import { InvitesPage } from './pages/InvitesPage';
 import { CoursesPage } from './pages/CoursesPage';
 import { DashboardPage } from './pages/DashboardPage';
@@ -81,6 +82,7 @@ function Shell({ record }: { record: StudentRecord }) {
           <NavLink to="/planner">Planner {problems > 0 && <span className="count">{problems}</span>}</NavLink>
           <NavLink to="/next">What next</NavLink>
           <NavLink to="/checklist">Checklist {missingChecks > 0 && <span className="count">{missingChecks}</span>}</NavLink>
+          <NavLink to="/data">Your data</NavLink>
           {user?.isAdmin && <NavLink to="/invites">Invites</NavLink>}
         </nav>
         <div className="sidebar-footer">
@@ -105,6 +107,7 @@ function Shell({ record }: { record: StudentRecord }) {
           <Route path="/planner" element={<PlannerPage {...props} />} />
           <Route path="/next" element={<NextPage {...props} />} />
           <Route path="/checklist" element={<ChecklistPage {...props} />} />
+          <Route path="/data" element={<DataPage />} />
           <Route path="/invites" element={user?.isAdmin ? <InvitesPage /> : <Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

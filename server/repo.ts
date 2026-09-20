@@ -118,6 +118,21 @@ export function createRepo(db: Db) {
       db.prepare('DELETE FROM gpa_overrides WHERE user_id = ? AND code = ?').run(userId, code);
     },
 
+    /** Replaces everything this user owns, in one transaction. */
+    replaceRecord: db.transaction((userId: number, data: {
+      profile: ProfilePatch; attempts: AttemptInput[]; english: EnglishInput | null;
+      gpaOverrides: Record<string, boolean>;
+    }): StudentRecord => {
+      db.prepare('DELETE FROM attempts WHERE user_id = ?').run(userId);
+      db.prepare('DELETE FROM english_certs WHERE user_id = ?').run(userId);
+      db.prepare('DELETE FROM gpa_overrides WHERE user_id = ?').run(userId);
+      repo.updateProfile(userId, data.profile);
+      if (data.attempts.length) repo.insertAttempts(userId, data.attempts);
+      if (data.english) repo.putEnglish(userId, data.english);
+      for (const [code, counts] of Object.entries(data.gpaOverrides)) repo.setGpaOverride(userId, code, counts);
+      return repo.getRecord(userId);
+    }),
+
     getRecord(userId: number): StudentRecord {
       return {
         profile: repo.getProfile(userId),

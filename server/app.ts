@@ -4,7 +4,8 @@ import type { Context } from 'hono';
 import { z } from 'zod';
 import {
   attemptInput, attemptPatch, batchDeleteInput, batchInput, englishInput, gpaOverrideInput,
-  loginInput, passwordChangeInput, profilePatch, registerInput, inviteInput, type AttemptInput,
+  exportPayload, loginInput, passwordChangeInput, profilePatch, registerInput, inviteInput,
+  type AttemptInput,
 } from '../shared/api';
 import { courseIndex, getProgram, PROGRAM_IDS } from '../shared/programs/index';
 import {
@@ -283,6 +284,65 @@ export function createApp(db: Db) {
     const user = requireUser(c);
     repo.deleteGpaOverride(user.id, c.req.param('code').toUpperCase());
     return c.json(repo.getGpaOverrides(user.id));
+  });
+
+  // ---------------------------------------------------------------- export & restore
+
+  app.get('/export', (c) => {
+    const user = requireUser(c);
+    const record = repo.getRecord(user.id);
+    const payload = {
+      format: 'hcmus-progress-export' as const,
+      version: 1 as const,
+      exportedAt: new Date().toISOString(),
+      username: user.username,
+      profile: record.profile,
+      attempts: record.attempts.map(({ id: _id, ...a }) => a),
+      english: record.english,
+      gpaOverrides: record.gpaOverrides,
+    };
+    c.header('content-disposition', `attachment; filename="hcmus-progress-${user.username}-${payload.exportedAt.slice(0, 10)}.json"`);
+    return c.json(payload);
+  });
+
+  app.get('/export.csv', (c) => {
+    const user = requireUser(c);
+    const record = repo.getRecord(user.id);
+    const program = getProgram(record.profile.programId);
+    const index = courseIndex(program);
+    const escape = (value: string) => (/[",\n]/.test(value) ? `"${value.replaceAll('"', '""')}"` : value);
+    const rows = [
+      ['code', 'name', 'credits', 'semester', 'status', 'grade10'].join(','),
+      ...record.attempts.map((a) => {
+        const course = index.get(a.code);
+        return [a.code, escape(course?.nameEn || course?.nameVi || ''), course?.credits ?? '', a.semester, a.status, a.grade10 ?? '']
+          .join(',');
+      }),
+    ];
+    c.header('content-type', 'text/csv; charset=utf-8');
+    c.header('content-disposition', `attachment; filename="hcmus-progress-${user.username}.csv"`);
+    return c.body(`${rows.join('\n')}\n`);
+  });
+
+  app.post('/import', async (c) => {
+    const user = requireUser(c);
+    const payload = await parseBody(c, exportPayload);
+    if (!PROGRAM_IDS.includes(payload.profile.programId)) {
+      throw new BadRequest(`The file is for an unknown program (${payload.profile.programId})`);
+    }
+    const index = courseIndex(getProgram(payload.profile.programId));
+    const unknown = [...new Set([...payload.attempts.map((a) => a.code), ...Object.keys(payload.gpaOverrides)])]
+      .filter((code) => !index.has(code));
+    if (unknown.length) throw new BadRequest(`The file has courses this program does not define: ${unknown.slice(0, 5).join(', ')}`);
+    for (const a of payload.attempts) {
+      if (a.status === 'completed' && a.grade10 === null) throw new BadRequest(`${a.code}: a completed attempt needs a grade`);
+    }
+    return c.json(repo.replaceRecord(user.id, {
+      profile: payload.profile,
+      attempts: payload.attempts,
+      english: payload.english,
+      gpaOverrides: payload.gpaOverrides,
+    }));
   });
 
   // Registered last so unknown /api paths get JSON instead of the UI fallback.

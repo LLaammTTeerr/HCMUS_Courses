@@ -73,6 +73,13 @@ The shared engine must never special-case a program id.
 - Create `src/pages/XPage.tsx` taking `PageProps` (`record`, `derived`), then add the route and nav link
   in `src/App.tsx`.
 
+## Export & restore
+
+`GET /api/export` (JSON snapshot), `GET /api/export.csv`, `POST /api/import` (validated by
+`exportPayload` in `shared/api.ts`, replaces the caller's record in one transaction). `server/backup.ts`
+backs the database up for cron. When the record shape changes, bump `exportPayload.version` and keep
+reading the old one.
+
 ## Commands
 
 `npm run dev` · `npm test` (Vitest) · `npm run test:e2e` (Playwright) · `npm run test:all` ·

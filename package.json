@@ -12,7 +12,8 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "test:all": "vitest run && playwright test"
+    "test:all": "vitest run && playwright test",
+    "backup": "tsx server/backup.ts"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",

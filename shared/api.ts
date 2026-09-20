@@ -73,6 +73,31 @@ export const inviteInput = z.object({
   expiresInDays: z.number().int().min(1).max(365).nullable().optional(),
 });
 
+/** A full snapshot of one student's data, as produced by GET /api/export. */
+export const exportPayload = z.object({
+  format: z.literal('hcmus-progress-export'),
+  version: z.literal(1),
+  exportedAt: z.string(),
+  username: z.string().optional(),
+  profile: z.object({
+    programId: z.string(),
+    currentSemester: z.number().int().min(1),
+    choices: z.record(z.string(), z.string()),
+    militaryCert: z.boolean(),
+    thesisGpaThreshold: z.number().nullable(),
+  }),
+  attempts: z.array(z.object({
+    code: z.string(),
+    semester: z.number().int().min(1),
+    status: z.enum(['completed', 'in-progress', 'planned']),
+    grade10: z.number().min(0).max(10).nullable(),
+  })),
+  english: englishInput.nullable(),
+  gpaOverrides: z.record(z.string(), z.boolean()),
+});
+
+export type ExportPayload = z.infer<typeof exportPayload>;
+
 export interface AuthUser {
   id: number;
   username: string;

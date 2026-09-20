@@ -56,6 +56,8 @@ export const api = {
   changePassword: (currentPassword: string, newPassword: string) =>
     request<{ user: AuthUser }>('POST', '/auth/password', { currentPassword, newPassword }),
 
+  importRecord: (payload: unknown) => request<StudentRecord>('POST', '/import', payload),
+
   // ---- admin ----
   listUsers: () => request<AuthUser[]>('GET', '/admin/users'),
   listInvites: () => request<InviteRow[]>('GET', '/admin/invites'),
