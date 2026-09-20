@@ -3,7 +3,7 @@ import { parseQuickEntry } from '../../shared/domain/quickEntry';
 import type { Program } from '../../shared/domain/program';
 import { courseIndex } from '../../shared/programs/index';
 import { useStore } from '../state/store';
-import { StatusBadge } from './common';
+import { courseName, StatusBadge } from './common';
 
 const EXAMPLE = `# CODE SEMESTER GRADE — one course per line
 CS160 1 8.5
@@ -62,7 +62,7 @@ export function QuickEntry({ program, currentSemester, onDone }: { program: Prog
                 {parsed.rows.map((r) => (
                   <tr key={r.line}>
                     <td className="faint">{r.line}</td>
-                    <td><b>{r.code}</b> <span className="muted small">{index.get(r.code)?.nameEn}</span></td>
+                    <td><b>{r.code}</b> <span className="muted small">{(() => { const c = index.get(r.code); return c ? courseName(c) : ''; })()}</span></td>
                     <td className="num">{r.semester}</td>
                     <td className="num">{r.grade10 ?? '—'}</td>
                     <td>

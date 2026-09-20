@@ -7,7 +7,7 @@ import { courseIndex } from '../../shared/programs/index';
 import type { Derived } from '../state/derived';
 import { useStore } from '../state/store';
 import { REQUIREMENT_LABELS, requirementKind } from '../../shared/domain/requirement';
-import { fmt, RequirementBadge, StatusBadge } from './common';
+import { courseName, courseSubName, fmt, RequirementBadge, StatusBadge } from './common';
 import { GradeInput } from './GradeInput';
 import { SemesterSelect } from './SemesterSelect';
 
@@ -49,12 +49,12 @@ export function CourseDrawer({ record, derived }: { record: StudentRecord; deriv
   return (
     <>
       <div className="drawer-backdrop" onClick={() => openCourse(null)} />
-      <aside className="drawer" role="dialog" aria-modal="true" aria-label={`${course.code} ${course.nameEn}`}>
+      <aside className="drawer" role="dialog" aria-modal="true" aria-label={`${course.code} ${courseName(course)}`}>
         <div className="row" style={{ alignItems: 'flex-start' }}>
           <div style={{ flex: 1 }}>
             <div className="row"><span className="mono faint">{course.code}</span><RequirementBadge course={course} /><StatusBadge status={state.status} /></div>
-            <h2>{course.nameEn}</h2>
-            <div className="muted">{course.nameVi}</div>
+            <h2>{courseName(course)}</h2>
+            <div className="muted">{courseSubName(course)}</div>
           </div>
           <button className="icon-btn" onClick={() => openCourse(null)} aria-label="Close">✕</button>
         </div>

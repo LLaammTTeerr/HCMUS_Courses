@@ -21,6 +21,11 @@ export function StatusBadge({ status }: { status: CourseStatus }) {
   return <span className={`badge ${status}`}>{STATUS_LABELS[status]}</span>;
 }
 
+/** Courses of Vietnamese-language programs have no English name. */
+export const courseName = (c: Course) => c.nameEn || c.nameVi;
+/** Secondary line: the Vietnamese name, unless it is already the main one. */
+export const courseSubName = (c: Course) => (c.nameEn ? c.nameVi : '');
+
 export const fmt = (n: number | null, digits = 2) => (n === null ? '—' : n.toFixed(digits));
 
 export const shortSemester = (n: number) => `S${n}`;

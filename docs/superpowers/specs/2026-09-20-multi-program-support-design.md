@@ -1,12 +1,12 @@
 # Multi-Program Support — Design Spec
 
-Date: 2026-09-20 · Status: approved (brainstorming sections 1–3) · Supersedes parts of
+Date: 2026-09-20 · Status: implemented (APCS port + CLC 2026) · Supersedes parts of
 `2026-09-17-apcs-progress-tracker-design.md` (§3.1, §3.6 program-specific rules, §4 shared layout)
 
 ## 1. Purpose
 
 Support more than one HCMUS program in one app, starting with **APCS 2024** (existing) and
-**CLC/TCTA CNTT 2024** (new, used as an approximation for the unpublished 2026 intake). The program's
+**CLC/TCTA CNTT** (new, registered as `clc-2026`: the 2024 curriculum with 2026 semester labels, because the 2026 document is not published). The program's
 rules live in a per-program module of TypeScript (approach **C**, chosen by the user over a data-driven
 requirement tree), behind one interface the shared engine consumes.
 
@@ -56,7 +56,11 @@ export interface GroupProgress {
   note?: string;
   satisfied: { earned: boolean; planned: boolean };
   /** Courses of this group not yet covered, for the checklist detail. */
-  missing?: string[];
+  missing?: { earned: string[]; planned: string[] };
+  /** Show this group as its own checklist item (credit minimums do; course lists do not). */
+  checklist?: boolean;
+  /** Warn in the planner on a shortfall; false when the module warns about it itself. */
+  warn?: boolean;
 }
 
 export interface ProgressReport {
@@ -116,10 +120,10 @@ interface Course {
 
 `bucket` is gone; each module maps its own courses to requirements. Flags differ per program:
 
-| Program | PE / Military credits | PE / Military in GPA |
+| Program | PE / Military in the program total | PE / Military in GPA |
 |---|---|---|
 | APCS 2024 | **not** counted (CTĐT §7.1.2 note) | no |
-| CLC 2024 | counted (CTĐT §7.1.5–7.1.6) | no |
+| CLC | **not** counted in the 138 (CTĐT §3); the regulation counts them as accumulated credits | no |
 
 APCS keeps the user-chosen GPA exclusions (political theory + law) as `countsInGpa: false`.
 
@@ -142,9 +146,10 @@ Groups exactly as today: A (required + electives, with the surplus spilling into
 Physics, B, C, B + C, graduation work (thesis CS468 or capstone CS469 + CS470), total ≥ 163.
 Choice: `gradTrack` ∈ thesis | capstone | undecided.
 
-### 5.2 clc-2024 (new — "Chương trình Tăng cường tiếng Anh ngành CNTT", intake 2024)
+### 5.2 clc-2026 (new — "Chương trình Tăng cường tiếng Anh ngành CNTT")
 
-Structure (CTĐT §3, §6–7): **138 credits** excluding GDTC/GDQP from the GPA but counting them as credits.
+Structure (CTĐT §3, §6–7): **138 credits**, excluding GDTC/GDQP from both the 138 and the GPA
+(the regulation still counts them as accumulated credits, and they must be passed).
 
 | Block | Credits | Shape |
 |---|---|---|
@@ -152,12 +157,12 @@ Structure (CTĐT §3, §6–7): **138 credits** excluding GDTC/GDQP from the GPA
 | General — social/economics/skills (§7.1.2) | 2 | choose 1 of 3 |
 | General — math & natural science (§7.1.3) | 36 | 6 compulsory (24) + choose 1 math of 3 (4) + ≥ 8 credits from a list |
 | General — informatics (§7.1.4) | 4 | CSC00004 |
-| PE (§7.1.5) / Military (§7.1.6) | 4 / 4 | compulsory; credits count, GPA does not |
+| PE (§7.1.5) / Military (§7.1.6) | 4 / 4 | compulsory; outside the 138 and outside the GPA |
 | Foundation (§7.2.1) | 38 | all of 10 courses |
 | Specialization (§7.2.2) | 34 | per chosen specialization: ≥ 4 courses and ≥ 16 credits compulsory-list + ≥ 2 courses and ≥ 8 credits elective-list + 10 free choice |
 | Graduation (§7.2.3) | 10 | thesis or graduation courses |
 
-Choices: `specialization` (9 options) and `gradTrack`. Before a specialization is chosen, its groups
+Choices: `specialization` (9 options) and `gradTrack` (khóa luận / thực tập tốt nghiệp / thực tập dự án). Before a specialization is chosen, its groups
 report `required` with a "choose a specialization" note and contribute nothing to satisfaction.
 
 Free choice (tự chọn tự do, 10 cr): credits of passed courses that no other group still needs, counted up
@@ -181,5 +186,9 @@ to 10.
 - **Scanned-PDF extraction (75 pages).** Mitigated by the printed subtotals in test 2 and by code patterns.
 - **CLC English standard unknown.** Checklist item renders as `unknown` with a note until the decision
   document is found.
+- **Appendices missing from the CLC PDF.** §9 lists four appendices (specialization electives, free
+  choice, graduation courses, bridging) that the published file does not contain; elective pools come
+  from the §7 tables instead. The graduation "project" option therefore needs a 4-credit course the app
+  cannot name — it warns instead.
 - **Program switching with incompatible attempts.** The picker warns and keeps data; codes not in the new
   program are ignored by the engine and listed in a warning.

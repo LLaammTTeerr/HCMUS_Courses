@@ -3,7 +3,7 @@ import { recommend } from '../../shared/domain/recommend';
 import { semesterLabel } from '../../shared/domain/semesters';
 import { courseIndex } from '../../shared/programs/index';
 import type { PageProps } from '../App';
-import { RequirementBadge } from '../components/common';
+import { courseName, RequirementBadge } from '../components/common';
 import { SemesterSelect } from '../components/SemesterSelect';
 import { semesterCredits } from '../../shared/domain/planner';
 import { useStore } from '../state/store';
@@ -61,7 +61,7 @@ export function NextPage({ record, derived }: PageProps) {
                           <button className="icon-btn" style={{ fontWeight: 650, color: 'var(--text)' }} onClick={() => openCourse(x.code)}>{x.code}</button>
                         </td>
                         <td><RequirementBadge course={c} /></td>
-                        <td><div className="course-name"><span>{c.nameEn}</span><span className="vi">{c.group} · {c.credits} cr{c.suggestedSemester ? ` · suggested S${c.suggestedSemester}` : ''}</span></div></td>
+                        <td><div className="course-name"><span>{courseName(c)}</span><span className="vi">{c.group} · {c.credits} cr{c.suggestedSemester ? ` · suggested S${c.suggestedSemester}` : ''}</span></div></td>
                         <td className="small muted">{x.reason}</td>
                         <td className="num">
                           <button className="btn small" onClick={() => void addAttempts([{ code: x.code, semester: target, grade10: null, status: target === current ? 'in-progress' : 'planned' }])}>

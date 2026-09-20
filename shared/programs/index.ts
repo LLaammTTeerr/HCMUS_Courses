@@ -1,10 +1,12 @@
 import type { Course } from '../domain/types';
 import type { ProgramMeta, ProgramModule } from '../domain/program';
 import apcs2024 from './apcs-2024/index';
+import clc2026 from './clc-2026/index';
 
 // Register new programs here (see CLAUDE.md → "Adding a program").
 const PROGRAMS: Record<string, ProgramModule> = {
   [apcs2024.meta.id]: apcs2024,
+  [clc2026.meta.id]: clc2026,
 };
 
 export const PROGRAM_IDS = Object.keys(PROGRAMS);

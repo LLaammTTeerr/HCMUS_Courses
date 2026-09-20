@@ -1,13 +1,20 @@
-# APCS Progress
+# HCMUS Progress
 
-A local web app for tracking graduation progress in the **HCMUS Advanced Program in Computer Science
-(APCS), intake 2024**. You can use it to:
+A local web app for tracking graduation progress in an HCMUS programme. Two programmes are built in:
 
-- see credits per requirement bucket: earned, in progress, and planned
+| Program | Document | Notes |
+|---|---|---|
+| **APCS 2024** — Advanced Program in Computer Science | CTĐT khóa 2024 (QĐ 2700/QĐ-KHTN) | 163 credits; thesis or capstone |
+| **CLC 2026** — Tăng cường tiếng Anh / CLC, Công nghệ thông tin | CTĐT khóa **2024** (QĐ 2693/QĐ-KHTN) | 138 credits; 9 specializations; the 2026 curriculum is not published yet, so the 2024 one is used with 2026 semester labels |
+
+Pick the programme in the sidebar. You can use it to:
+
+- see credits per requirement group of your programme: earned, in progress, and planned
 - see which courses are **compulsory** (bắt buộc), group electives ("choose", e.g. 16 cr of A), free CS
   electives, or graduation work. Badges appear in the course list, the drawer, and the planner (`REQ`).
 - record every course attempt with its 10-point grade (retakes supported; the latest grade is official)
-- plan semesters by drag and drop, with warnings for credit limits, prior courses, and the thesis/capstone track
+- plan semesters by drag and drop, with warnings for credit limits, prior courses, and your programme's
+  choices (graduation track, and the CLC specialization)
 - get ranked "what can I take next" suggestions
 - check the Article 17 graduation checklist, including the English certificate and its expiry
 
@@ -53,6 +60,11 @@ The dev server listens on all interfaces and accepts `*.ts.net` hostnames, so th
 - `data/progress.db` is ignored by git. To version your data, remove `data/*.db` from `.gitignore`.
 - Each server start copies the database to `backups/progress-YYYYMMDD.db` next to it (once per day, newest 7 kept).
 - To inspect the data: `sqlite3 data/progress.db 'select * from attempts'`.
+
+## Adding another programme
+
+Rules live in code, one module per programme (`shared/programs/<id>/`), so a new programme means a small
+TypeScript file plus its course data and tests. See `CLAUDE.md` → "Adding a program".
 
 ## Where the rules come from
 

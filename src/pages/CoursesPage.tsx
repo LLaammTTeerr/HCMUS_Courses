@@ -4,7 +4,7 @@ import { countsInGpa } from '../../shared/domain/gpa';
 import type { CourseStatus } from '../../shared/domain/types';
 import type { PageProps } from '../App';
 import { REQUIREMENT_LABELS, requirementKind, type RequirementKind } from '../../shared/domain/requirement';
-import { courseGroups, fmt, RequirementBadge, STATUS_LABELS, StatusBadge } from '../components/common';
+import { courseGroups, courseName, courseSubName, fmt, RequirementBadge, STATUS_LABELS, StatusBadge } from '../components/common';
 import { QuickEntry } from '../components/QuickEntry';
 import { useStore } from '../state/store';
 
@@ -92,7 +92,7 @@ export function CoursesPage({ record, derived }: PageProps) {
                       <tr key={c.code} className="clickable" onClick={() => openCourse(c.code)} tabIndex={0}
                         onKeyDown={(e) => e.key === 'Enter' && openCourse(c.code)}>
                         <td className="mono"><b>{c.code}</b></td>
-                        <td><div className="course-name"><span>{c.nameEn}</span><span className="vi">{c.nameVi}</span></div></td>
+                        <td><div className="course-name"><span>{courseName(c)}</span><span className="vi">{courseSubName(c)}</span></div></td>
                         <td><RequirementBadge course={c} /></td>
                         <td className="num">{c.credits}</td>
                         <td className="num faint">{c.suggestedSemester ? `S${c.suggestedSemester}` : '—'}</td>

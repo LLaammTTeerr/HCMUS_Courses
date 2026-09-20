@@ -5,7 +5,7 @@ import { suggestedPlanAttempts } from '../../shared/domain/suggestedPlan';
 import type { Attempt, Course } from '../../shared/domain/types';
 import { courseIndex } from '../../shared/programs/index';
 import type { PageProps } from '../App';
-import { courseGroups, RequirementBadge } from '../components/common';
+import { courseGroups, courseName, RequirementBadge } from '../components/common';
 import { WarningList } from '../components/WarningList';
 import { useStore } from '../state/store';
 
@@ -229,10 +229,10 @@ function PlanCard({ course, className, payload, onOpen }: { course: Course; clas
       onDragStart={(e) => { e.dataTransfer.setData(MIME, JSON.stringify(payload)); e.dataTransfer.effectAllowed = 'move'; setDragging(true); }}
       onDragEnd={() => setDragging(false)}
       onClick={onOpen}
-      title={`${course.nameEn} — click for details, drag to plan`}
+      title={`${courseName(course)} — click for details, drag to plan`}
     >
       <div className="top"><span className="code">{course.code}</span><RequirementBadge course={course} compact /><span className="cr">{course.credits} cr</span></div>
-      <div className="nm">{course.nameEn}</div>
+      <div className="nm">{courseName(course)}</div>
     </div>
   );
 }
@@ -256,7 +256,7 @@ function AttemptCard({ attempt, course, draggable, warnings, onOpen, onRemove }:
       onDragStart={(e) => { e.dataTransfer.setData(MIME, JSON.stringify({ kind: 'attempt', id: attempt.id })); setDragging(true); }}
       onDragEnd={() => setDragging(false)}
       onClick={onOpen}
-      title={warnings?.join('\n') ?? course?.nameEn}
+      title={warnings?.join('\n') ?? (course && courseName(course))}
     >
       <div className="top">
         <span className="code">{attempt.code}</span>
@@ -267,7 +267,7 @@ function AttemptCard({ attempt, course, draggable, warnings, onOpen, onRemove }:
           <button className="icon-btn small" aria-label={`Remove ${attempt.code}`} onClick={(e) => { e.stopPropagation(); onRemove(); }}>✕</button>
         )}
       </div>
-      <div className="nm">{course?.nameEn ?? 'Unknown course'}</div>
+      <div className="nm">{course ? courseName(course) : 'Unknown course'}</div>
     </div>
   );
 }

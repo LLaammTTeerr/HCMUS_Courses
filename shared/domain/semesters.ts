@@ -11,6 +11,19 @@ export function semesterLabel(program: Program, n: number): string {
   return `HK${term} ${year}–${year + 1}`;
 }
 
+/**
+ * Semester number that contains `today` for this program's intake, clamped to the allowed range.
+ * HK1 starts in September, HK2 in January, HK3 in May.
+ */
+export function currentSemesterOn(program: Program, today = new Date()): number {
+  const { intakeYear, semestersPerYear, maxSemesters } = program.meta;
+  const month = today.getMonth() + 1;
+  const term = month >= 9 ? 1 : month >= 5 ? 3 : 2;
+  const academicYear = month >= 9 ? today.getFullYear() : today.getFullYear() - 1;
+  const index = (academicYear - intakeYear) * semestersPerYear + term;
+  return Math.min(maxSemesters, Math.max(1, index));
+}
+
 /** Approximate last day of a semester (HK1 Sep–Dec, HK2 Jan–Apr, HK3 May–Aug), ISO date. */
 export function semesterEndDate(program: Program, n: number): string {
   const { term, year } = parts(program, n);

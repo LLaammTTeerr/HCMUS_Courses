@@ -57,7 +57,7 @@ function Shell({ record }: { record: StudentRecord }) {
     <div className="app">
       <aside className="sidebar">
         <div className="brand">
-          <strong>🎓 APCS Progress</strong>
+          <strong>🎓 HCMUS Progress</strong>
           <span>{program.meta.shortName}</span>
         </div>
         <nav className="nav">

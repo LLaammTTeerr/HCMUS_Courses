@@ -1,0 +1,33 @@
+{
+ "meta": {
+  "id": "clc-2026",
+  "name": "CLC / Tăng cường tiếng Anh — Công nghệ thông tin, intake 2026 (2024 curriculum)",
+  "shortName": "CLC 2026",
+  "intakeYear": 2026,
+  "semestersPerYear": 3,
+  "standardSemesters": 12,
+  "maxSemesters": 21,
+  "semesterMin": 10,
+  "semesterMax": 22,
+  "totalCredits": 138,
+  "gradEarliestSemester": 11,
+  "peCourses": [
+   "BAA00021",
+   "BAA00022"
+  ],
+  "militaryCourse": "BAA00030",
+  "englishDefaultValidityYears": 2,
+  "sources": [
+   {
+    "id": "CTDT24CLC",
+    "title": "CTĐT Chương trình Tăng cường tiếng Anh ngành CNTT, khóa tuyển 2024 (QĐ 2693/QĐ-KHTN, 30/09/2024)",
+    "url": "https://www.ctda.hcmus.edu.vn/download-attachment/JaNEQTeoXO63oy_7dFY1WZs0thB4c3ExAxTMx0nCICk"
+   },
+   {
+    "id": "QC1175",
+    "title": "Quy chế đào tạo trình độ đại học (QĐ 1175/QĐ-KHTN, 24/09/2021)",
+    "url": "https://www.ctda.hcmus.edu.vn/vi/goc-sinh-vien/so-tay-sinh-vien/"
+   }
+  ]
+ }
+}

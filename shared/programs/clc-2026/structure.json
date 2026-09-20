@@ -1,0 +1,622 @@
+{
+ "blocks": {
+  "generalPolitical": {
+   "credits": 14,
+   "courses": [
+    "BAA00101",
+    "BAA00102",
+    "BAA00103",
+    "BAA00104",
+    "BAA00003",
+    "BAA00004"
+   ]
+  },
+  "generalSocial": {
+   "chooseCourses": 1,
+   "credits": 2,
+   "courses": [
+    "BAA00005",
+    "BAA00006",
+    "BAA00007"
+   ]
+  },
+  "generalMath": {
+   "credits": 36,
+   "compulsory": [
+    "MTH00005",
+    "MTH00006",
+    "MTH00007",
+    "MTH00008",
+    "MTH00009",
+    "MTH00058"
+   ],
+   "chooseOneOf": [
+    "MTH00057",
+    "MTH00059",
+    "MTH00060"
+   ],
+   "chooseCreditsFrom": {
+    "credits": 8,
+    "courses": [
+     "CHE00001",
+     "CHE00002",
+     "CHE00081",
+     "CHE00082",
+     "BIO00001",
+     "BIO00002",
+     "BIO00081",
+     "BIO00082",
+     "PHY00005",
+     "PHY00007",
+     "GEO00002",
+     "ENV00001",
+     "ENV00003"
+    ]
+   }
+  },
+  "generalInformatics": {
+   "credits": 4,
+   "courses": [
+    "CSC00004"
+   ]
+  },
+  "pe": {
+   "credits": 4,
+   "courses": [
+    "BAA00021",
+    "BAA00022"
+   ]
+  },
+  "military": {
+   "credits": 4,
+   "courses": [
+    "BAA00030"
+   ]
+  },
+  "foundation": {
+   "credits": 38,
+   "courses": [
+    "CSC10012",
+    "CSC10003",
+    "CSC10004",
+    "CSC10014",
+    "CSC10006",
+    "CSC10007",
+    "CSC10008",
+    "CSC10009",
+    "CSC13002",
+    "CSC14003"
+   ]
+  },
+  "graduation": {
+   "credits": 10,
+   "description": "§7.2.3: \"Sinh viên tích lũy tối thiểu 10 tín chỉ, chọn 01 trong 03 phương án sau đây\". Phương án 1: CSC10251 Khóa luận tốt nghiệp (10 TC). Phương án 2: CSC10252 Thực tập tốt nghiệp (10 TC). Phương án 3: CSC10204 Thực tập dự án tốt nghiệp (6 TC) + chọn 01 học phần tốt nghiệp (04 TC) từ danh sách riêng của từng chuyên ngành. Riêng chuyên ngành Công nghệ tri thức (§7.2.3.5) và An toàn thông tin (§7.2.3.7): phương án 3 là chọn 01 học phần 06 TC (CSC10204 / CSC15201 / CSC15202) VÀ 01 học phần 04 TC. Riêng Công nghệ thông tin (§7.2.3.9): học phần thay thế là CSC10202 / CSC10203 / CSC13123 (mỗi học phần 6 TC, \"chọn 01 học phần để đạt tối thiểu 04 tín chỉ\"), hoặc các học phần thuộc mục 7.2.3 của 8 chuyên ngành còn lại. Danh sách thay thế theo từng chuyên ngành được liệt kê trong notes.",
+   "thesis": [
+    "CSC10251"
+   ],
+   "alternative": [
+    "CSC10252",
+    "CSC10204",
+    "CSC11111",
+    "CSC11112",
+    "CSC11119",
+    "CSC15010",
+    "CSC12107",
+    "CSC12108",
+    "CSC12111",
+    "CSC13114",
+    "CSC13115",
+    "CSC13116",
+    "CSC13118",
+    "CSC14114",
+    "CSC14115",
+    "CSC14116",
+    "CSC18105",
+    "CSC16107",
+    "CSC15201",
+    "CSC15202",
+    "CSC15104",
+    "CSC15105",
+    "CSC15106",
+    "CSC16110",
+    "CSC16111",
+    "CSC16112",
+    "CSC17107",
+    "CSC10202",
+    "CSC10203",
+    "CSC13123"
+   ]
+  }
+ },
+ "specializations": [
+  {
+   "id": "networks",
+   "nameVi": "Mạng máy tính và Viễn thông",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC11002",
+     "CSC11003",
+     "CSC11004",
+     "CSC11006",
+     "CSC11007",
+     "CSC11115",
+     "CSC15001",
+     "CSC15005"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC10107",
+     "CSC11106",
+     "CSC11116",
+     "CSC11117",
+     "CSC11118",
+     "CSC11120",
+     "CSC14005",
+     "CSC15002",
+     "CSC15003"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "information-systems",
+   "nameVi": "Hệ thống thông tin",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC12001",
+     "CSC12002",
+     "CSC12003",
+     "CSC12004",
+     "CSC12005"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC10121",
+     "CSC10102",
+     "CSC10103",
+     "CSC10104",
+     "CSC10105",
+     "CSC10106",
+     "CSC10107",
+     "CSC10108",
+     "CSC12102",
+     "CSC12103",
+     "CSC12105",
+     "CSC12106",
+     "CSC12109",
+     "CSC12110",
+     "CSC17101",
+     "CSC17106"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "software-engineering",
+   "nameVi": "Kỹ thuật phần mềm",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC13003",
+     "CSC13005",
+     "CSC13006",
+     "CSC13007",
+     "CSC13008",
+     "CSC13009",
+     "CSC13010",
+     "CSC13106",
+     "CSC13112"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC10121",
+     "CSC10102",
+     "CSC10103",
+     "CSC10105",
+     "CSC10107",
+     "CSC13001",
+     "CSC13101",
+     "CSC13102",
+     "CSC13103",
+     "CSC13107",
+     "CSC13117",
+     "CSC11007",
+     "CSC14005",
+     "CSC16106"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "computer-science",
+   "nameVi": "Khoa học máy tính",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC14001",
+     "CSC14002",
+     "CSC14004",
+     "CSC14005",
+     "CSC14006",
+     "CSC14101",
+     "CSC14111",
+     "CSC14118",
+     "CSC14120",
+     "CSC15006",
+     "CSC16004",
+     "CSC18101",
+     "CSC18102",
+     "CSC18103",
+     "CSC18104"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC10102",
+     "CSC10103",
+     "CSC10104",
+     "CSC10108",
+     "CSC14008",
+     "CSC14105",
+     "CSC14112",
+     "CSC14113",
+     "CSC14117",
+     "CSC14119",
+     "CSC16005",
+     "CSC17001",
+     "CSC17103",
+     "CSC18001"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "knowledge-engineering",
+   "nameVi": "Công nghệ tri thức",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC14007",
+     "CSC15001",
+     "CSC15002",
+     "CSC15003",
+     "CSC15004",
+     "CSC15005",
+     "CSC15006",
+     "CSC15007",
+     "CSC15009",
+     "CSC15011",
+     "CSC15012",
+     "CSC15109"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC10121",
+     "CSC10102",
+     "CSC10103",
+     "CSC10104",
+     "CSC10105",
+     "CSC10106",
+     "CSC10107",
+     "CSC14101",
+     "CSC14120",
+     "CSC15010",
+     "CSC15102",
+     "CSC15107",
+     "CSC15108",
+     "CSC16106"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "computer-vision",
+   "nameVi": "Thị giác máy tính",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC16001",
+     "CSC16002",
+     "CSC16003",
+     "CSC16004",
+     "CSC16005"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC16101",
+     "CSC16102",
+     "CSC16105",
+     "CSC16106",
+     "CSC16107",
+     "CSC16109",
+     "CSC16113",
+     "CSC16114"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "information-security",
+   "nameVi": "An toàn thông tin",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC15001",
+     "CSC15002",
+     "CSC15003",
+     "CSC15005",
+     "CSC15010",
+     "CSC15109"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC10104",
+     "CSC10107",
+     "CSC11004",
+     "CSC11120",
+     "CSC12001",
+     "CSC14005",
+     "CSC14007",
+     "CSC14117",
+     "CSC14120",
+     "CSC15004",
+     "CSC15107",
+     "CSC16106"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "data-science",
+   "nameVi": "Khoa học dữ liệu",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC10108",
+     "CSC14004",
+     "CSC14005",
+     "CSC14119",
+     "CSC17001",
+     "CSC17104"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC14117",
+     "CSC14118",
+     "CSC14120",
+     "CSC15004",
+     "CSC15007",
+     "CSC15102",
+     "CSC17102",
+     "CSC17103",
+     "CSC17106",
+     "CSC18001"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "information-technology",
+   "nameVi": "Công nghệ thông tin",
+   "nameEn": "",
+   "compulsory": {
+    "minCourses": 4,
+    "minCredits": 16,
+    "courses": [
+     "CSC11004",
+     "CSC15001",
+     "CSC12002",
+     "CSC12004",
+     "CSC13003",
+     "CSC13106",
+     "CSC14004",
+     "CSC14005",
+     "CSC14119",
+     "CSC15004",
+     "CSC15007",
+     "CSC15006",
+     "CSC15011",
+     "CSC15003",
+     "CSC15005",
+     "CSC16004",
+     "CSC16005"
+    ]
+   },
+   "elective": {
+    "minCourses": 2,
+    "minCredits": 8,
+    "courses": [
+     "CSC11003",
+     "CSC11106",
+     "CSC11006",
+     "CSC11117",
+     "CSC10108",
+     "CSC12105",
+     "CSC12109",
+     "CSC12110",
+     "CSC13006",
+     "CSC13008",
+     "CSC13010",
+     "CSC13112",
+     "CSC14101",
+     "CSC14111",
+     "CSC14120",
+     "CSC14117",
+     "CSC14118",
+     "CSC17001",
+     "CSC17104",
+     "CSC15107",
+     "CSC15012",
+     "CSC15002",
+     "CSC15010",
+     "CSC12001",
+     "CSC16003",
+     "CSC16106",
+     "CSC16107",
+     "CSC16109"
+    ]
+   },
+   "freeChoiceCredits": 10
+  }
+ ],
+ "graduationOptions": {
+  "thesis": [
+   "CSC10251"
+  ],
+  "internship": [
+   "CSC10252"
+  ],
+  "project": [
+   "CSC10204"
+  ]
+ },
+ "teachingPlan": [
+  {
+   "semester": 1,
+   "codes": [
+    "CSC00004",
+    "CSC10012",
+    "MTH00009",
+    "CSC10121"
+   ]
+  },
+  {
+   "semester": 2,
+   "codes": [
+    "CSC10004",
+    "MTH00058",
+    "PHY00005",
+    "BAA00004"
+   ]
+  },
+  {
+   "semester": 3,
+   "codes": [
+    "CSC10003",
+    "CSC10009",
+    "MTH00005",
+    "MTH00008"
+   ]
+  },
+  {
+   "semester": 4,
+   "codes": [
+    "CSC10014",
+    "CSC10008",
+    "MTH00006",
+    "BAA00005",
+    "BAA00021",
+    "BAA00030"
+   ]
+  },
+  {
+   "semester": 5,
+   "codes": [
+    "CSC10006",
+    "CSC10007",
+    "MTH00007",
+    "BAA00022"
+   ]
+  },
+  {
+   "semester": 6,
+   "codes": [
+    "PHY00007",
+    "CSC14003",
+    "MTH00057",
+    "BAA00003"
+   ]
+  },
+  {
+   "semester": 7,
+   "codes": [
+    "CSC13002",
+    "BAA00101"
+   ]
+  },
+  {
+   "semester": 8,
+   "codes": [
+    "BAA00102"
+   ]
+  },
+  {
+   "semester": 9,
+   "codes": [
+    "CSC10103",
+    "CSC10107"
+   ]
+  },
+  {
+   "semester": 10,
+   "codes": [
+    "BAA00103"
+   ]
+  },
+  {
+   "semester": 11,
+   "codes": [
+    "BAA00104"
+   ]
+  }
+ ],
+ "notes": [
+  "NGUỒN: toàn bộ số liệu lấy từ bản scan 75 trang \"Chương trình đào tạo ngành Công nghệ thông tin - Chương trình Tăng cường tiếng Anh - Khóa tuyển 2024\" (QĐ số 2693/QĐ-KHTN ngày 30/09/2024). Tất cả 75 trang đã được đọc.",
+  "PHỤ LỤC KHÔNG CÓ TRONG FILE: mục 9 (trang 74) chỉ LIỆT KÊ tên 4 phụ lục (Phụ lục 1: Danh mục học phần tự chọn chuyên ngành; Phụ lục 2: Danh mục học phần tự chọn tự do; Phụ lục 3: Danh mục học phần thuộc Kiến thức tốt nghiệp, chuyên ngành CNTT; Phụ lục 4: Danh mục học phần liên thông Đại học - Thạc sỹ). Nội dung các phụ lục KHÔNG nằm trong PDF này (tài liệu kết thúc ở trang 75 bằng trang ký tên). Vì vậy danh sách tự chọn chuyên ngành trong JSON này là danh sách in trong mục §7, không phải phụ lục.",
+  "KHÔNG CÓ TÊN TIẾNG ANH: tài liệu không in tên tiếng Anh cho bất kỳ học phần nào, cũng không in tên tiếng Anh của 9 chuyên ngành. Mọi trường nameEn = \"\". (Tiếng Anh duy nhất xuất hiện là tên ngành \"Information Technology\" và tên văn bằng \"Bachelor of Science in Information Technology\", trang 1.)",
+  "LOẠI HP (type) là giá trị IN TRONG CỘT \"LOẠI HP\", không suy diễn theo khối. Đáng chú ý: mọi học phần trong bảng \"Kiến thức BẮT BUỘC chuyên ngành\" (§7.2.2.x.1) của cả 9 chuyên ngành đều được in là TC, không phải BB; tương tự mọi học phần tốt nghiệp §7.2.3 cũng in là TC. Chỉ các học phần đại cương/cơ sở ngành (và CSC13002 trong kế hoạch giảng dạy) mới in BB.",
+  "TỔNG CỘNG của bảng chuyên ngành là MỨC TỐI THIỂU, không phải tổng các dòng: ví dụ §7.2.2.1.1 liệt kê 8 học phần × 4 TC = 32 TC nhưng in \"TỔNG CỘNG 16\" vì quy tắc là \"tích lũy ít nhất 04 học phần, tối thiểu 16 tín chỉ\". Điều này đúng cho cả 9 chuyên ngành (bắt buộc 16, tự chọn 8) nên KHÔNG tính là sai lệch.",
+  "Cả 9 chuyên ngành đều in cùng mức tối thiểu: Nk ≥ 04 học phần / ≥ 16 tín chỉ (bắt buộc chuyên ngành) và Mk ≥ 02 học phần / ≥ 08 tín chỉ (tự chọn chuyên ngành), cộng 10 tín chỉ tự chọn tự do; k = 1..9 theo thứ tự §7.2.2.1 … §7.2.2.9.",
+  "QUY TẮC TỰ CHỌN CHUYÊN NGÀNH (schema không có chỗ chứa): mỗi mục §7.2.2.x.2 ghi \"…trong danh sách học phần sau đây HOẶC danh sách học phần mục §7.2.2.x.1\" (riêng chuyên ngành Mạng máy tính và Viễn thông còn thêm \"hoặc mục 7.2.3.1\"). Nghĩa là học phần bắt buộc chuyên ngành chưa dùng hết cũng được tính vào phần tự chọn chuyên ngành.",
+  "TỰ CHỌN TỰ DO (10 TC): §7.2.2.x.3 của 8 chuyên ngành đầu chỉ nói \"chọn tùy ý trong các học phần thuộc §7.2.2 của 9 chuyên ngành và §7.2.3\". Riêng chuyên ngành Công nghệ thông tin (§7.2.2.9.3, trang 25) IN THÊM một danh sách 8 học phần riêng không xuất hiện ở bất kỳ mục nào khác: CSC11114, CSC12112, CSC12113, CSC13119, CSC13120, CSC13121, CSC13122, CSC00008. Schema không có chỗ chứa danh sách này nên nó chỉ nằm trong \"courses\" và trong ghi chú này.",
+  "KẾ HOẠCH GIẢNG DẠY (§8) CÓ TỒN TẠI nhưng chỉ phần §8.1 (học kỳ 1-6: đại cương + cơ sở ngành) là DÙNG CHUNG cho mọi chuyên ngành; phần §8.2 (học kỳ 7-12) được in RIÊNG cho từng chuyên ngành trong 9 bảng (§8.2.1-§8.2.9, trang 33-74) và các bảng này khác nhau, đồng thời cùng một mã lặp lại ở nhiều học kỳ (các phương án tốt nghiệp xuất hiện ở cả HK10, HK11, HK12). Trường \"teachingPlan\" phẳng KHÔNG biểu diễn được phần này, nên teachingPlan chỉ chứa §8.1 (HK1-6) cộng những học phần có vị trí GIỐNG HỆT NHAU ở cả 9 bảng §8.2, cụ thể: CSC13002→HK7 (STT 1 của Học kỳ 7 trong cả 9 bảng), BAA00101→HK7, BAA00102→HK8, CSC10103→HK9 và CSC10107→HK9 (STT 1-2 của Học kỳ 9 trong cả 9 bảng, đều ghi chú \"HP tự chọn chung\"), BAA00103→HK10, BAA00104→HK11. Các phương án tốt nghiệp (HK10/11/12) lặp lại ở nhiều học kỳ nên để null. Mọi học phần còn lại có suggestedSemester = null dù chúng có xuất hiện trong §8.2.",
+  "MÂU THUẪN SỐ TIẾT giữa §7 và §8: trong các bảng §7.2.3 cột thứ ba của \"SỐ TIẾT\" có tiêu đề ĐT (không phải BT); CSC10251 = 0/0/300, CSC10252 = 0/0/300, CSC10204 = 0/0/180, CSC15201 = 30/0/120, CSC15202 = 30/0/120. Trong vài bảng §8.2 cùng các học phần này lại bị in lệch cột (ví dụ trang 42: CSC10204 \"0 180 0\", CSC10251 \"0 300 0\"; trang 61 và 63 tương tự). JSON dùng giá trị của §7.2.3 và đặt số đó vào trường \"bt\" (schema không có trường \"dt\").",
+  "BAA00030 Giáo dục quốc phòng - An ninh (trang 9) để TRỐNG cả 3 ô LT/TH/BT trong tài liệu; JSON để lt/th/bt = null. Trong bảng §8.1 (trang 32) học phần này được ghi tên rút gọn \"Giáo dục quốc phòng\" và cũng chỉ in số tín chỉ 4.",
+  "GDTC (BAA00021, BAA00022) và GDQPAN (BAA00030) ghi rõ \"không tính vào điểm trung bình, tính vào số tín chỉ tích lũy\" và KHÔNG nằm trong 138 tín chỉ (mục 3, trang 7: \"138 tín chỉ (không kể môn GDQPAN, GDTC)\").",
+  "LỖI ĐÁNH MÁY TRONG TÀI LIỆU: cuối §7.2.2.7.2 (chuyên ngành An toàn thông tin, trang 21) ghi \"Chi tiết xem tại Phụ lục 1 …, mục 7. Chuyên ngành Công nghệ tri thức\" trong khi mục 7 phải là \"Chuyên ngành An toàn thông tin\" (mục 5 mới là Công nghệ tri thức). Đã giữ nguyên phân loại theo tiêu đề §7.2.2.7.",
+  "LẶP TRONG KẾ HOẠCH GIẢNG DẠY: §8.2.4 (Khoa học máy tính, trang 45) liệt kê CSC14118 \"Nhập môn dữ liệu lớn\" HAI LẦN — ở học kỳ 8 (STT 4) và học kỳ 9 (STT 4).",
+  "Không có trang nào không đọc được; toàn bộ 75 trang đều rõ. Các nét mờ ở lề phải trang 11-21 và giữa trang 31-33, 57, 67, 74-75 là dấu mộc giáp lai của trường, không phải nội dung.",
+  "KIẾN THỨC TỐT NGHIỆP THEO TỪNG CHUYÊN NGÀNH (schema chỉ có một khối graduation chung nên chi tiết đặt ở đây) — Mạng máy tính và Viễn thông (§7.2.3.1): PA1/PA2 = CSC10251/CSC10252/CSC10204; học phần thay thế 04 TC = CSC11111, CSC11112, CSC11119, CSC15010 | Hệ thống thông tin (§7.2.3.2): PA1/PA2 = CSC10251/CSC10252/CSC10204; học phần thay thế 04 TC = CSC12107, CSC12108, CSC12111 | Kỹ thuật phần mềm (§7.2.3.3): PA1/PA2 = CSC10251/CSC10252/CSC10204; học phần thay thế 04 TC = CSC13114, CSC13115, CSC13116, CSC13118 | Khoa học máy tính (§7.2.3.4): PA1/PA2 = CSC10251/CSC10252/CSC10204; học phần thay thế 04 TC = CSC14114, CSC14115, CSC14116, CSC18105, CSC16107 | Công nghệ tri thức (§7.2.3.5): PA1/PA2 = CSC10251/CSC10252; PA3 (06 TC): CSC10204/CSC15201/CSC15202; học phần thay thế 04 TC = CSC15104, CSC15105, CSC15106 | Thị giác máy tính (§7.2.3.6): PA1/PA2 = CSC10251/CSC10252/CSC10204; học phần thay thế 04 TC = CSC16110, CSC16111, CSC16112 | An toàn thông tin (§7.2.3.7): PA1/PA2 = CSC10251/CSC10252; PA3 (06 TC): CSC10204/CSC15201; học phần thay thế 04 TC = CSC15104 | Khoa học dữ liệu (§7.2.3.8): PA1/PA2 = CSC10251/CSC10252/CSC10204; học phần thay thế 04 TC = CSC17107, CSC14115, CSC14116 | Công nghệ thông tin (§7.2.3.9): PA1/PA2 = CSC10251/CSC10252/CSC10204; học phần thay thế 04 TC = CSC10202, CSC10203, CSC13123"
+ ]
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { StudentRecord } from '../../shared/domain/types';
+import { currentSemesterOn } from '../../shared/domain/semesters';
 import { courseIndex, getProgram, listPrograms } from '../../shared/programs/index';
 import { useStore } from '../state/store';
 
@@ -26,7 +27,7 @@ export function ProgramPicker({ record }: { record: StudentRecord }) {
       return;
     }
     setPending(null);
-    updateProfile({ programId: id, choices: {} });
+    updateProfile({ programId: id, choices: {}, currentSemester: currentSemesterOn(getProgram(id)) });
   };
 
   return (
