@@ -43,17 +43,35 @@ Other commands:
 | `npm test` | rules engine, program data, and API tests (Vitest) |
 | `npm run typecheck` | TypeScript check of the whole project |
 
-Environment variables: `PROGRESS_DB` sets another database file, `PORT` sets the API/production port, and `HOST` sets the bind address (default `0.0.0.0`; use `127.0.0.1` to keep it local).
+Environment variables: `PROGRESS_DB` (database file), `PORT`, `HOST` (default `0.0.0.0`; `127.0.0.1` keeps
+it local), and `ADMIN_USER` / `ADMIN_PASSWORD` / `ADMIN_NAME` for the first-run admin account.
 
-The dev server listens on all interfaces and accepts `*.ts.net` hostnames, so the app is reachable over Tailscale at `http://<machine>.<tailnet>.ts.net:5173`. There is no login: anyone who can reach the port can edit the data.
+The dev server listens on all interfaces and accepts `*.ts.net` hostnames, so the app is reachable over
+Tailscale at `http://<machine>.<tailnet>.ts.net:5173`. Sign-in is required, but the tailnet connection is
+plain HTTP, so session cookies are only marked `Secure` behind an HTTPS proxy (such as a Tailscale
+Funnel), which the server detects automatically.
+
+## Accounts
+
+Everyone who uses the site has their own account and their own courses; nobody can see anyone else's.
+
+- **First start** creates an **admin** account and prints its password once in the server log:
+  `Created admin "admin" with password: …`. Sign in and change it (the app asks you to).
+  Set `ADMIN_USER` / `ADMIN_PASSWORD` before the first start to choose them yourself.
+- **Inviting someone:** sign in as the admin → **Invites** → create a code and send it. Registration
+  requires a code, each code works once, and you can revoke unused codes.
+- **Forgotten password:** the admin opens **Invites → Accounts → Reset password**, which shows a
+  temporary password once and signs that person out everywhere. They choose a new one at next sign-in.
+- Sessions are cookies valid for 30 days; failed sign-ins are rate limited.
 
 ## First steps
 
-1. **Courses → Quick entry.** Paste your finished courses, one per line: `CODE SEMESTER GRADE`
+1. **Sign in** (see Accounts above).
+2. **Courses → Quick entry.** Paste your finished courses, one per line: `CODE SEMESTER GRADE`
    (semester 1 = HK1 2024–2025). Leave the grade out for the current semester's courses.
-2. **Sidebar.** Set the current semester (default S7 = HK1 2026–2027).
-3. **Planner.** Pick thesis or capstone, click **Load suggested plan**, then drag courses to adjust.
-4. **Checklist.** Enter your English certificate and the military education certificate.
+3. **Sidebar.** Pick your programme and current semester.
+4. **Planner.** Pick thesis or capstone, click **Load suggested plan**, then drag courses to adjust.
+5. **Checklist.** Enter your English certificate and the military education certificate.
 
 ## Your data
 

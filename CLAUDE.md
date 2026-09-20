@@ -33,6 +33,22 @@ module on it, and the pages render `ProgressReport.groups` without knowing the p
 | Art. 17 checklist items shared by all programs | program-specific checklist items (English standard, thesis GPA) |
 | generic warnings | program-specific warnings (graduation track, specialization) |
 
+## Accounts
+
+`server/auth.ts` (crypto primitives) · `server/users.ts` (users, sessions, invites) ·
+`server/app.ts` (middleware and routes). Spec: `docs/superpowers/specs/2026-09-21-accounts-design.md`.
+
+- **Only hashes are stored:** scrypt for passwords, SHA-256 for session tokens and invite codes. A code
+  or token is returned to the caller exactly once, at creation.
+- **Every data query is scoped by `user_id`.** Repository methods take the user id as their first
+  argument — never add a query without it, and never trust an id from the request body.
+- Routes call `requireUser(c)` / `requireAdmin(c)`; `/api/health` and `/api/auth/*` are the only
+  endpoints reachable signed out.
+- The first start creates the admin (`ADMIN_USER` / `ADMIN_PASSWORD`, else a generated password printed
+  once). Pre-accounts data belongs to user 1.
+- Tests: `server/auth.test.ts` (crypto), `server/accounts.test.ts` (registration, sessions, isolation,
+  admin, rate limiting). Isolation tests must stay: they are the guard against a missing `user_id`.
+
 ## Common tasks
 
 **Adding a program**
