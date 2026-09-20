@@ -38,25 +38,47 @@ async function parseBody<T extends z.ZodTypeAny>(c: Context, schema: T): Promise
   return result.data;
 }
 
-/** Cookies are marked Secure only when the request really arrived over HTTPS. */
-const isSecure = (c: Context) =>
-  c.req.header('x-forwarded-proto') === 'https' || new URL(c.req.url).protocol === 'https:';
+const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
 
-/**
- * Rate-limit bucket per caller: the proxy header first, then the socket address. Falling back to one
- * shared key would let a single person's failed logins lock out everyone else.
- */
-function clientKey(c: Context): string {
-  const forwarded = c.req.header('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
+const socketAddress = (c: Context): string | null => {
   try {
-    return getConnInfo(c).remote.address ?? 'local';
+    return getConnInfo(c).remote.address ?? null;
   } catch {
-    return 'local';
+    return null;
   }
+};
+
+export interface AppOptions {
+  /**
+   * Trust `x-forwarded-*` headers. Default: only from a proxy on this machine (Tailscale serve/funnel,
+   * the Vite dev proxy), or everywhere when TRUST_PROXY=1. A client that reaches the server directly
+   * must not be able to fake its address or pretend the connection was HTTPS.
+   */
+  trustProxy?: boolean;
 }
 
-export function createApp(db: Db) {
+export function createApp(db: Db, options: AppOptions = {}) {
+  const trustForwarded = (c: Context): boolean => {
+    if (options.trustProxy !== undefined) return options.trustProxy;
+    if (process.env.TRUST_PROXY === '1') return true;
+    const address = socketAddress(c);
+    return address !== null && LOOPBACK.has(address);
+  };
+
+  /** Cookies are marked Secure only when the connection really was HTTPS. */
+  const isSecure = (c: Context) =>
+    (trustForwarded(c) && c.req.header('x-forwarded-proto') === 'https') ||
+    new URL(c.req.url).protocol === 'https:';
+
+  /** Rate-limit bucket per caller, so one person's failed logins cannot lock out everyone else. */
+  const clientKey = (c: Context): string => {
+    if (trustForwarded(c)) {
+      const forwarded = c.req.header('x-forwarded-for');
+      if (forwarded) return forwarded.split(',')[0].trim();
+    }
+    return socketAddress(c) ?? 'local';
+  };
+
   const repo = createRepo(db);
   const users = createUsers(db);
   const limiter = new RateLimiter();
@@ -105,6 +127,15 @@ export function createApp(db: Db) {
     if (!user.isAdmin) throw new Forbidden('Admins only');
     return user;
   };
+
+  // Conservative headers; the app never embeds or is embedded, and sends no cross-site requests.
+  app.use('*', async (c, next) => {
+    await next();
+    c.header('x-content-type-options', 'nosniff');
+    c.header('x-frame-options', 'DENY');
+    c.header('referrer-policy', 'same-origin');
+    if (isSecure(c)) c.header('strict-transport-security', 'max-age=31536000');
+  });
 
   app.get('/health', (c) => c.json({ ok: true }));
 

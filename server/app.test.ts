@@ -24,7 +24,7 @@ beforeEach(async () => {
   const users = createUsers(db);
   await users.create({ id: 1, username: 'owner', displayName: 'Owner', password: 'password-1234', isAdmin: true });
   cookie = `session=${users.startSession(1)}`;
-  app = createApp(db);
+  app = createApp(db, { trustProxy: true });
 });
 
 afterEach(() => {

@@ -38,7 +38,7 @@ beforeEach(async () => {
   users = createUsers(db);
   await users.create({ id: 1, username: 'owner', displayName: 'Owner', password: 'password-1234', isAdmin: true });
   adminCookie = `session=${users.startSession(1)}`;
-  app = createApp(db);
+  app = createApp(db, { trustProxy: true });
 });
 
 afterEach(() => {
@@ -262,6 +262,49 @@ describe('export and restore', () => {
   it('needs a session', async () => {
     expect((await call('GET', '/export', undefined, '')).status).toBe(401);
     expect((await call('POST', '/import', {}, '')).status).toBe(401);
+  });
+});
+
+describe('proxy headers', () => {
+  it('ignores forwarded headers from an untrusted caller', async () => {
+    const direct = createApp(db);            // no trustProxy: the caller reached the server itself
+    const call2 = (headers: Record<string, string>) =>
+      direct.request('/api/auth/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', ...headers },
+        body: JSON.stringify({ username: 'owner', password: 'wrong' }),
+      });
+    // Ten failures claiming different addresses still land in one bucket, because the claim is ignored.
+    for (let i = 0; i < 11; i++) await call2({ 'x-forwarded-for': `10.0.0.${i}` });
+    const blocked = await call2({ 'x-forwarded-for': '10.0.0.99' });
+    expect(blocked.status).toBe(429);
+  });
+
+  it('marks the cookie Secure only when a trusted proxy reports https', async () => {
+    const trusting = createApp(db, { trustProxy: true });
+    const login = (headers: Record<string, string>) =>
+      trusting.request('/api/auth/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', ...headers },
+        body: JSON.stringify({ username: 'owner', password: 'password-1234' }),
+      });
+    expect((await login({ 'x-forwarded-proto': 'https' })).headers.get('set-cookie')).toContain('Secure');
+    expect((await login({})).headers.get('set-cookie')).not.toContain('Secure');
+
+    const direct = createApp(db);
+    const spoofed = await direct.request('/api/auth/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-forwarded-proto': 'https' },
+      body: JSON.stringify({ username: 'owner', password: 'password-1234' }),
+    });
+    expect(spoofed.headers.get('set-cookie')).not.toContain('Secure');
+  });
+
+  it('sends conservative security headers', async () => {
+    const res = await call('GET', '/health');
+    expect(res.headers.get('x-content-type-options')).toBe('nosniff');
+    expect(res.headers.get('x-frame-options')).toBe('DENY');
+    expect(res.headers.get('referrer-policy')).toBe('same-origin');
   });
 });
 

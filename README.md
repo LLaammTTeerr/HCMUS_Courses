@@ -50,8 +50,12 @@ it local), and `ADMIN_USER` / `ADMIN_PASSWORD` / `ADMIN_NAME` for the first-run 
 
 The dev server listens on all interfaces and accepts `*.ts.net` hostnames, so the app is reachable over
 Tailscale at `http://<machine>.<tailnet>.ts.net:5173`. Sign-in is required, but the tailnet connection is
-plain HTTP, so session cookies are only marked `Secure` behind an HTTPS proxy (such as a Tailscale
-Funnel), which the server detects automatically.
+plain HTTP, so session cookies are only marked `Secure` behind an HTTPS proxy.
+
+To share it with someone outside your tailnet, or to run it as a service, see
+[docs/hosting.md](docs/hosting.md) — it covers a public HTTPS **Tailscale Funnel** (cookies turn
+`Secure` automatically), what to check before going public, and a systemd unit. Forwarded headers are
+trusted only from a proxy on the same machine, or when `TRUST_PROXY=1` is set.
 
 ## Accounts
 
