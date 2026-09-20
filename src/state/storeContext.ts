@@ -1,10 +1,10 @@
 // Context and types live apart from the provider so editing store.tsx during development keeps the
 // same context object (Vite hot reload would otherwise orphan already-mounted consumers).
 import { createContext, useContext } from 'react';
-import type { AttemptPatch, EnglishInput, ProfilePatch } from '../../shared/api';
+import type { AttemptPatch, AuthUser, EnglishInput, ProfilePatch } from '../../shared/api';
 import type { Attempt, NewAttempt, StudentRecord } from '../../shared/domain/types';
 
-export type LoadStatus = 'loading' | 'ready' | 'offline' | 'error';
+export type LoadStatus = 'loading' | 'ready' | 'offline' | 'error' | 'unauthenticated';
 
 export interface FailedOp {
   key: number;
@@ -14,6 +14,12 @@ export interface FailedOp {
 }
 
 export interface StoreValue {
+  /** Signed-in user, or null while signed out. */
+  user: AuthUser | null;
+  signIn: (username: string, password: string) => Promise<string | null>;
+  signUp: (input: { username: string; displayName: string; password: string; inviteCode: string }) => Promise<string | null>;
+  signOut: () => void;
+  changePassword: (currentPassword: string, newPassword: string) => Promise<string | null>;
   record: StudentRecord | null;
   status: LoadStatus;
   loadError: string | null;

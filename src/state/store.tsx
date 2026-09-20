@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { AttemptPatch, EnglishInput, ProfilePatch } from '../../shared/api';
 import type { Attempt, NewAttempt, StudentRecord } from '../../shared/domain/types';
-import { api, ApiUnavailable } from '../api/client';
+import type { AuthUser } from '../../shared/api';
+import { api, ApiUnauthorized, ApiUnavailable } from '../api/client';
 import { StoreContext, type FailedOp, type LoadStatus, type StoreValue } from './storeContext';
 
 export { useStore } from './storeContext';
@@ -11,6 +12,7 @@ export { useStore } from './storeContext';
  * A failed save keeps the change on screen and registers a retry action instead of losing it.
  */
 export function StoreProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [record, setRecord] = useState<StudentRecord | null>(null);
   const [status, setStatus] = useState<LoadStatus>('loading');
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -22,20 +24,34 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   recordRef.current = record;
   const failureKey = useRef(1);
 
+  const loadRecord = useCallback(async (signedIn: AuthUser) => {
+    const r = await api.getRecord();
+    setUser(signedIn);
+    setRecord(r);
+    setStatus('ready');
+    setLoadError(null);
+  }, []);
+
   const reload = useCallback(() => {
     setStatus((s) => (s === 'ready' ? s : 'loading'));
-    api.getRecord().then(
-      (r) => {
-        setRecord(r);
-        setStatus('ready');
-        setLoadError(null);
-      },
-      (err) => {
+    api.me().then(
+      ({ user: signedIn }) => loadRecord(signedIn).catch((err: Error) => {
+        setStatus(err instanceof ApiUnauthorized ? 'unauthenticated' : 'error');
+        setLoadError(err.message);
+      }),
+      (err: Error) => {
+        if (err instanceof ApiUnauthorized) {
+          setUser(null);
+          setRecord(null);
+          setStatus('unauthenticated');
+          setLoadError(null);
+          return;
+        }
         setStatus(err instanceof ApiUnavailable ? 'offline' : 'error');
         setLoadError(err.message);
       },
     );
-  }, []);
+  }, [loadRecord]);
 
   useEffect(reload, [reload]);
 
@@ -56,6 +72,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           return value;
         },
         (err: Error) => {
+          if (err instanceof ApiUnauthorized) {
+            setUser(null);
+            setRecord(null);
+            setStatus('unauthenticated');
+            return null;
+          }
           markIds(ids, true);
           const k = key ?? failureKey.current++;
           setFailures((f) => [
@@ -123,13 +145,48 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       counts === null ? api.resetGpaOverride(code) : api.setGpaOverride(code, counts));
   }, [persist]);
 
+  /** Returns an error message, or null on success. */
+  const afterAuth = useCallback(async (run: () => Promise<{ user: AuthUser }>): Promise<string | null> => {
+    try {
+      const { user: signedIn } = await run();
+      await loadRecord(signedIn);
+      return null;
+    } catch (err) {
+      return err instanceof Error ? err.message : 'Something went wrong';
+    }
+  }, [loadRecord]);
+
+  const signIn = useCallback((username: string, password: string) =>
+    afterAuth(() => api.login(username, password)), [afterAuth]);
+
+  const signUp = useCallback((input: { username: string; displayName: string; password: string; inviteCode: string }) =>
+    afterAuth(() => api.register(input)), [afterAuth]);
+
+  const changePassword = useCallback(async (currentPassword: string, newPassword: string) => {
+    try {
+      const { user: updated } = await api.changePassword(currentPassword, newPassword);
+      setUser(updated);
+      return null;
+    } catch (err) {
+      return err instanceof Error ? err.message : 'Something went wrong';
+    }
+  }, []);
+
+  const signOut = useCallback(() => {
+    void api.logout().catch(() => undefined);
+    setUser(null);
+    setRecord(null);
+    setStatus('unauthenticated');
+  }, []);
+
   const value = useMemo<StoreValue>(() => ({
+    user, signIn, signUp, signOut, changePassword,
     record, status, loadError, failures, failedIds, reload,
     addAttempts, updateAttempt, deleteAttempts, updateProfile, putEnglish, deleteEnglish, setGpaOverride,
     dismissFailure: (key) => setFailures((f) => f.filter((x) => x.key !== key)),
     openCourse: setOpenCode,
     openCode,
-  }), [record, status, loadError, failures, failedIds, reload, addAttempts, updateAttempt, deleteAttempts, updateProfile, putEnglish, deleteEnglish, setGpaOverride, openCode]);
+  }), [user, signIn, signUp, signOut, changePassword, record, status, loadError, failures, failedIds, reload, addAttempts, updateAttempt, deleteAttempts, updateProfile, putEnglish, deleteEnglish, setGpaOverride, openCode]);
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
 }
