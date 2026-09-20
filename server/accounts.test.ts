@@ -184,6 +184,17 @@ describe('admin', () => {
   });
 });
 
+describe('sessions renew while in use', () => {
+  it('extends the expiry of a session that is close to running out', async () => {
+    const token = users.startSession(1);
+    const soon = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
+    db.prepare('UPDATE sessions SET expires_at = ? WHERE token_hash = ?').run(soon, sha256(token));
+    expect((await call('GET', '/auth/me', undefined, `session=${token}`)).status).toBe(200);
+    const after = db.prepare('SELECT expires_at FROM sessions WHERE token_hash = ?').get(sha256(token)) as { expires_at: string };
+    expect(after.expires_at > soon).toBe(true);
+  });
+});
+
 describe('rate limiting', () => {
   it('blocks after ten failed logins from the same address', async () => {
     const headers = { 'x-forwarded-for': '10.0.0.9' };
@@ -192,7 +203,7 @@ describe('rate limiting', () => {
     }
     expect((await call('POST', '/auth/login', { username: 'owner', password: 'wrong' }, undefined, headers)).status).toBe(401);
     expect((await call('POST', '/auth/login', { username: 'owner', password: 'password-1234' }, undefined, headers)).status).toBe(429);
-    // A different address is unaffected.
+    // A different address is unaffected — one person's typos must not lock out everyone else.
     expect((await call('POST', '/auth/login', { username: 'owner', password: 'password-1234' }, undefined, { 'x-forwarded-for': '10.0.0.10' })).status).toBe(200);
   });
 });

@@ -1,6 +1,6 @@
 // Users, sessions and invite codes. Only hashes are stored: never a password, never a live token or code.
 import {
-  hashPassword, newInviteCode, newToken, sessionExpiry, sha256, verifyPassword,
+  hashPassword, newInviteCode, newToken, SESSION_DAYS, sessionExpiry, sha256, verifyPassword,
 } from './auth';
 import type { Db } from './db';
 
@@ -118,9 +118,15 @@ export function createUsers(db: Db) {
       const row = db.prepare("SELECT user_id, expires_at FROM sessions WHERE token_hash = ?")
         .get(sha256(token)) as { user_id: number; expires_at: string } | undefined;
       if (!row) return null;
-      if (row.expires_at <= new Date().toISOString()) {
+      const now = new Date();
+      if (row.expires_at <= now.toISOString()) {
         users.endSession(token);
         return null;
+      }
+      // Sliding window: refresh the expiry once a day of use, so active sessions do not expire mid-term.
+      const renewAt = new Date(now.getTime() + (SESSION_DAYS - 1) * 24 * 60 * 60 * 1000).toISOString();
+      if (row.expires_at < renewAt) {
+        db.prepare('UPDATE sessions SET expires_at = ? WHERE token_hash = ?').run(sessionExpiry(now), sha256(token));
       }
       return users.byId(row.user_id);
     },

@@ -9,6 +9,7 @@ export default defineConfig({
     host: true,
     allowedHosts: ['.ts.net'],
     // API_PORT lets a second instance (e.g. a test run on a scratch database) proxy elsewhere.
-    proxy: { '/api': `http://127.0.0.1:${process.env.API_PORT ?? 5174}` },
+    // xfwd forwards the caller's address, so the API rate-limits per client rather than per proxy.
+    proxy: { '/api': { target: `http://127.0.0.1:${process.env.API_PORT ?? 5174}`, xfwd: true } },
   },
 });

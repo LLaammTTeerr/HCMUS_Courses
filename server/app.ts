@@ -1,3 +1,4 @@
+import { getConnInfo } from '@hono/node-server/conninfo';
 import { Hono } from 'hono';
 import type { Context } from 'hono';
 import { z } from 'zod';
@@ -40,7 +41,19 @@ async function parseBody<T extends z.ZodTypeAny>(c: Context, schema: T): Promise
 const isSecure = (c: Context) =>
   c.req.header('x-forwarded-proto') === 'https' || new URL(c.req.url).protocol === 'https:';
 
-const clientKey = (c: Context) => (c.req.header('x-forwarded-for') ?? 'local').split(',')[0].trim();
+/**
+ * Rate-limit bucket per caller: the proxy header first, then the socket address. Falling back to one
+ * shared key would let a single person's failed logins lock out everyone else.
+ */
+function clientKey(c: Context): string {
+  const forwarded = c.req.header('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0].trim();
+  try {
+    return getConnInfo(c).remote.address ?? 'local';
+  } catch {
+    return 'local';
+  }
+}
 
 export function createApp(db: Db) {
   const repo = createRepo(db);
