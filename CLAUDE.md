@@ -75,7 +75,13 @@ The shared engine must never special-case a program id.
 
 ## Commands
 
-`npm run dev` · `npm test` · `npm run typecheck` · `npm run build && npm start`
+`npm run dev` · `npm test` (Vitest) · `npm run test:e2e` (Playwright) · `npm run test:all` ·
+`npm run typecheck` · `npm run build && npm start`
+
+**End-to-end tests** live in `e2e/` and run against a production build on `.e2e/progress.db`, which the
+global setup deletes first — they never touch `data/progress.db`. The admin account is created from the
+config's `ADMIN_PASSWORD`. Sign in through `helpers.ts`, and call `resetRecord(page)` when a test needs an
+empty record; tests share one database within a run, so never assume the state a previous test left.
 
 ## Ideas not built yet (v1 non-goals)
 

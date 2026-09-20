@@ -7,3 +7,6 @@ coverage/
 .vite/
 *.log
 .DS_Store
+.e2e/
+test-results/
+playwright-report/

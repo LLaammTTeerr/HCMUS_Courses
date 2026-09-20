@@ -41,6 +41,8 @@ Other commands:
 | Command | What it does |
 |---|---|
 | `npm test` | rules engine, program data, and API tests (Vitest) |
+| `npm run test:e2e` | browser tests: sign-in, invites, planner, program switch (Playwright) |
+| `npm run test:all` | both suites |
 | `npm run typecheck` | TypeScript check of the whole project |
 
 Environment variables: `PROGRESS_DB` (database file), `PORT`, `HOST` (default `0.0.0.0`; `127.0.0.1` keeps
