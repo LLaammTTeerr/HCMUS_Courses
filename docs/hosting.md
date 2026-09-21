@@ -1,5 +1,9 @@
 # Hosting: Tailscale only, or public through a Funnel
 
+> **Current setup (since 2026-09-21):** the app runs as a systemd user service
+> (`hcmus-progress.service`, production build, bound to `127.0.0.1:5174`) and is published publicly at
+> **https://g14rice.taile98b1e.ts.net:8443** through a Tailscale Funnel. Sign-in is the only way in.
+
 The app is built to run behind a proxy on the same machine. It trusts `x-forwarded-for` and
 `x-forwarded-proto` **only** from a loopback peer (or when `TRUST_PROXY=1` is set), so a client that
 reaches the server directly cannot fake its address or pretend the connection was HTTPS.
@@ -56,9 +60,24 @@ Set `TRUST_PROXY=1` when the proxy is not on this machine, and make sure it sets
 `x-forwarded-proto`. Without that the app sees the proxy's address for every visitor, which weakens rate
 limiting, and cookies stay non-`Secure`.
 
+## Working on the app while it is served
+
+The service owns port 5174, so `npm run dev` cannot bind the API. Either stop the service first
+(`systemctl --user stop hcmus-progress`), or run the dev pair on other ports:
+
+```bash
+PORT=5175 npx tsx server/index.ts &
+API_PORT=5175 npx vite --port 5176
+```
+
+After changing code, rebuild and restart the service: `npm run build && systemctl --user restart hcmus-progress`.
+
+Useful commands: `systemctl --user status hcmus-progress`, `journalctl --user -u hcmus-progress -f`.
+
 ## Keeping it running
 
-Either keep `npm run dev` in a terminal, or run the production server under systemd:
+The service is installed at `~/.config/systemd/user/hcmus-progress.service` with lingering enabled, so it
+survives logout and reboots. For reference, the unit is:
 
 ```ini
 # ~/.config/systemd/user/hcmus-progress.service
@@ -80,4 +99,12 @@ WantedBy=default.target
 systemctl --user daemon-reload
 systemctl --user enable --now hcmus-progress
 loginctl enable-linger "$USER"     # keeps it running after logout
+```
+
+To take the site off the public internet again (it stays reachable on the tailnet through the same URL
+only while the funnel is on; stop the service to shut it down completely):
+
+```bash
+tailscale funnel --https=8443 off
+systemctl --user stop hcmus-progress     # optional: stop the app as well
 ```
