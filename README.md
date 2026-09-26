@@ -39,6 +39,8 @@ The hosted site is free. Sign-up is invite-only while it's small, so ask the mai
 | **Công nghệ thông tin**, khóa 2025 | CTĐT khóa 2025 | 138 |
 | **Khoa học máy tính**, khóa 2025 | CTĐT khóa 2025 | 138 |
 | **Kỹ thuật phần mềm**, khóa 2025 | CTĐT khóa 2025 | 138 |
+| **Hệ thống thông tin**, khóa 2025 | CTĐT khóa 2025 | 138 |
+| **Trí tuệ nhân tạo**, khóa 2025 | CTĐT khóa 2025 | 138 |
 
 Specializations (chuyên ngành) and graduation options (khóa luận, thực tập tốt nghiệp, thực tập dự án)
 come from each document. Your programme isn't listed? See [Adding a programme](#adding-a-programme) — it's

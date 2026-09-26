@@ -34,6 +34,12 @@ test('invite, register, and the two accounts stay separate', async ({ page }) =>
   expect(theirs.attempts).toHaveLength(0);
   expect(theirs.profile.currentSemester).toBe(1);
   await expect(nav(page, 'Invites')).toHaveCount(0);
+
+  // A new student picks their programme on the welcome screen.
+  await nav(page, 'Dashboard').click();
+  await page.getByLabel('Your programme').selectOption('khmt-2025');
+  await expect(page.locator('.brand')).toContainText('KHMT 2025');
+  expect((await recordOf(page)).profile.programId).toBe('khmt-2025');
   await signOut(page);
 
   // The same code cannot be used twice.
