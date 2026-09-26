@@ -1,8 +1,7 @@
-# APCS Progress: notes for development
+# HCMUS Progress: notes for development
 
-Personal graduation tracker for HCMUS APCS intake 2024. The spec is in
-`docs/superpowers/specs/2026-09-17-apcs-progress-tracker-design.md`, and official sources are in
-`docs/sources/`.
+Graduation tracker and semester planner for HCMUS programmes, hosted at hcmus-courses.lamter.cc.
+Specs are in `docs/superpowers/specs/`; official sources for APCS are in `docs/sources/`.
 
 ## Architecture
 
@@ -53,12 +52,22 @@ module on it, and the pages render `ProgressReport.groups` without knowing the p
 
 **Adding a program**
 
-1. Create `shared/programs/<id>/` with `courses.json` (see the `Course` type: `group`, `requirement`,
-   `countsInCredits`, `countsInGpa`), `meta.json` (`ProgramMeta` + any rule numbers the module needs) and
-   `index.ts` implementing `ProgramModule`.
-2. Register it in `shared/programs/index.ts`.
-3. Add `data.test.ts` asserting the totals printed in the CTĐT, and rule tests for the shapes that are new.
-4. The sidebar program picker shows every registered program; switching keeps all attempts.
+Most programmes follow the standard structure implemented by `shared/programs/_standard/factory.ts`
+(general-education blocks with "all / choose N courses / choose N credits" rules, a foundation block,
+one specialization with compulsory + elective + free-choice credits, graduation options).
+
+1. Transcribe the CTĐT into an extraction JSON (blocks with rules, specializations, courses, optional
+   teaching plan, graduation `options` with `courses` + `pick`). The 2025 PDFs have a mojibake text
+   layer, so read page images; check every block against its printed TỔNG CỘNG.
+2. `node scripts/program-from-extract.mjs <extract.json> <id> "<full name>" "<short name>"` writes
+   `shared/programs/<id>/` (courses.json, structure.json, meta.json, index.ts). Pass
+   `--course-minimums` only if the document prints "≥ N học phần"; the 2025 documents print credits only.
+   Language courses (Anh văn) are listed but never required — the English checklist covers them.
+3. Register it in `shared/programs/index.ts` and add its `config` to `CONFIGS` in
+   `shared/programs/_standard/standard.test.ts`, which checks totals, references, pools and that a
+   complete plan exists for every graduation option.
+
+A programme whose shape differs (APCS 2024) implements `ProgramModule` by hand, with its own tests.
 
 **Program rules live in code, not data** (decided 2026-09-20): each program implements `ProgramModule`.
 The shared engine must never special-case a program id.
@@ -95,4 +104,5 @@ empty record; tests share one database within a run, so never assume the state a
 - GPA target calculator ("what average do I need for Giỏi")
 - prerequisite graph view
 - transcript import from the student portal
-- program selector UI
+- per-specialization graduation pools (the factory uses one project pool for all specializations)
+- prerequisites for the 2025 programmes (their CTĐT does not list any)
