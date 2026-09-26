@@ -49,6 +49,8 @@ export interface GraduationOption {
   note?: string;
   /** Courses that must all be covered for this option. */
   courses: string[];
+  /** "Chọn 01 học phần (04 tín chỉ) từ…": each part needs `count` courses from its list. */
+  pick?: { count: number; courses: string[] }[];
   /** Extra courses that may fill the remaining credits (e.g. a project plus one elective). */
   pool?: string[];
 }
@@ -114,9 +116,15 @@ export function standardProgram(config: StandardProgramConfig): ProgramModule {
     const { states } = ctx;
     const value = (option: GraduationOption) => {
       if (!option.courses.every((code) => isCovered(states.get(code), level))) return 0;
+      let picked = 0;
+      for (const part of option.pick ?? []) {
+        const got = covered(part.courses, states, level).sort((a, b) => b.credits - a.credits).slice(0, part.count);
+        if (got.length < part.count) return 0;
+        picked += sum(got);
+      }
       const base = sum(covered(option.courses, states, level));
       const extra = option.pool ? sum(covered(option.pool, states, level)) : 0;
-      return Math.min(config.graduation.credits, base + extra);
+      return Math.min(config.graduation.credits, base + picked + extra);
     };
     const chosen = gradOption(ctx);
     return chosen ? value(chosen) : Math.max(0, ...config.graduation.options.map(value));
@@ -232,9 +240,8 @@ export function standardProgram(config: StandardProgramConfig): ProgramModule {
 
     if (course.requirement === 'graduation') {
       const option = gradOption(ctx);
-      const allowed = option
-        ? [...option.courses, ...(option.pool ?? [])]
-        : config.graduation.options.flatMap((o) => [...o.courses, ...(o.pool ?? [])]);
+      const reach = (o: GraduationOption) => [...o.courses, ...(o.pick ?? []).flatMap((p) => p.courses), ...(o.pool ?? [])];
+      const allowed = option ? reach(option) : config.graduation.options.flatMap(reach);
       if (!allowed.includes(code)) return null;
       return c.graduation < config.graduation.credits ? { tier: 2, label: 'graduation work' } : null;
     }
@@ -306,7 +313,22 @@ export function standardProgram(config: StandardProgramConfig): ProgramModule {
     }
 
     const option = gradOption(ctx);
-    if (option) list(option.courses).forEach(add);
+    if (option) {
+      list(option.courses).forEach(add);
+      for (const part of option.pick ?? []) {
+        const have = covered(part.courses, states, 'planned').length;
+        list(part.courses).sort(bySuggested).filter((c) => !isCovered_(c.code)).slice(0, Math.max(0, part.count - have)).forEach(add);
+      }
+      // A pool tops the option up to the required credits.
+      let credits = sum([...list(option.courses), ...picked.filter((c) => option.pool?.includes(c.code))]) +
+        sum(covered(option.pool ?? [], states, 'planned'));
+      for (const course of list(option.pool ?? []).sort(bySuggested)) {
+        if (credits >= config.graduation.credits) break;
+        if (isCovered_(course.code) || picked.includes(course)) continue;
+        add(course);
+        credits += course.credits;
+      }
+    }
 
     return picked;
   }
@@ -344,7 +366,8 @@ export function standardProgram(config: StandardProgramConfig): ProgramModule {
     }
     const c = counts(ctx, 'planned');
     const option = gradOption(ctx);
-    if (option && c.graduation > 0 && c.graduation < config.graduation.credits) {
+    const started = option?.courses.some((code) => isCovered(ctx.states.get(code), 'planned'));
+    if (option && started && c.graduation < config.graduation.credits) {
       out.push({ id: 'grad-short', severity: 'warning', link: 'planner',
         message: `Graduation work: ${c.graduation} / ${config.graduation.credits} credits — ${option.label} needs another course from its list` });
     }

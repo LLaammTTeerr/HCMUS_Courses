@@ -72,7 +72,8 @@ describe('CLC rules', () => {
     expect(groups(record(pass(['CSC10251']), { gradTrack: 'thesis' })).grad).toBe(10);
     expect(groups(record(pass(['CSC10252']), { gradTrack: 'internship' })).grad).toBe(10);
     const project = record(pass(['CSC10204']), { specialization: 'networks', gradTrack: 'project' });
-    expect(groups(project).grad).toBe(6);
+    // Phương án 3 needs both parts; the project alone earns nothing yet, and a warning says so.
+    expect(groups(project).grad).toBe(0);
     expect(planWarnings(program, project).map((w) => w.id)).toContain('grad-short');
     expect(groups(record(pass(['CSC10204', 'CSC15201']), { gradTrack: 'project' })).grad).toBe(10);
   });

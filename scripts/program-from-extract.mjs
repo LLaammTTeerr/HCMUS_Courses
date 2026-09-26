@@ -9,9 +9,12 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const [extractPath, id, name, shortName] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const keepCourseMinimums = args.includes('--course-minimums');
+const [extractPath, id, name, shortName] = args.filter((a) => !a.startsWith('--'));
 if (!extractPath || !id || !name || !shortName) {
-  console.error('usage: node scripts/program-from-extract.mjs <extract.json> <id> "<full name>" "<short name>"');
+  console.error('usage: node scripts/program-from-extract.mjs <extract.json> <id> "<full name>" "<short name>" [--course-minimums]');
+  console.error('  --course-minimums  keep minCourses from the extraction (only when the CTĐT prints "≥ N học phần")');
   process.exit(1);
 }
 
@@ -21,6 +24,10 @@ mkdirSync(dir, { recursive: true });
 
 const NOT_IN_CREDITS = new Set(['language', 'pe', 'military']);   // outside the programme total
 const NOT_IN_GPA = new Set(['language', 'pe', 'military']);       // QC1175 Art. 15.1c
+
+// Anh văn 1–4 are waived for students who meet the English standard, so they are listed but never
+// required; the English checklist item covers the standard itself.
+const LANGUAGE = 'language';
 
 const blockOf = new Map();
 for (const block of extract.blocks) {
@@ -36,6 +43,56 @@ const graduation = new Set(
   extract.blocks.find((b) => b.id === 'graduation')?.rules.flatMap((r) => r.courses) ?? [],
 );
 
+const creditOf = new Map(extract.courses.map((c) => [c.code, c.credits]));
+const nameOf = new Map(extract.courses.map((c) => [c.code, c.nameVi]));
+const gradBlock = extract.blocks.find((b) => b.id === 'graduation') ?? null;
+
+/**
+ * Graduation options (phương án): either given by the extraction, or derived from the course list —
+ * each full-credit course is its own option, and the rest form one "project" option made of one course
+ * per credit size (e.g. a 6-credit project plus one 4-credit course).
+ */
+function graduationOptions() {
+  if (!gradBlock) return [];
+  if (Array.isArray(gradBlock.options) && gradBlock.options.length) {
+    return gradBlock.options.map((o) => ({
+      id: o.id, label: o.label, ...(o.note ? { note: o.note } : {}),
+      courses: o.courses ?? [],
+      ...(o.pick?.length ? { pick: o.pick } : o.pool?.length ? { pick: [{ count: 1, courses: o.pool }] } : {}),
+    }));
+  }
+  const full = gradBlock.credits;
+  const all = [...new Set(gradBlock.rules.flatMap((r) => r.courses))];
+  const options = all.filter((code) => creditOf.get(code) === full).map((code) => ({
+    id: /khóa luận/i.test(nameOf.get(code) ?? '') ? 'thesis' : /thực tập tốt nghiệp/i.test(nameOf.get(code) ?? '') ? 'internship' : code.toLowerCase(),
+    label: nameOf.get(code) ?? code,
+    note: `${code} · ${full} credits`,
+    courses: [code],
+  }));
+  const rest = all.filter((code) => creditOf.get(code) !== full);
+  const sizes = [...new Set(rest.map((code) => creditOf.get(code)))].sort((a, b) => b - a);
+  if (sizes.length) {
+    const parts = sizes.map((size) => rest.filter((code) => creditOf.get(code) === size));
+    const fixed = parts.filter((p) => p.length === 1).flat();
+    const pick = parts.filter((p) => p.length > 1).map((courses) => ({ count: 1, courses }));
+    const project = rest.find((code) => /dự án tốt nghiệp/i.test(nameOf.get(code) ?? ''));
+    options.push({
+      id: 'project',
+      label: project ? nameOf.get(project) : 'Graduation project',
+      note: sizes.map((size) => `${size} cr`).join(' + '),
+      courses: fixed,
+      ...(pick.length ? { pick } : {}),
+    });
+  }
+  return options;
+}
+
+const specializations = extract.specializations.map((spec) => ({
+  ...spec,
+  compulsory: { ...spec.compulsory, minCourses: keepCourseMinimums ? (spec.compulsory.minCourses ?? 0) : 0 },
+  elective: { ...spec.elective, minCourses: keepCourseMinimums ? (spec.elective.minCourses ?? 0) : 0 },
+}));
+
 const courses = extract.courses.map((course) => {
   const placement = blockOf.get(course.code);
   const group = placement ? placement.block.label
@@ -43,7 +100,8 @@ const courses = extract.courses.map((course) => {
     : specCompulsory.has(course.code) ? 'Specialization courses'
     : specElective.has(course.code) ? 'Specialization electives'
     : 'Free choice & other courses';
-  const requirement = placement ? (placement.compulsory ? 'compulsory' : 'choose')
+  const requirement = placement?.block.id === LANGUAGE ? 'elective'
+    : placement ? (placement.compulsory ? 'compulsory' : 'choose')
     : graduation.has(course.code) ? 'graduation'
     : specCompulsory.has(course.code) ? 'choose'
     : 'elective';
@@ -73,9 +131,11 @@ courses.sort((a, b) =>
 
 writeFileSync(join(dir, 'courses.json'), `${JSON.stringify({ courses }, null, 1)}\n`);
 writeFileSync(join(dir, 'structure.json'), `${JSON.stringify({
-  blocks: extract.blocks.filter((b) => b.id !== 'graduation'),
-  graduation: extract.blocks.find((b) => b.id === 'graduation') ?? null,
-  specializations: extract.specializations,
+  blocks: extract.blocks.filter((b) => b.id !== 'graduation' && b.id !== LANGUAGE).map((b) => ({
+    id: b.id, label: b.label, credits: b.credits, rules: b.rules,
+  })),
+  graduation: { credits: gradBlock?.credits ?? 10, description: gradBlock?.description ?? '', options: graduationOptions() },
+  specializations,
   teachingPlan: extract.teachingPlan ?? [],
   notes: extract.notes ?? [],
 }, null, 1)}\n`);
@@ -114,7 +174,6 @@ export const meta = metaData.meta as ProgramMeta;
 const courses = coursesData.courses as Course[];
 
 const blocks = structure.blocks as StandardBlock[];
-const graduation = structure.graduation!;
 
 export const config: StandardProgramConfig = {
   meta,
@@ -125,18 +184,12 @@ export const config: StandardProgramConfig = {
     countsInTotal: ['language', 'pe', 'military'].includes(block.id) ? false : undefined,
   })),
   specializations: structure.specializations,
-  graduation: {
-    credits: graduation.credits,
-    options: (graduation.rules ?? []).map((rule: { id?: string; label?: string; courses: string[] }, index: number) => ({
-      id: rule.id ?? \`option\${index + 1}\`,
-      label: rule.label ?? \`Option \${index + 1}\`,
-      courses: rule.courses,
-    })),
-  },
+  graduation: { credits: structure.graduation.credits, options: structure.graduation.options },
 };
 
 export const program = standardProgram(config);
 export default program;
 `);
 
-console.log(`Wrote ${dir}: ${courses.length} courses, ${extract.blocks.length} blocks, ${extract.specializations.length} specializations`);
+console.log(`Wrote ${dir}: ${courses.length} courses, ${extract.blocks.length} blocks, ${specializations.length} specializations, ` +
+  `graduation options: ${graduationOptions().map((o) => o.id).join(', ')}`);

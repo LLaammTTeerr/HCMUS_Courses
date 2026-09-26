@@ -48,7 +48,7 @@ export const config: StandardProgramConfig = {
       { id: 'thesis', label: 'Khóa luận tốt nghiệp', note: 'CSC10251 · 10 credits', courses: ['CSC10251'] },
       { id: 'internship', label: 'Thực tập tốt nghiệp', note: 'CSC10252 · 10 credits', courses: ['CSC10252'] },
       { id: 'project', label: 'Thực tập dự án tốt nghiệp', note: 'CSC10204 (6) + a 4-credit graduation course',
-        courses: ['CSC10204'], pool: graduationPool.filter((c) => c !== 'CSC10204') },
+        courses: ['CSC10204'], pick: [{ count: 1, courses: graduationPool.filter((c) => c !== 'CSC10204') }] },
     ],
   },
 };

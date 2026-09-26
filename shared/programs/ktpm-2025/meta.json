@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "id": "ktpm-2025",
+  "name": "Kỹ thuật phần mềm — khóa tuyển 2025",
+  "shortName": "KTPM 2025",
+  "intakeYear": 2025,
+  "semestersPerYear": 3,
+  "standardSemesters": 12,
+  "maxSemesters": 21,
+  "semesterMin": 14,
+  "semesterMax": 25,
+  "limitCountsExtras": false,
+  "totalCredits": 138,
+  "gradEarliestSemester": 11,
+  "peCourses": [
+   "BAA00021",
+   "BAA00022"
+  ],
+  "militaryCourse": "BAA00030",
+  "englishDefaultValidityYears": 2,
+  "sources": [
+   {
+    "id": "CTDT",
+    "title": "Chương trình đào tạo ngành Kỹ thuật phần mềm, khóa tuyển 2025 (Quyết định số 2848/QĐ-KHTN ngày 19 tháng 09 năm 2025)",
+    "url": "https://hcmus.edu.vn/chuong-trinh-dao-tao-trinh-do-dai-hoc-khoa-2025/"
+   },
+   {
+    "id": "QC1175",
+    "title": "Quy chế đào tạo trình độ đại học (QĐ 1175/QĐ-KHTN, 24/09/2021)",
+    "url": "https://www.ctda.hcmus.edu.vn/vi/goc-sinh-vien/so-tay-sinh-vien/"
+   }
+  ]
+ }
+}

@@ -1,0 +1,401 @@
+{
+ "blocks": [
+  {
+   "id": "political",
+   "label": "Lý luận chính trị – Pháp luật",
+   "credits": 14,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00101",
+      "BAA00102",
+      "BAA00103",
+      "BAA00104",
+      "BAA00003",
+      "BAA00004"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "social",
+   "label": "Khoa học xã hội – Kinh tế – Kỹ năng",
+   "credits": 2,
+   "rules": [
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 2,
+     "courses": [
+      "BAA00005",
+      "BAA00006",
+      "BAA00007"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mathScience",
+   "label": "Toán – Khoa học tự nhiên – Công nghệ – Môi trường",
+   "credits": 36,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "MTH00021",
+      "MTH00022",
+      "MTH00035",
+      "MTH00044",
+      "MTH00045",
+      "MTH00050"
+     ]
+    },
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 4,
+     "courses": [
+      "MTH00051",
+      "MTH00052",
+      "MTH00053"
+     ]
+    },
+    {
+     "type": "chooseCredits",
+     "credits": 6,
+     "courses": [
+      "CHE00001",
+      "CHE00002",
+      "CHE00081",
+      "CHE00082",
+      "BIO00001",
+      "BIO00002",
+      "BIO00081",
+      "BIO00082",
+      "PHY00001",
+      "PHY00002",
+      "PHY00081"
+     ]
+    },
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 2,
+     "courses": [
+      "GEO00002",
+      "ENV00001",
+      "ENV00003"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "informatics",
+   "label": "Tin học",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "CSC00004"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pe",
+   "label": "Giáo dục thể chất",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00021",
+      "BAA00022"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "military",
+   "label": "Giáo dục quốc phòng – an ninh",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00030"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "foundation",
+   "label": "Kiến thức cơ sở ngành",
+   "credits": 38,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "CSC10003",
+      "CSC10004",
+      "CSC10006",
+      "CSC10007",
+      "CSC10008",
+      "CSC10009",
+      "CSC10012",
+      "CSC10014",
+      "CSC13002",
+      "CSC14003"
+     ]
+    }
+   ]
+  }
+ ],
+ "graduation": {
+  "credits": 10,
+  "description": "§7.2.3.1 Chuyên ngành Mạng máy tính và Viễn thông: \"Sinh viên tích lũy tối thiểu 10 tín chỉ, chọn 01 trong 03 phương án sau đây:\" Phương án 1: CSC10251 Khóa luận tốt nghiệp (10 TC). Phương án 2: CSC10252 Thực tập tốt nghiệp (10 TC). Phương án 3: CSC10204 Thực tập dự án tốt nghiệp (6 TC) + \"Chọn 01 học phần (04 tín chỉ) từ các học phần tốt nghiệp sau:\" CSC11111, CSC11112, CSC11119. §7.2.3.2 Chuyên ngành Công nghệ thông tin: \"Sinh viên tích lũy tối thiểu 10 tín chỉ, chọn 01 trong 03 phương án sau đây:\" Phương án 1: CSC10251 (10 TC). Phương án 2: CSC10252 (10 TC). Phương án 3: CSC10204 (6 TC) + \"Chọn 01 học phần (tối thiểu 04 tín chỉ) từ các học phần tốt nghiệp sau:\" CSC10202, CSC10203, CSC13123 (6 TC mỗi học phần) \"hoặc các học phần Kiến thức tốt nghiệp thuộc mục 9.2. PHỤ LỤC 1.2: CÁC HỌC PHẦN TỰ CHỌN TỰ DO – Chuyên ngành Công nghệ thông tin)\".",
+  "options": [
+   {
+    "id": "thesis",
+    "label": "Khóa luận tốt nghiệp",
+    "note": "CSC10251 · 10 credits",
+    "courses": [
+     "CSC10251"
+    ]
+   },
+   {
+    "id": "internship",
+    "label": "Thực tập tốt nghiệp",
+    "note": "CSC10252 · 10 credits",
+    "courses": [
+     "CSC10252"
+    ]
+   },
+   {
+    "id": "project",
+    "label": "Thực tập dự án tốt nghiệp",
+    "note": "6 cr + 4 cr",
+    "courses": [],
+    "pick": [
+     {
+      "count": 1,
+      "courses": [
+       "CSC10204",
+       "CSC10202",
+       "CSC10203",
+       "CSC13123"
+      ]
+     },
+     {
+      "count": 1,
+      "courses": [
+       "CSC11111",
+       "CSC11112",
+       "CSC11119",
+       "CSC12107",
+       "CSC12108",
+       "CSC12111",
+       "CSC13114",
+       "CSC13115",
+       "CSC13116",
+       "CSC13118",
+       "CSC18105",
+       "CSC15012",
+       "CSC16107",
+       "CSC14114",
+       "CSC14116",
+       "CSC15104",
+       "CSC15105",
+       "CSC15106",
+       "CSC16110",
+       "CSC16111",
+       "CSC16112",
+       "CSC17107",
+       "CSC14115"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "specializations": [
+  {
+   "id": "networks",
+   "nameVi": "Mạng máy tính và Viễn thông",
+   "compulsory": {
+    "minCourses": 0,
+    "minCredits": 16,
+    "courses": [
+     "CSC11002",
+     "CSC11003",
+     "CSC11004",
+     "CSC11006",
+     "CSC11007",
+     "CSC15001"
+    ]
+   },
+   "elective": {
+    "minCourses": 0,
+    "minCredits": 8,
+    "courses": [
+     "CSC10107",
+     "CSC11106",
+     "CSC11115",
+     "CSC11116",
+     "CSC11117",
+     "CSC11118",
+     "CSC11120",
+     "CSC15003",
+     "CSC15005"
+    ]
+   },
+   "freeChoiceCredits": 10
+  },
+  {
+   "id": "it",
+   "nameVi": "Công nghệ thông tin",
+   "compulsory": {
+    "minCourses": 0,
+    "minCredits": 16,
+    "courses": [
+     "CSC11004",
+     "CSC15001",
+     "CSC12002",
+     "CSC12004",
+     "CSC13003",
+     "CSC13106",
+     "CSC14004",
+     "CSC14005",
+     "CSC14119",
+     "CSC15004",
+     "CSC15007",
+     "CSC15006",
+     "CSC15011",
+     "CSC15003",
+     "CSC15005",
+     "CSC16004",
+     "CSC16005"
+    ]
+   },
+   "elective": {
+    "minCourses": 0,
+    "minCredits": 8,
+    "courses": [
+     "CSC11003",
+     "CSC11106",
+     "CSC11006",
+     "CSC11117",
+     "CSC12003",
+     "CSC12005",
+     "CSC12105",
+     "CSC17106",
+     "CSC13006",
+     "CSC13008",
+     "CSC13010",
+     "CSC13112",
+     "CSC14101",
+     "CSC14111",
+     "CSC14120",
+     "CSC14117",
+     "CSC14118",
+     "CSC17001",
+     "CSC17104",
+     "CSC15107",
+     "CSC15012",
+     "CSC15002",
+     "CSC15010",
+     "CSC12001",
+     "CSC16003",
+     "CSC16106",
+     "CSC16107",
+     "CSC16109"
+    ]
+   },
+   "freeChoiceCredits": 10
+  }
+ ],
+ "teachingPlan": [
+  {
+   "semester": 1,
+   "codes": [
+    "BAA00021",
+    "ADD00031",
+    "MTH00021",
+    "MTH00045",
+    "CSC00004",
+    "CSC10012"
+   ]
+  },
+  {
+   "semester": 2,
+   "codes": [
+    "BAA00022",
+    "ADD00032",
+    "BAA00004",
+    "MTH00022",
+    "MTH00035",
+    "CHE00001",
+    "CHE00081",
+    "BIO00001",
+    "BIO00081",
+    "PHY00001",
+    "PHY00081",
+    "CSC10004"
+   ]
+  },
+  {
+   "semester": 3,
+   "codes": [
+    "ADD00033",
+    "CHE00002",
+    "CHE00082",
+    "BIO00002",
+    "BIO00082",
+    "PHY00002",
+    "MTH00044",
+    "MTH00050",
+    "CSC10003",
+    "CSC10008",
+    "BAA00030"
+   ]
+  },
+  {
+   "semester": 4,
+   "codes": [
+    "ADD00034",
+    "BAA00101",
+    "BAA00005",
+    "BAA00006",
+    "BAA00007",
+    "MTH00051",
+    "MTH00052",
+    "MTH00053",
+    "CSC10014",
+    "CSC10006",
+    "CSC10009"
+   ]
+  }
+ ],
+ "notes": [
+  "Decision number read from page 1 as an image: 2848/QĐ-KHTN, 19/09/2025. The pdftotext layer garbles it.",
+  "teachingPlan contains semesters 1–4 only. §8.1 (Mạng máy tính và Viễn thông, PDF pp. 18–25) and §8.2 (Công nghệ thông tin, pp. 26–37) list the same course codes for HK1–HK4 and different ones for HK5–HK8. suggestedSemester is set only for the 40 codes placed in HK1–4; every other course is null.",
+  "Both plans place the same compulsory courses in HK5–8: BAA00102, CSC10007, CSC13002 and CSC14003 in HK5; BAA00103 in HK6; BAA00104 in HK7; BAA00003 in HK8. They are left out of teachingPlan under the identical-semesters rule.",
+  "Printed semester totals (TỔNG CỘNG HKn) are 16/21/22/19/15/15/15/15, which add up to 138. They exclude AV/GDTC/GDQP. They do not match the rows listed under each semester. HK3's 22 seems to count the 6-credit natural-science elective a second time (it is already inside HK2's 21; the HK3 note says those courses apply only if the 6 TC was not finished in HK2). HK5 prints 15, but its non-alternative rows alone come to 16 (BAA00102 2 + GEO/ENV choice 2 + CSC10007/CSC13002/CSC14003 12). HK6–HK8 print 15, which no combination of 2-credit BB + 4/6/10-credit TC rows can reach exactly.",
+  "The §8.1 plan lists 9 CSC courses in HK5 and 8 in HK6; the §8.2 plan lists 19 in each of HK5 and HK6. These are menus to choose from, not a fixed load.",
+  "Graduation block: the three phương án are flattened into one chooseCredits(10) rule over the union pool. The flattened rule loses the constraint that phương án 3 is CSC10204 (6) plus one chuyên đề. The pools also differ by specialization. networks: CSC10251 | CSC10252 | CSC10204 + one of {CSC11111, CSC11112, CSC11119} (\"04 tín chỉ\"). it: CSC10251 | CSC10252 | CSC10204 + one of {CSC10202, CSC10203, CSC13123} or any course in Phụ lục 1.2's 'Danh sách học phần thuộc mục 7.2.3.2. Kiến thức tốt nghiệp' (\"tối thiểu 04 tín chỉ\"; that list also includes CSC11111/11112/11119 and 20 courses from HTTT/KTPM/TTNT/KHMT). The verbatim text is in the block's description.",
+  "§8.2 HK7 row 18 and HK8 row 7 (it plan) also say: 'Chọn học phần bất kỳ thuộc mục 7.2.3.1. (bên trên) hoặc mục 7.2.3. của chương trình đào tạo đại học chính quy ngành Hệ thống thông tin/ Kỹ thuật phần mềm/ Khoa học máy tính/ Trí tuệ nhân tạo, khoá tuyển 2025.' Those other programs' courses are not enumerated in this PDF beyond the Phụ lục 1.2 graduation list.",
+  "minCourses (4 and 2) is derived, not printed. The document gives only minimum credits ('tích lũy tối thiểu 16 / 08 tín chỉ'), and every course in all four pools is 4 TC. Each specialization prints TỔNG CỘNG 16 for the compulsory part and 8 for the elective part.",
+  "The compulsory specialization courses are printed with Loại học phần 'TC', not BB. Students pick at least 16 TC from the list (networks: 6 courses; it: 17 courses).",
+  "Elective pools are wider than elective.courses, which holds only the printed §7.2.2.x.2 table. networks (§7.2.2.1.2): 'hoặc từ các học phần Kiến thức tự chọn chuyên ngành thuộc mục 9.1 PHỤ LỤC 1.1'. That appendix's first table (18 rows, 'thuộc mục 7.2.2.1.2') is the 6 compulsory + 9 elective + CSC11111/11112/11119. it (§7.2.2.2.2): 'hoặc từ các học phần trong mục 7.2.2.2.1 vượt quá số tín chỉ yêu cầu của mục đó'. So for both specializations, credits beyond the compulsory minimum count toward the 8.",
+  "Free-choice (tự chọn tự do, 10 TC) pools: networks = Phụ lục 1.1 table 2 (103 courses, PDF pp. 40–43). it = the 7 courses on p. 16 (CSC11114, CSC12112, CSC12113, CSC13119–CSC13122) or Phụ lục 1.2 (110 courses, pp. 44–48). The schema has no field for these pools, so they appear only in courses[].",
+  "§7.1.5 Ngoại ngữ has no 'Loại học phần' column (the Ghi chú cell spans it). type 'BB' for ADD00031–34 comes from the §8 teaching plans.",
+  "In §8.1, CSC10107 Thực tập thực tế is marked 'HP tự chọn chung Học kỳ hè năm 3'.",
+  "BAA00030 has no LT/TH hours printed in §7.1.7. It is 4 TC.",
+  "PDF p. 13: the CSC11120 row is printed faint (grey) but is legible.",
+  "Phụ lục 2 (pp. 50–51, liên thông Đại học – Thạc sỹ) maps 21 undergraduate courses to master's courses (MTH003, MTH058, …, MNC). The master's codes are not part of this curriculum and are excluded. All 21 undergraduate codes are in courses[]. Students may take at most 4 master's courses.",
+  "No English course names are printed (English appears only for the program title), so no nameEn fields.",
+  "Printed page numbering: main body 'Trang x/38' = PDF pp. 1–38; Phụ lục 1.1 = pp. 39–43 (Trang 1–5/5); Phụ lục 1.2 = pp. 44–49 (Trang 1–6/6); Phụ lục 2 = pp. 50–51. Pages 3–7 (objectives/outcomes) were not read beyond what the caller had verified. They contain no course tables."
+ ]
+}

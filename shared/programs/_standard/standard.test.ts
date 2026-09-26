@@ -3,10 +3,15 @@ import { deriveCourseStates } from '../../domain/courseState';
 import { buildContext } from '../../domain/program';
 import type { StudentRecord } from '../../domain/types';
 import { config as clc2026 } from '../clc-2026/index';
+import { config as cntt2025 } from '../cntt-2025/index';
+import { config as khmt2025 } from '../khmt-2025/index';
+import { config as ktpm2025 } from '../ktpm-2025/index';
+import { progressOf } from '../../domain/planner';
+import { suggestedPlanAttempts } from '../../domain/suggestedPlan';
 import { standardProgram, type StandardProgramConfig } from './factory';
 
 /** Every programme built on the factory is checked here — add a new one to this list. */
-const CONFIGS: StandardProgramConfig[] = [clc2026];
+const CONFIGS: StandardProgramConfig[] = [clc2026, cntt2025, khmt2025, ktpm2025];
 
 const emptyRecord = (programId: string, choices: Record<string, string> = {}): StudentRecord => ({
   profile: { programId, currentSemester: 1, choices, militaryCert: false, thesisGpaThreshold: null },
@@ -61,7 +66,11 @@ describe.each(CONFIGS.map((c) => [c.meta.shortName, c] as const))('%s (standard 
 
   it('offers graduation options that can reach the required credits', () => {
     for (const option of config.graduation.options) {
-      const reachable = credits(option.courses) + credits(option.pool ?? []);
+      const picked = (option.pick ?? []).reduce((sum, part) => {
+        const best = part.courses.map((code) => credits([code])).sort((a, b) => b - a).slice(0, part.count);
+        return sum + best.reduce((a, b) => a + b, 0);
+      }, 0);
+      const reachable = credits(option.courses) + picked + credits(option.pool ?? []);
       expect(reachable, option.id).toBeGreaterThanOrEqual(config.graduation.credits);
     }
   });
@@ -79,6 +88,19 @@ describe.each(CONFIGS.map((c) => [c.meta.shortName, c] as const))('%s (standard 
       expect(choice.options.length, choice.id).toBeGreaterThan(0);
       expect(choice.required).toBe(true);
     }
+  });
+
+  it.each(config.graduation.options.map((o) => o.id))('can plan a complete programme (graduation: %s)', (gradTrack) => {
+    const spec = config.specializations[0];
+    const choices: Record<string, string> = { gradTrack };
+    if (config.specializations.length > 1) choices.specialization = spec.id;
+    const base = emptyRecord(config.meta.id, choices);
+    const plan = suggestedPlanAttempts(program, base);
+    const withPlan: StudentRecord = { ...base, attempts: plan.map((a, i) => ({ ...a, id: i + 1 })) };
+    const report = progressOf(program, withPlan);
+    const short = report.groups.filter((g) => g.planned < g.required).map((g) => `${g.id} ${g.planned}/${g.required}`);
+    expect(report.satisfied.planned, short.join(', ')).toBe(true);
+    expect(report.total.planned).toBeGreaterThanOrEqual(config.meta.totalCredits);
   });
 
   it('keeps semesters of the suggested plan inside the programme length', () => {

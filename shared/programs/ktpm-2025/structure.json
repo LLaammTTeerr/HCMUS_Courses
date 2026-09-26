@@ -1,0 +1,385 @@
+{
+ "blocks": [
+  {
+   "id": "political",
+   "label": "Lý luận chính trị – Pháp luật",
+   "credits": 14,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00101",
+      "BAA00102",
+      "BAA00103",
+      "BAA00104",
+      "BAA00003",
+      "BAA00004"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "social",
+   "label": "Khoa học xã hội – Kinh tế – Kỹ năng",
+   "credits": 2,
+   "rules": [
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 2,
+     "courses": [
+      "BAA00005",
+      "BAA00006",
+      "BAA00007"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mathScience",
+   "label": "Toán – Khoa học tự nhiên – Công nghệ – Môi trường",
+   "credits": 36,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "MTH00021",
+      "MTH00022",
+      "MTH00035",
+      "MTH00044",
+      "MTH00045",
+      "MTH00050"
+     ]
+    },
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 4,
+     "courses": [
+      "MTH00051",
+      "MTH00052",
+      "MTH00053"
+     ]
+    },
+    {
+     "type": "chooseCredits",
+     "credits": 6,
+     "courses": [
+      "CHE00001",
+      "CHE00002",
+      "CHE00081",
+      "CHE00082",
+      "BIO00001",
+      "BIO00002",
+      "BIO00081",
+      "BIO00082",
+      "PHY00001",
+      "PHY00002",
+      "PHY00081"
+     ]
+    },
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 2,
+     "courses": [
+      "GEO00002",
+      "ENV00001",
+      "ENV00003"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "informatics",
+   "label": "Tin học",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "CSC00004"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pe",
+   "label": "Giáo dục thể chất",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00021",
+      "BAA00022"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "military",
+   "label": "Giáo dục quốc phòng – an ninh",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00030"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "foundation",
+   "label": "Kiến thức cơ sở ngành",
+   "credits": 38,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "CSC10003",
+      "CSC10004",
+      "CSC10006",
+      "CSC10007",
+      "CSC10008",
+      "CSC10009",
+      "CSC10012",
+      "CSC10014",
+      "CSC13002",
+      "CSC14003"
+     ]
+    }
+   ]
+  }
+ ],
+ "graduation": {
+  "credits": 10,
+  "description": "§7.2.4 Kiến thức tốt nghiệp: \"Sinh viên tích lũy tối thiểu 10 tín chỉ, chọn 01 trong 03 phương án sau đây:\" Phương án 1: CSC10251 Khóa luận tốt nghiệp (10 TC). Phương án 2: CSC10252 Thực tập tốt nghiệp (10 TC). Phương án 3: CSC10204 Thực tập dự án tốt nghiệp (6 TC) và \"Chọn 01 học phần (04 tín chỉ) từ các học phần tốt nghiệp sau:\" CSC13114 Phát triển ứng dụng web nâng cao, CSC13115 Các công nghệ mới trong phát triển phần mềm, CSC13116 Đồ án Công nghệ phần mềm (ghi chú: Capstone), CSC13118 Phát triển ứng dụng cho thiết bị di động nâng cao (mỗi học phần 4 TC). TỔNG CỘNG: 10.",
+  "options": [
+   {
+    "id": "thesis",
+    "label": "Khóa luận tốt nghiệp",
+    "courses": [
+     "CSC10251"
+    ]
+   },
+   {
+    "id": "internship",
+    "label": "Thực tập tốt nghiệp",
+    "courses": [
+     "CSC10252"
+    ]
+   },
+   {
+    "id": "project",
+    "label": "Thực tập dự án tốt nghiệp",
+    "note": "CSC10204 (6 TC) + chọn 01 học phần 04 TC",
+    "courses": [
+     "CSC10204"
+    ],
+    "pick": [
+     {
+      "count": 1,
+      "courses": [
+       "CSC13114",
+       "CSC13115",
+       "CSC13116",
+       "CSC13118"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "specializations": [
+  {
+   "id": "ktpm",
+   "nameVi": "Kỹ thuật phần mềm",
+   "compulsory": {
+    "minCourses": 0,
+    "minCredits": 16,
+    "courses": [
+     "CSC13003",
+     "CSC13005",
+     "CSC13006",
+     "CSC13007",
+     "CSC13008",
+     "CSC13009",
+     "CSC13010",
+     "CSC13106",
+     "CSC13112"
+    ]
+   },
+   "elective": {
+    "minCourses": 0,
+    "minCredits": 8,
+    "courses": [
+     "CSC10121",
+     "CSC10102",
+     "CSC10103",
+     "CSC10105",
+     "CSC10107",
+     "CSC13001",
+     "CSC13101",
+     "CSC13102",
+     "CSC13103",
+     "CSC13107",
+     "CSC13117",
+     "CSC11007",
+     "CSC14005",
+     "CSC16106",
+     "CSC18106",
+     "CSC16115"
+    ]
+   },
+   "freeChoiceCredits": 10
+  }
+ ],
+ "teachingPlan": [
+  {
+   "semester": 1,
+   "codes": [
+    "BAA00021",
+    "ADD00031",
+    "MTH00021",
+    "MTH00045",
+    "CSC00004",
+    "CSC10012"
+   ]
+  },
+  {
+   "semester": 2,
+   "codes": [
+    "BAA00022",
+    "ADD00032",
+    "BAA00004",
+    "MTH00022",
+    "MTH00035",
+    "CHE00001",
+    "CHE00081",
+    "BIO00001",
+    "BIO00081",
+    "PHY00001",
+    "PHY00081",
+    "CSC10004"
+   ]
+  },
+  {
+   "semester": 3,
+   "codes": [
+    "ADD00033",
+    "CHE00002",
+    "CHE00082",
+    "BIO00002",
+    "BIO00082",
+    "PHY00002",
+    "MTH00044",
+    "MTH00050",
+    "CSC10003",
+    "CSC10008",
+    "BAA00030"
+   ]
+  },
+  {
+   "semester": 4,
+   "codes": [
+    "ADD00034",
+    "BAA00101",
+    "BAA00005",
+    "BAA00006",
+    "BAA00007",
+    "MTH00051",
+    "MTH00052",
+    "MTH00053",
+    "CSC10014",
+    "CSC10006",
+    "CSC10009",
+    "CSC10121",
+    "CSC13102"
+   ]
+  },
+  {
+   "semester": 5,
+   "codes": [
+    "BAA00102",
+    "GEO00002",
+    "ENV00001",
+    "ENV00003",
+    "CSC10007",
+    "CSC13002",
+    "CSC10105",
+    "CSC13008",
+    "CSC13009",
+    "CSC13001"
+   ]
+  },
+  {
+   "semester": 6,
+   "codes": [
+    "BAA00103",
+    "CSC14003",
+    "CSC10102",
+    "CSC10103",
+    "CSC10107",
+    "CSC13005",
+    "CSC13010",
+    "CSC11007",
+    "CSC14005"
+   ]
+  },
+  {
+   "semester": 7,
+   "codes": [
+    "BAA00104",
+    "CSC13003",
+    "CSC13006",
+    "CSC13007",
+    "CSC13106",
+    "CSC13112",
+    "CSC13103",
+    "CSC13107",
+    "CSC16106",
+    "CSC10251",
+    "CSC10252",
+    "CSC10204",
+    "CSC13114",
+    "CSC13118"
+   ]
+  },
+  {
+   "semester": 8,
+   "codes": [
+    "BAA00003",
+    "CSC13101",
+    "CSC13117",
+    "CSC18106",
+    "CSC16115",
+    "CSC10251",
+    "CSC10252",
+    "CSC10204",
+    "CSC13115",
+    "CSC13116"
+   ]
+  }
+ ],
+ "notes": [
+  "Decision number: the text layer reads 2818, but the page-1 image (checked at 400 DPI) clearly prints 2848/QĐ-KHTN ngày 19 tháng 09 năm 2025. 2848 is used.",
+  "This program has NO specializations. §7.2.2 is a single 'Kiến thức ngành/ chuyên ngành' block (34 TC = 16 + 8 + 10), so 'specializations' has one entry, id 'ktpm', named after the ngành.",
+  "§7.2.2.1 is titled 'Kiến thức bắt buộc ngành/ chuyên ngành' but every course in it is printed with Loại học phần TC, and the rule is 'tích lũy tối thiểu 16 tín chỉ, được chọn trong danh sách' (a pool of 9 × 4 TC = 36 TC). The printed TC types are kept.",
+  "minCourses is null for both pools because the document states only credit minimums (16 TC, 08 TC), not course counts. All compulsory-pool courses are 4 TC, so 16 TC means exactly 4 courses. The elective pool contains 2 TC and 3 TC courses, so 8 TC is not necessarily 2 courses.",
+  "§7.2.2.2 also accepts courses from §7.2.2.1 'vượt quá số tín chỉ yêu cầu của mục đó' (credits beyond its 16 TC).",
+  "§7.2.3 free choice (10 TC): 'Nếu tổng số tín chỉ tích lũy từ các học phần ở mục 7.2.2.1 và 7.2.2.2 chưa đạt 34 tín chỉ, sinh viên chọn thêm các học phần trong 9. PHỤ LỤC 1 ...'. Phụ lục 1 (PDF pages 25-29) lists 104 courses and includes every §7.2.2.1/§7.2.2.2 course and the four 4-TC graduation courses, so extra ngành courses can fill it. freeChoiceCredits: 10 is what remains of the 34 TC, not an independent requirement.",
+  "EXTRA KEY: top-level 'freeChoicePool' lists all 104 Phụ lục 1 codes in printed order. The schema had no place for this list. Drop it if unwanted; every code is also in 'courses'.",
+  "EXTRA KEYS: blocks language/pe/military carry 'countsInTotal': false and a 'note'. The graduation block carries 'options' in the factory GraduationOption shape (thesis / internship / project + pool). Its 'rules' uses the closest legal type (chooseCredits 10 over all 7 graduation courses). That rule over-accepts, for example three 4-TC courses (12 TC), so the exact rule is in 'description' and 'options'.",
+  "Ngoại ngữ ADD00031–34: the §7.1.5 table prints no Loại học phần column. Type 'BB' comes from the §8 teaching plan, which prints BB. Block TỔNG CỘNG is 12. It counts toward neither GPA nor accumulated credits.",
+  "GDTC (BAA00021/22, 4 TC) and GDQP-AN (BAA00030, 4 TC): counted in accumulated credits but not GPA, and excluded from the 138 of §3.",
+  "Teaching plan (§8): a single plan with no per-specialization split. CSC10251, CSC10252 and CSC10204 are listed in both HK7 and HK8. suggestedSemester uses the first occurrence (7). CSC13114/CSC13118 are listed in HK7 and CSC13115/CSC13116 in HK8.",
+  "Teaching plan typo: the total row closing HK7 (PDF page 22, printed rotated) reads 'TỔNG CỘNG HK5' with value 15. It is the HK7 total.",
+  "Per-semester printed totals HK1–HK8 = 16, 21, 22, 19, 15, 15, 15, 15. They sum to 138 = §3. They are planned loads, not row sums, because semesters list alternative electives. HK1–HK4 reconcile exactly with compulsory courses plus required choices: HK1-2 exclude AV/Thể dục, HK3 excludes AV/GDQP, HK4 excludes AV and also the TC rows CSC10121/CSC13102. HK5–HK8 do not reconcile as simple sums.",
+  "Semester notes: CSC10121 'HP tự chọn chung Học kỳ hè năm 2'. CSC10103 and CSC10107 'HP tự chọn chung Học kỳ hè năm 3'. CSC10105 and CSC10102 'HP tự chọn chung'.",
+  "Phụ lục 2 (Danh sách học phần Chương trình liên thông môn học đại học – thạc sỹ) is referenced in §10 as attached but is NOT in this 29-page PDF (24 main pages + 5 pages of Phụ lục 1).",
+  "No course has an English name printed. nameEn is omitted everywhere.",
+  "All 29 pages were read as images. Pages 2–7 are PO/ELO/career text with no course data. No page was unreadable."
+ ]
+}
