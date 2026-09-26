@@ -34,17 +34,17 @@ const totalOf = (r: StudentRecord) => progressOf(program, r).total.earned;
 
 describe('CLC rules', () => {
   it('counts a choose-1-of-3 group only once', () => {
-    const one = record(pass(['BAA00005']));
-    const two = record(pass(['BAA00005', 'BAA00006']));
+    const one = record(pass(['BAA00005']), { specialization: 'networks' });
+    const two = record(pass(['BAA00005', 'BAA00006']), { specialization: 'networks' });
     expect(groups(one).social).toBe(2);
     expect(groups(two).social).toBe(2);
-    // The second course is not wasted: it falls into free choice.
+    // The second course is not wasted: it falls into free choice (part of the 34-credit block).
     expect(groups(two).free).toBe(2);
   });
 
   it('caps the science electives at 8 credits and moves the surplus to free choice', () => {
-    const r = record(pass(['PHY00005', 'PHY00007', 'GEO00002']));   // 4 + 4 + 2
-    expect(groups(r).science).toBe(8);
+    const r = record(pass(['PHY00005', 'PHY00007', 'GEO00002']), { specialization: 'networks' });   // 4 + 4 + 2
+    expect(groups(r).mathScience).toBe(8);   // the science rule inside the maths & science block
     expect(groups(r).free).toBe(2);
     expect(totalOf(r)).toBe(10);
   });
@@ -71,9 +71,9 @@ describe('CLC rules', () => {
   it('counts each graduation option and warns when the project is short', () => {
     expect(groups(record(pass(['CSC10251']), { gradTrack: 'thesis' })).grad).toBe(10);
     expect(groups(record(pass(['CSC10252']), { gradTrack: 'internship' })).grad).toBe(10);
-    const project = record(pass(['CSC10204']), { gradTrack: 'project' });
+    const project = record(pass(['CSC10204']), { specialization: 'networks', gradTrack: 'project' });
     expect(groups(project).grad).toBe(6);
-    expect(planWarnings(program, project).map((w) => w.id)).toContain('grad-project-short');
+    expect(planWarnings(program, project).map((w) => w.id)).toContain('grad-short');
     expect(groups(record(pass(['CSC10204', 'CSC15201']), { gradTrack: 'project' })).grad).toBe(10);
   });
 
