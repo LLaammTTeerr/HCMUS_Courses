@@ -1,0 +1,397 @@
+{
+ "blocks": [
+  {
+   "id": "political",
+   "label": "Lý luận chính trị - Pháp luật",
+   "credits": 14,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00101",
+      "BAA00102",
+      "BAA00103",
+      "BAA00104",
+      "BAA00003",
+      "BAA00004"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "social",
+   "label": "Khoa học xã hội – Kinh tế - Kỹ năng",
+   "credits": 2,
+   "rules": [
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 2,
+     "courses": [
+      "BAA00005",
+      "BAA00006",
+      "BAA00008"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mathScience",
+   "label": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "credits": 41,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "MTH00010",
+      "MTH00011",
+      "MTH00019",
+      "MTH00013",
+      "MTH00014",
+      "MTH00034",
+      "MTH00088",
+      "MTH00043",
+      "MTH00042",
+      "MTH00023",
+      "MTH00024",
+      "MTH00055"
+     ]
+    },
+    {
+     "type": "chooseCredits",
+     "credits": 2,
+     "courses": [
+      "ENV00001",
+      "ENV00003",
+      "GEO00002"
+     ]
+    },
+    {
+     "type": "chooseCredits",
+     "credits": 4,
+     "courses": [
+      "CHE00001",
+      "CHE00002",
+      "CHE00081",
+      "CHE00082",
+      "BIO00001",
+      "BIO00002",
+      "BIO00081",
+      "BIO00082",
+      "PHY00001",
+      "PHY00002",
+      "PHY00081"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "informatics",
+   "label": "Tin học",
+   "credits": 3,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "CSC00003"
+     ]
+    }
+   ],
+   "countsInTotal": false
+  },
+  {
+   "id": "pe",
+   "label": "Giáo dục thể chất",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00021",
+      "BAA00022"
+     ]
+    }
+   ],
+   "countsInTotal": false
+  },
+  {
+   "id": "military",
+   "label": "Giáo dục quốc phòng – An ninh",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00030"
+     ]
+    }
+   ],
+   "countsInTotal": false
+  },
+  {
+   "id": "foundation",
+   "label": "Kiến thức cơ sở ngành",
+   "credits": 34,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "MTH10441",
+      "MTH10442",
+      "MTH10405",
+      "MTH10006",
+      "MTH10605",
+      "MTH10407",
+      "MTH10607",
+      "MTH10312",
+      "MTH10005"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "specCore",
+   "label": "Kiến thức ngành — bắt buộc",
+   "credits": 23,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "MTH10318",
+      "MTH10358",
+      "MTH10628",
+      "MTH10344"
+     ]
+    },
+    {
+     "type": "chooseCourses",
+     "count": 2,
+     "credits": 8,
+     "courses": [
+      "MTH10606",
+      "MTH10629",
+      "MTH10353"
+     ]
+    }
+   ]
+  }
+ ],
+ "graduation": {
+  "credits": 10,
+  "description": "Khối kiến thức tốt nghiệp bao gồm 10 tín chỉ. Sinh viên chọn 1 trong 2 phương án theo quy định sau. a. Phương án 1: Sinh viên làm khóa luận tốt nghiệp 10 tín chỉ. b. Phương án 2: Sinh viên bắt buộc làm Đồ án tốt nghiệp (06 tín chỉ) và chọn học 04 tín chỉ tự chọn được chỉ định trong danh sách sau, để tích lũy đủ 10 tín chỉ. [Ghi chú của bảng: \"Chọn tối thiểu 04 tín chỉ\" trong MTH10636, MTH10637, MTH10638.]",
+  "options": [
+   {
+    "id": "thesis",
+    "label": "Khóa luận tốt nghiệp",
+    "note": "MTH10595 · 10 credits",
+    "courses": [
+     "MTH10595"
+    ]
+   },
+   {
+    "id": "project",
+    "label": "Đồ án tốt nghiệp",
+    "note": "MTH10597 (6) + 2 of MTH10636/MTH10637/MTH10638 (2 each)",
+    "courses": [
+     "MTH10597"
+    ],
+    "pick": [
+     {
+      "count": 2,
+      "courses": [
+       "MTH10636",
+       "MTH10637",
+       "MTH10638"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "specializations": [
+  {
+   "id": "data-science",
+   "nameVi": "Khoa học dữ liệu",
+   "compulsory": {
+    "minCourses": 0,
+    "minCredits": 0,
+    "courses": []
+   },
+   "elective": {
+    "minCourses": 0,
+    "minCredits": 12,
+    "courses": [
+     "MTH10566",
+     "MTH10311",
+     "MTH10624",
+     "MTH10356",
+     "MTH10623",
+     "MTH10359",
+     "MTH10354",
+     "MTH10619",
+     "MTH10449",
+     "MTH10630",
+     "MTH10631",
+     "MTH10632",
+     "MTH10633",
+     "MTH10634",
+     "MTH10635",
+     "MTH10620",
+     "MTH10549"
+    ]
+   },
+   "freeChoiceCredits": 0
+  }
+ ],
+ "teachingPlan": [
+  {
+   "semester": 1,
+   "codes": [
+    "ADD00031",
+    "BAA00021",
+    "CSC00003",
+    "MTH00010",
+    "MTH00011",
+    "MTH00034",
+    "MTH00043",
+    "MTH00055",
+    "MTH00088"
+   ]
+  },
+  {
+   "semester": 2,
+   "codes": [
+    "ADD00032",
+    "BAA00022",
+    "BAA00101",
+    "BAA00004",
+    "MTH00013",
+    "MTH10405",
+    "MTH10441",
+    "BAA00005",
+    "BAA00006",
+    "BAA00008",
+    "ENV00001",
+    "ENV00003",
+    "GEO00002"
+   ]
+  },
+  {
+   "semester": 3,
+   "codes": [
+    "ADD00033",
+    "BAA00030",
+    "BAA00102",
+    "MTH00014",
+    "MTH00019",
+    "MTH00042",
+    "MTH10605",
+    "CHE00001",
+    "CHE00002",
+    "CHE00081",
+    "CHE00082",
+    "BIO00001",
+    "BIO00002",
+    "BIO00081",
+    "BIO00082",
+    "PHY00001",
+    "PHY00002",
+    "PHY00081"
+   ]
+  },
+  {
+   "semester": 4,
+   "codes": [
+    "ADD00034",
+    "BAA00103",
+    "MTH00023",
+    "MTH00024",
+    "MTH10006",
+    "MTH10312",
+    "MTH10407",
+    "MTH10607",
+    "MTH10449"
+   ]
+  },
+  {
+   "semester": 5,
+   "codes": [
+    "BAA00104",
+    "MTH10005",
+    "MTH10318",
+    "MTH10344",
+    "MTH10442",
+    "MTH10628",
+    "MTH10311",
+    "MTH10566"
+   ]
+  },
+  {
+   "semester": 6,
+   "codes": [
+    "BAA00003",
+    "MTH10358",
+    "MTH10353",
+    "MTH10359",
+    "MTH10619",
+    "MTH10620",
+    "MTH10629",
+    "MTH10633",
+    "MTH10634"
+   ]
+  },
+  {
+   "semester": 7,
+   "codes": [
+    "MTH10595",
+    "MTH10597",
+    "MTH10354",
+    "MTH10356",
+    "MTH10549",
+    "MTH10606",
+    "MTH10620",
+    "MTH10623",
+    "MTH10624",
+    "MTH10630",
+    "MTH10631",
+    "MTH10632",
+    "MTH10635"
+   ]
+  },
+  {
+   "semester": 8,
+   "codes": [
+    "MTH10595",
+    "MTH10597",
+    "MTH10636",
+    "MTH10637",
+    "MTH10638"
+   ]
+  }
+ ],
+ "notes": [
+  "NGUỒN: khdl.pdf, 43 trang PDF (bản scan Canon). Trang PDF 1-25 là văn bản chính (chân trang \"Chương trình đào tạo ngành Khoa học dữ liệu khóa tuyển 2025 - trang x/25\"); trang PDF 26-43 là PHỤ LỤC 1 \"DANH MỤC CÁC HỌC PHẦN TỰ CHỌN\" (đánh số riêng 1-18). Đã đọc cả 43 trang dưới dạng ảnh, không dùng text layer (mojibake). Không có trang nào không đọc được; các vết đỏ ở lề là dấu mộc giáp lai. Trang 2-4 là bảng mục tiêu/CĐR, không có học phần. Mã ADD00022/ADD00032 (xem dưới) đã được kiểm tra lại ở 300 dpi.",
+  "QUYẾT ĐỊNH (trang 1): \"Ban hành kèm theo Quyết định số 1732/QĐ-KHTN ngày 11 tháng 6 năm 2026 của Hiệu trưởng Trường Đại học Khoa học tự nhiên, ĐHQG-HCM\". Mã ngành 7460108; văn bằng \"Cử nhân Khoa học dữ liệu\" / \"Bachelor of Data Science\"; 4 năm.",
+  "TỔNG TÍN CHỈ = 136 (không phải 138). §3 (trang 5): \"136 tín chỉ (không bao gồm các học phần Giáo dục quốc phòng – An ninh, Giáo dục thể chất, Tin học cơ sở và Ngoại ngữ)\". Khác CNTT: ở đây TIN HỌC CƠ SỞ (CSC00003) cũng nằm NGOÀI 136. §7.1.4 in \"Tin học (không tính vào điểm trung bình, tính vào số tín chỉ tích lũy)\", nhưng §3, §6 và §7.1 đều loại nó khỏi 136/57. Lưu ý cho scripts/program-from-extract.mjs: NOT_IN_CREDITS chỉ gồm language/pe/military, nên khối 'informatics' sẽ bị cộng vào tổng nếu không thêm nó vào danh sách này.",
+  "§6 (trang 6), bảng cấu trúc: Giáo dục đại cương BB 49 + TC 8 = 57; Cơ sở ngành 34 + 0 = 34; Chuyên ngành 23 + 12 = 35; Tốt nghiệp 10 + 0 = 10. Cộng lại 57+34+35+10 = 136 = §3. ĐÃ KIỂM TRA: đại cương BB 49 = 14 (LLCT) + 35 (Toán); TC 8 = 2 (KHXH) + 2 (Môi trường) + 4 (KHTN); §7.1 \"Tích lũy tổng cộng 57 TC\"; §7.1.3 in 41 = 35 + 2 + 4.",
+  "KHÔNG CÓ CHUYÊN NGÀNH: ngành này không chia chuyên ngành. Mục \"specializations\" có đúng một phần tử id \"data-science\" (nameVi = tên ngành \"Khoa học dữ liệu\") để chứa §7.2.2 \"Kiến thức chuyên ngành\" (a. bắt buộc, b. tự chọn).",
+  "CHUYÊN NGÀNH BẮT BUỘC (§7.2.2a, trang 11): \"Sinh viên bắt buộc phải tích lũy ít nhất 23 tín chỉ trong danh sách sau đây\"; TỔNG CỘNG 23. Bảng trộn BB và TC: MTH10318 (4), MTH10358 (4), MTH10628 (3), MTH10344 (4) in BB, cộng 15 TC; MTH10606, MTH10629, MTH10353 (mỗi học phần 4 TC) in TC, ghi chú \"Chọn tối thiểu 02 học phần\". 15 + 2×4 = 23, khớp. Không in số học phần tối thiểu cho cả bảng nên compulsory.minCourses = null (thực chất là 4 học phần BB + tối thiểu 2 trong 3 học phần TC). Schema không có chỗ cho quy tắc lồng này.",
+  "CHUYÊN NGÀNH TỰ CHỌN (§7.2.2b, trang 11-12): \"tích lũy ít nhất 12 tín chỉ tự chọn chuyên ngành được chỉ định trong danh sách sau\"; TỔNG CỘNG 12; danh sách gồm 17 học phần × 4 TC, tất cả in TC. Không in số học phần tối thiểu nên elective.minCourses = null (12 TC ứng với 3 học phần). Tổng là mức tối thiểu, không phải tổng cả danh sách, nên không tính là sai lệch.",
+  "TỰ CHỌN TỰ DO: freeChoiceCredits = 0 vì §6 in Chuyên ngành 35 = 23 BB + 12 TC, không có khoản tín chỉ tự do riêng. Trang 12 in thêm: \"Ngoài ra, khi đã tích lũy đủ 12 tín chỉ tự chọn chuyên ngành trong danh sách chỉ định, thì sinh viên có thể tự chọn thêm các học phần của các ngành: Toán học, Toán tin, Toán ứng dụng và Thống kê được liệt kê tại Phụ lục 1 (không chọn các học phần đã tích lũy).\" Đây là quyền chọn thêm, tài liệu không in số tín chỉ bắt buộc cho phần này.",
+  "PHỤ LỤC 1 (trang PDF 26-43): 165 học phần trong 9 nhóm lĩnh vực, khớp dòng in cuối \"Tổng cộng: 165 học phần thuộc 9 nhóm lĩnh vực\". Số dòng từng nhóm đọc được khớp với số in ở tiêu đề: 19/17/23/15/16/9/26/26/14. Phụ lục ghi rõ các nhóm \"chỉ mang tính tham khảo theo lĩnh vực chuyên môn, không thay thế cho phân loại Bắt buộc/Tự chọn của từng chuyên ngành\". Có 30 học phần trùng với §7, 135 học phần chỉ có trong phụ lục. Cả 135 đều được đưa vào \"courses\" với type = null (phụ lục không có cột LOẠI HỌC PHẦN BB/TC, chỉ có 4 cột phân loại theo ngành/chuyên ngành: TH, TT, TUD, TK, KHDL…) và suggestedSemester = null. Chúng không nằm trong rule nào, nên script sẽ xếp vào nhóm \"Free choice & other courses\".",
+  "ĐỐI CHIẾU PHỤ LỤC VỚI §7: các nhãn KHDL trong phụ lục khớp §7. Tự chọn chuyên ngành KHDL: MTH10566, MTH10619, MTH10449, MTH10311, MTH10354, MTH10356, MTH10359, MTH10623, MTH10624, MTH10630-MTH10635. Bắt buộc chuyên ngành KHDL: MTH10318, MTH10344, MTH10353, MTH10358, MTH10606, MTH10628, MTH10629. Bắt buộc cơ sở ngành KHDL: MTH10005, MTH10006, MTH10312, MTH10405, MTH10407, MTH10442, MTH10605. Chênh lệch nhỏ: MTH10607 (cơ sở ngành theo §7.2.1) không có nhãn KHDL trong phụ lục; MTH10441 không có trong phụ lục; MTH10620 và MTH10549 (tự chọn chuyên ngành §7.2.2b) không có trong phụ lục. Mọi phân loại trong JSON theo §7.",
+  "KHÁC BIỆT TÊN: MTH10607 in \"Phương pháp số cho khoa học dữ liệu\" ở §7.2.1 và §8, nhưng phụ lục in \"Phương pháp số cho Khoa học dữ liệu\"; JSON dùng tên ở §7. Hai mã khác nhau cùng tên \"Hệ điều hành Unix\": MTH10005 (3 TC, cơ sở ngành KHDL) và MTH10313 (4 TC, chỉ có trong phụ lục, nhóm 7). Cả hai được giữ riêng.",
+  "MÂU THUẪN MÃ ANH VĂN 2: §7.1.5 (trang 9) in ADD00032 \"Anh văn 2\"; kế hoạch giảng dạy §8 học kỳ 2 (trang 15) in ADD00022 \"Anh văn 2\". Cả hai đều đã kiểm tra lại ở 300 dpi và in đúng như vậy. \"courses\" chỉ có ADD00032 (theo §7), và teachingPlan HK2 cũng dùng ADD00032 để mọi mã tham chiếu đều có trong \"courses\". ADD00022 nhiều khả năng là lỗi đánh máy, nhưng tài liệu có in mã này.",
+  "NGOẠI NGỮ (§7.1.5): \"không tính vào điểm trung bình và tín chỉ tích lũy\"; ADD00031-ADD00034, mỗi học phần 3 TC, TỔNG CỘNG 12. Bảng này KHÔNG có cột Loại học phần; ghi chú: \"SV đạt chuẩn ngoại ngữ đầu ra theo quy định hiện hành thì không đăng ký học các học phần Anh văn\". Trong §8, cột loại in \"(*)\" = \"Theo quy định tại mục 7.1.5\". Vì vậy type = null cho 4 học phần này.",
+  "GDTC (§7.1.6: BAA00021, BAA00022, mỗi học phần 2 TC, BB, TỔNG 4) và GDQP-AN (§7.1.7: BAA00030, 4 TC, BB) in \"không tính vào điểm trung bình, tính vào số tín chỉ tích lũy\", và đều nằm ngoài 136. BAA00030 để trống các ô số tiết LT/TH/BT. Trong §8 (HK3), cột loại của nó in \"(**)\" = \"Học vào học kỳ hè\"; JSON giữ type BB theo §7.1.7.",
+  "TOÁN (§7.1.3a, trang 7-8): 12 học phần đều BB, cộng đúng 35. Cả Giải tích 1A/2A/3A (MTH00010/MTH00019/MTH00014) lẫn Vi tích phân 1A/2A (MTH00011/MTH00013) đều bắt buộc. Trông bất thường nhưng đúng như bản in, và §8 xếp cả hai loại (HK1: MTH00010 và MTH00011; HK2: MTH00013; HK3: MTH00014 và MTH00019).",
+  "CHỌN TRONG KHỐI mathScience: dùng 'chooseCredits' (không dùng chooseCourses như ví dụ) vì tài liệu in \"chọn tối thiểu 02 tín chỉ\" cho nhóm Môi trường (ENV00001, ENV00003, GEO00002, mỗi học phần 2 TC) và \"chọn tối thiểu 04 tín chỉ\" cho nhóm KHTN (11 học phần 1-3 TC, TỔNG CỘNG in 4). Khối 'social' là \"Chọn 1 trong 3 học phần\" (BAA00005, BAA00006, BAA00008, mỗi học phần 2 TC).",
+  "TỐT NGHIỆP (§7.2.3, trang 12-13): 10 TC, \"chọn 1 trong 2 phương án\". CHỈ CÓ 2 PHƯƠNG ÁN, KHÔNG CÓ PHƯƠNG ÁN THỰC TẬP. PA1: MTH10595 Khóa luận tốt nghiệp (10 TC, BB). PA2: MTH10597 Đồ án tốt nghiệp (6 TC, BB) + \"Chọn tối thiểu 04 tín chỉ\" trong MTH10636, MTH10637, MTH10638 (mỗi học phần 2 TC). Vì vậy pick là 2 học phần / 4 TC, không phải 1 học phần như ví dụ của điều phối viên. MTH10549 \"Thực tập đồ án thực tế\" là tự chọn chuyên ngành (§7.2.2b), không thuộc khối tốt nghiệp. Rule type 'chooseOption' là tên tự đặt; cấu trúc chi tiết nằm trong \"options\".",
+  "KẾ HOẠCH GIẢNG DẠY (§8, trang 14-25): chỉ có MỘT kế hoạch chung vì không có chuyên ngành. Đã đưa đủ 8 học kỳ vào teachingPlan theo thứ tự in, kể cả các học phần tự chọn được xếp lịch. Mọi học phần của §7 đều có trong kế hoạch; không học phần nào chỉ có trong phụ lục xuất hiện trong kế hoạch. Tổng từng học kỳ in dạng khoảng: HK1 22-25 (không kể AV), HK2 23-25 (không kể AV), HK3 21-28 (không kể GDQP-AN và AV), HK4 21-25 (không kể AV), HK5 20-25, HK6 14-25, HK7 14-25, HK8 10-25. Các học phần in ở HK1 (không kể AV) cộng đúng 22 và HK1 không có học phần tự chọn, nên cận trên 25 không giải thích được từ bảng.",
+  "MÃ LẶP TRONG §8: MTH10620 Seminar Khoa học dữ liệu có ở cả HK6 (trang 20) và HK7 (trang 22). MTH10595 và MTH10597 có ở cả HK7 (trang 21) và HK8 (trang 24). Các học phần này để suggestedSemester = null nhưng được liệt kê ở cả hai học kỳ trong teachingPlan. Mọi học phần khác có suggestedSemester = học kỳ duy nhất in trong §8, kể cả học phần tự chọn (ví dụ MTH10449 → HK4; MTH10311, MTH10566 → HK5).",
+  "Ghi chú nhóm chọn trong §8: HK2 in \"Chỉ chọn 2 tín chỉ\" cho BAA00005/BAA00006/BAA00008 và cho ENV00001/ENV00003/GEO00002; HK3 in \"Chỉ chọn 4 tín chỉ\" cho nhóm CHE/BIO/PHY; HK8 in \"Chọn tối thiểu 04 tín chỉ\" cho MTH10636-MTH10638. Tất cả nhất quán với §7.",
+  "KHÔNG CÓ TÊN TIẾNG ANH cho học phần nào (chỉ có tên ngành \"Data Science\" và tên văn bằng \"Bachelor of Data Science\"), nên không có trường nameEn.",
+  "Số tín chỉ của mọi học phần trùng nhau giữa §7, §8 và phụ lục đều khớp. Cột LOẠI HỌC PHẦN ở §8 cũng khớp §7 cho mọi học phần, trừ các học phần Anh văn (*) và BAA00030 (**).",
+  "Điều chỉnh cho factory (shared/programs/_standard/factory.ts), không thay đổi số liệu: (1) rule của khối graduation dùng type 'chooseCredits' (credits 10, trên 5 mã) vì factory chỉ nhận all/chooseCourses/chooseCredits; chi tiết từng phương án nằm trong \"options\" (đúng dạng GraduationOption: id, label, courses, pick[{count, courses}], pick có thêm trường credits). (2) Các khối informatics, language, pe, military có countsInTotal = false, đúng §3 (136 không gồm GDQP-AN, GDTC, Tin học cơ sở, Ngoại ngữ). (3) compulsory.minCourses/elective.minCourses = null vì tài liệu không in; factory sẽ xử lý như 0 và phần ghi chú UI sẽ hiển thị \"x/null courses\"."
+ ]
+}

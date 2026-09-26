@@ -1,4 +1,4 @@
-// Công nghệ thông tin — khóa tuyển 2025 — generated from the curriculum with scripts/program-from-extract.mjs.
+// Khoa học dữ liệu — khóa tuyển 2025 — generated from the curriculum with scripts/program-from-extract.mjs.
 // The rules come from the shared factory; this file only maps the document's blocks onto it.
 import type { ProgramMeta } from '../../domain/program';
 import type { Course } from '../../domain/types';

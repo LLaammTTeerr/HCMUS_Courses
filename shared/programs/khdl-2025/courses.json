@@ -1,0 +1,2042 @@
+{
+ "courses": [
+  {
+   "code": "BAA00004",
+   "nameEn": "",
+   "nameVi": "Pháp luật đại cương",
+   "credits": 3,
+   "group": "Lý luận chính trị - Pháp luật",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "BAA00101",
+   "nameEn": "",
+   "nameVi": "Triết học Mác - Lênin",
+   "credits": 3,
+   "group": "Lý luận chính trị - Pháp luật",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "BAA00102",
+   "nameEn": "",
+   "nameVi": "Kinh tế chính trị Mác - Lênin",
+   "credits": 2,
+   "group": "Lý luận chính trị - Pháp luật",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "BAA00103",
+   "nameEn": "",
+   "nameVi": "Chủ nghĩa xã hội khoa học",
+   "credits": 2,
+   "group": "Lý luận chính trị - Pháp luật",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "BAA00104",
+   "nameEn": "",
+   "nameVi": "Lịch sử Đảng Cộng sản Việt Nam",
+   "credits": 2,
+   "group": "Lý luận chính trị - Pháp luật",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "BAA00003",
+   "nameEn": "",
+   "nameVi": "Tư tưởng Hồ Chí Minh",
+   "credits": 2,
+   "group": "Lý luận chính trị - Pháp luật",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "BAA00005",
+   "nameEn": "",
+   "nameVi": "Kinh tế đại cương",
+   "credits": 2,
+   "group": "Khoa học xã hội – Kinh tế - Kỹ năng",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "BAA00006",
+   "nameEn": "",
+   "nameVi": "Tâm lý đại cương",
+   "credits": 2,
+   "group": "Khoa học xã hội – Kinh tế - Kỹ năng",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "BAA00008",
+   "nameEn": "",
+   "nameVi": "Kỹ năng làm việc nhóm và học tập",
+   "credits": 2,
+   "group": "Khoa học xã hội – Kinh tế - Kỹ năng",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "MTH00010",
+   "nameEn": "",
+   "nameVi": "Giải tích 1A",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "MTH00011",
+   "nameEn": "",
+   "nameVi": "Vi tích phân 1A",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "MTH00034",
+   "nameEn": "",
+   "nameVi": "Đại số tuyến tính 1A",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "MTH00043",
+   "nameEn": "",
+   "nameVi": "Toán rời rạc 1A",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "MTH00055",
+   "nameEn": "",
+   "nameVi": "Cơ sở lập trình",
+   "credits": 4,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "MTH00088",
+   "nameEn": "",
+   "nameVi": "Thực hành đại số tuyến tính 1A",
+   "credits": 1,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1
+  },
+  {
+   "code": "ENV00001",
+   "nameEn": "",
+   "nameVi": "Môi trường đại cương",
+   "credits": 2,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "ENV00003",
+   "nameEn": "",
+   "nameVi": "Con người và Môi trường",
+   "credits": 2,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "GEO00002",
+   "nameEn": "",
+   "nameVi": "Khoa học Trái đất",
+   "credits": 2,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "MTH00013",
+   "nameEn": "",
+   "nameVi": "Vi tích phân 2A",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "BIO00001",
+   "nameEn": "",
+   "nameVi": "Sinh đại cương 1",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "BIO00002",
+   "nameEn": "",
+   "nameVi": "Sinh đại cương 2",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "BIO00081",
+   "nameEn": "",
+   "nameVi": "Thực tập Sinh đại cương 1",
+   "credits": 1,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "BIO00082",
+   "nameEn": "",
+   "nameVi": "Thực tập Sinh đại cương 2",
+   "credits": 1,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "CHE00001",
+   "nameEn": "",
+   "nameVi": "Hóa đại cương 1",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "CHE00002",
+   "nameEn": "",
+   "nameVi": "Hóa đại cương 2",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "CHE00081",
+   "nameEn": "",
+   "nameVi": "Thực hành Hóa đại cương 1",
+   "credits": 2,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "CHE00082",
+   "nameEn": "",
+   "nameVi": "Thực hành Hóa đại cương 2",
+   "credits": 2,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "MTH00014",
+   "nameEn": "",
+   "nameVi": "Giải tích 3A",
+   "credits": 4,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "MTH00019",
+   "nameEn": "",
+   "nameVi": "Giải tích 2A",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "MTH00042",
+   "nameEn": "",
+   "nameVi": "Xác suất",
+   "credits": 4,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "PHY00001",
+   "nameEn": "",
+   "nameVi": "Vật lý đại cương 1 (Cơ - Nhiệt)",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "PHY00002",
+   "nameEn": "",
+   "nameVi": "Vật lý đại cương 2 (Điện từ - Quang)",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "PHY00081",
+   "nameEn": "",
+   "nameVi": "Thực hành Vật lý đại cương",
+   "credits": 2,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "MTH00023",
+   "nameEn": "",
+   "nameVi": "Lý thuyết thống kê",
+   "credits": 3,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "MTH00024",
+   "nameEn": "",
+   "nameVi": "Thực hành thống kê",
+   "credits": 1,
+   "group": "Toán - Khoa học tự nhiên - Công nghệ - Môi trường",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "CSC00003",
+   "nameEn": "",
+   "nameVi": "Tin học cơ sở",
+   "credits": 3,
+   "group": "Tin học",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "ADD00031",
+   "nameEn": "",
+   "nameVi": "Anh văn 1",
+   "credits": 3,
+   "group": "Ngoại ngữ",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 1,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "ADD00032",
+   "nameEn": "",
+   "nameVi": "Anh văn 2",
+   "credits": 3,
+   "group": "Ngoại ngữ",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 2,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "ADD00033",
+   "nameEn": "",
+   "nameVi": "Anh văn 3",
+   "credits": 3,
+   "group": "Ngoại ngữ",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 3,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "ADD00034",
+   "nameEn": "",
+   "nameVi": "Anh văn 4",
+   "credits": 3,
+   "group": "Ngoại ngữ",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 4,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00021",
+   "nameEn": "",
+   "nameVi": "Thể dục 1",
+   "credits": 2,
+   "group": "Giáo dục thể chất",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 1,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00022",
+   "nameEn": "",
+   "nameVi": "Thể dục 2",
+   "credits": 2,
+   "group": "Giáo dục thể chất",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 2,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "BAA00030",
+   "nameEn": "",
+   "nameVi": "Giáo dục quốc phòng - An ninh",
+   "credits": 4,
+   "group": "Giáo dục quốc phòng – An ninh",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 3,
+   "countsInCredits": false,
+   "countsInGpa": false
+  },
+  {
+   "code": "MTH10405",
+   "nameEn": "",
+   "nameVi": "Cấu trúc dữ liệu và giải thuật",
+   "credits": 4,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "MTH10441",
+   "nameEn": "",
+   "nameVi": "Đại số tuyến tính 2A",
+   "credits": 4,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 2
+  },
+  {
+   "code": "MTH10605",
+   "nameEn": "",
+   "nameVi": "Python cho khoa học dữ liệu",
+   "credits": 4,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 3
+  },
+  {
+   "code": "MTH10006",
+   "nameEn": "",
+   "nameVi": "Nhập môn Khoa học dữ liệu",
+   "credits": 3,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "MTH10312",
+   "nameEn": "",
+   "nameVi": "Cơ sở dữ liệu",
+   "credits": 4,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "MTH10407",
+   "nameEn": "",
+   "nameVi": "Lập trình hướng đối tượng",
+   "credits": 4,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "MTH10607",
+   "nameEn": "",
+   "nameVi": "Phương pháp số cho khoa học dữ liệu",
+   "credits": 4,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "MTH10005",
+   "nameEn": "",
+   "nameVi": "Hệ điều hành Unix",
+   "credits": 3,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "MTH10442",
+   "nameEn": "",
+   "nameVi": "Toán rời rạc 2A",
+   "credits": 4,
+   "group": "Kiến thức cơ sở ngành",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "MTH10318",
+   "nameEn": "",
+   "nameVi": "Nhập môn trí tuệ nhân tạo",
+   "credits": 4,
+   "group": "Kiến thức ngành — bắt buộc",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "MTH10344",
+   "nameEn": "",
+   "nameVi": "Hệ quản trị cơ sở dữ liệu",
+   "credits": 4,
+   "group": "Kiến thức ngành — bắt buộc",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "MTH10628",
+   "nameEn": "",
+   "nameVi": "Trực quan hoá dữ liệu",
+   "credits": 3,
+   "group": "Kiến thức ngành — bắt buộc",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "MTH10353",
+   "nameEn": "",
+   "nameVi": "Nhập môn máy học",
+   "credits": 4,
+   "group": "Kiến thức ngành — bắt buộc",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH10358",
+   "nameEn": "",
+   "nameVi": "Khai thác dữ liệu",
+   "credits": 4,
+   "group": "Kiến thức ngành — bắt buộc",
+   "requirement": "compulsory",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH10629",
+   "nameEn": "",
+   "nameVi": "Nhập môn DevOps",
+   "credits": 4,
+   "group": "Kiến thức ngành — bắt buộc",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH10606",
+   "nameEn": "",
+   "nameVi": "Xử lý dữ liệu lớn",
+   "credits": 4,
+   "group": "Kiến thức ngành — bắt buộc",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10449",
+   "nameEn": "",
+   "nameVi": "Quy hoạch tuyến tính",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 4
+  },
+  {
+   "code": "MTH10311",
+   "nameEn": "",
+   "nameVi": "Mạng máy tính",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "MTH10566",
+   "nameEn": "",
+   "nameVi": "Xử lý số liệu thống kê",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "MTH10359",
+   "nameEn": "",
+   "nameVi": "Xử lý ngôn ngữ tự nhiên",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH10619",
+   "nameEn": "",
+   "nameVi": "Thống kê nhiều chiều",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH10633",
+   "nameEn": "",
+   "nameVi": "Cơ sở dữ liệu nâng cao",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH10634",
+   "nameEn": "",
+   "nameVi": "Mô hình thống kê cho dữ liệu lớn và trí tuệ nhân tạo",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "MTH10354",
+   "nameEn": "",
+   "nameVi": "Máy học nâng cao",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10356",
+   "nameEn": "",
+   "nameVi": "Trí tuệ nhân tạo nâng cao",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10549",
+   "nameEn": "",
+   "nameVi": "Thực tập đồ án thực tế",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10623",
+   "nameEn": "",
+   "nameVi": "Hệ thống tư vấn",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10624",
+   "nameEn": "",
+   "nameVi": "Phân tích mạng xã hội",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10630",
+   "nameEn": "",
+   "nameVi": "Quản lý dự án trí tuệ nhân tạo",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10631",
+   "nameEn": "",
+   "nameVi": "Phân tích dữ liệu và trí tuệ kinh doanh",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10632",
+   "nameEn": "",
+   "nameVi": "Trực quan hóa dữ liệu nâng cao",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10635",
+   "nameEn": "",
+   "nameVi": "Kỹ thuật xử lý dữ liệu",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 7
+  },
+  {
+   "code": "MTH10620",
+   "nameEn": "",
+   "nameVi": "Seminar Khoa học dữ liệu",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10636",
+   "nameEn": "",
+   "nameVi": "Chuyên đề khai thác dữ liệu",
+   "credits": 2,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": [],
+   "suggestedSemester": 8
+  },
+  {
+   "code": "MTH10637",
+   "nameEn": "",
+   "nameVi": "Chuyên đề ứng dụng trí tuệ nhân tạo trong doanh nghiệp",
+   "credits": 2,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": [],
+   "suggestedSemester": 8
+  },
+  {
+   "code": "MTH10638",
+   "nameEn": "",
+   "nameVi": "Chuyên đề đạo đức và an toàn dữ liệu",
+   "credits": 2,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": [],
+   "suggestedSemester": 8
+  },
+  {
+   "code": "MTH10595",
+   "nameEn": "",
+   "nameVi": "Khóa luận tốt nghiệp",
+   "credits": 10,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10597",
+   "nameEn": "",
+   "nameVi": "Đồ án tốt nghiệp",
+   "credits": 6,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10001",
+   "nameEn": "",
+   "nameVi": "Lý luận dạy học",
+   "credits": 2,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10002",
+   "nameEn": "",
+   "nameVi": "Dạy toán bằng tiếng Anh",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10003",
+   "nameEn": "",
+   "nameVi": "Mô hình hóa toán học",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10004",
+   "nameEn": "",
+   "nameVi": "Tính toán mô phỏng",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10007",
+   "nameEn": "",
+   "nameVi": "Nhập môn Thống kê ứng dụng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10008",
+   "nameEn": "",
+   "nameVi": "ANOVA và Thiết kế thí nghiệm",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10102",
+   "nameEn": "",
+   "nameVi": "Phương pháp dạy học tối ưu",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10104",
+   "nameEn": "",
+   "nameVi": "Giáo dục học",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10123",
+   "nameEn": "",
+   "nameVi": "Ứng dụng toán cao cấp để giải toán sơ cấp",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10132",
+   "nameEn": "",
+   "nameVi": "Cơ sở hình học",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10133",
+   "nameEn": "",
+   "nameVi": "Tâm lý học giáo dục",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10134",
+   "nameEn": "",
+   "nameVi": "Phương pháp dạy học môn toán",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10135",
+   "nameEn": "",
+   "nameVi": "Giải toán sơ cấp",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10136",
+   "nameEn": "",
+   "nameVi": "Tổ chức và quản lý lớp học",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10137",
+   "nameEn": "",
+   "nameVi": "Kỹ thuật đánh giá lớp học",
+   "credits": 2,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10138",
+   "nameEn": "",
+   "nameVi": "Chất lượng và quản lý chất lượng",
+   "credits": 2,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10139",
+   "nameEn": "",
+   "nameVi": "Tiếp cận tích hợp STEM trong giảng dạy toán",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10140",
+   "nameEn": "",
+   "nameVi": "Ứng dụng công nghệ thông tin trong dạy học",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10201",
+   "nameEn": "",
+   "nameVi": "Toán tài chính căn bản",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10202",
+   "nameEn": "",
+   "nameVi": "Dự báo",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10203",
+   "nameEn": "",
+   "nameVi": "Mô hình toán tài chính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10204",
+   "nameEn": "",
+   "nameVi": "Lý thuyết tài chính tiền tệ",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10209",
+   "nameEn": "",
+   "nameVi": "Toán tài chính nâng cao",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10214",
+   "nameEn": "",
+   "nameVi": "Vi mô định lượng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10215",
+   "nameEn": "",
+   "nameVi": "Vĩ mô định lượng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10216",
+   "nameEn": "",
+   "nameVi": "Quản trị rủi ro",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10217",
+   "nameEn": "",
+   "nameVi": "Tài chính doanh nghiệp",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10219",
+   "nameEn": "",
+   "nameVi": "Phân tích tài chính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10220",
+   "nameEn": "",
+   "nameVi": "Toán bảo hiểm cơ bản",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10221",
+   "nameEn": "",
+   "nameVi": "Toán bảo hiểm nâng cao",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10308",
+   "nameEn": "",
+   "nameVi": "Phát triển phần mềm hướng đối tượng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10309",
+   "nameEn": "",
+   "nameVi": "Quản trị hệ thống mạng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10310",
+   "nameEn": "",
+   "nameVi": "Lập trình .Net",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10313",
+   "nameEn": "",
+   "nameVi": "Hệ điều hành Unix",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10314",
+   "nameEn": "",
+   "nameVi": "Quản lý đề án phần mềm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10315",
+   "nameEn": "",
+   "nameVi": "Phân tích và thiết kế hệ thống thông tin",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10317",
+   "nameEn": "",
+   "nameVi": "Phân tích xử lý ảnh",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10319",
+   "nameEn": "",
+   "nameVi": "Lý thuyết mã hóa thông tin",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10321",
+   "nameEn": "",
+   "nameVi": "Tính toán hiệu năng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10322",
+   "nameEn": "",
+   "nameVi": "Nhận dạng mẫu",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10323",
+   "nameEn": "",
+   "nameVi": "Xử lý đa chiều",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10324",
+   "nameEn": "",
+   "nameVi": "Số học và thuật toán",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10325",
+   "nameEn": "",
+   "nameVi": "Phân tích thuật toán",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10331",
+   "nameEn": "",
+   "nameVi": "Biến hình và xử lý ảnh",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10332",
+   "nameEn": "",
+   "nameVi": "Kiểm thử phần mềm",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10333",
+   "nameEn": "",
+   "nameVi": "Thiết kế Web",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10334",
+   "nameEn": "",
+   "nameVi": "Lập trình Web với J2EE",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10335",
+   "nameEn": "",
+   "nameVi": "Thiết kế mạng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10337",
+   "nameEn": "",
+   "nameVi": "Lập trình Web với PHP",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10341",
+   "nameEn": "",
+   "nameVi": "Chuyên đề .NET",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10345",
+   "nameEn": "",
+   "nameVi": "Lập trình Web ASP.NET",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10347",
+   "nameEn": "",
+   "nameVi": "Lý thuyết thông tin",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10355",
+   "nameEn": "",
+   "nameVi": "Tính toán di động",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10360",
+   "nameEn": "",
+   "nameVi": "Lập trình Java",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10403",
+   "nameEn": "",
+   "nameVi": "Giải tích hàm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10409",
+   "nameEn": "",
+   "nameVi": "Giải tích phi tuyến",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10412",
+   "nameEn": "",
+   "nameVi": "Hàm biến phức",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10413",
+   "nameEn": "",
+   "nameVi": "Phương trình toán lý",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10414",
+   "nameEn": "",
+   "nameVi": "Phương trình đạo hàm riêng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10417",
+   "nameEn": "",
+   "nameVi": "Tôpô",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10418",
+   "nameEn": "",
+   "nameVi": "Đại số đồng điều",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10419",
+   "nameEn": "",
+   "nameVi": "Đại số giao hoán",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10420",
+   "nameEn": "",
+   "nameVi": "Lý thuyết vành và môđun",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10421",
+   "nameEn": "",
+   "nameVi": "Đại số hiện đại",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10422",
+   "nameEn": "",
+   "nameVi": "Lý thuyết trường và Galois",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10423",
+   "nameEn": "",
+   "nameVi": "Xác suất nâng cao",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10424",
+   "nameEn": "",
+   "nameVi": "Thống kê toán nâng cao",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10426",
+   "nameEn": "",
+   "nameVi": "Quá trình ngẫu nhiên",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10427",
+   "nameEn": "",
+   "nameVi": "Cơ học lý thuyết",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10428",
+   "nameEn": "",
+   "nameVi": "Cơ học môi trường liên tục",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10429",
+   "nameEn": "",
+   "nameVi": "Phương pháp phần tử hữu hạn",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10433",
+   "nameEn": "",
+   "nameVi": "Giải tích số",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10434",
+   "nameEn": "",
+   "nameVi": "Cơ học vật rắn biến dạng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10435",
+   "nameEn": "",
+   "nameVi": "Cơ học chất lỏng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10436",
+   "nameEn": "",
+   "nameVi": "Giải tích thực",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10438",
+   "nameEn": "",
+   "nameVi": "Chuyên đề giải tích số",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10439",
+   "nameEn": "",
+   "nameVi": "Phương pháp số trong đại số tuyến tính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10443",
+   "nameEn": "",
+   "nameVi": "Lý thuyết độ đo và tích phân",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10444",
+   "nameEn": "",
+   "nameVi": "Hệ phương trình đạo hàm riêng Hyperbolic của định luật bảo toàn",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10446",
+   "nameEn": "",
+   "nameVi": "Vận trù học",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10447",
+   "nameEn": "",
+   "nameVi": "Lý thuyết quy hoạch phi tuyến",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10450",
+   "nameEn": "",
+   "nameVi": "Thuật toán tối ưu",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10461",
+   "nameEn": "",
+   "nameVi": "Bài toán không chỉnh",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10473",
+   "nameEn": "",
+   "nameVi": "Phương trình vi phân ngẫu nhiên",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10478",
+   "nameEn": "",
+   "nameVi": "Tôpô vi phân",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10480",
+   "nameEn": "",
+   "nameVi": "Hình học vi phân",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10485",
+   "nameEn": "",
+   "nameVi": "Chuỗi thời gian",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10492",
+   "nameEn": "",
+   "nameVi": "Tôpô đại số",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10497",
+   "nameEn": "",
+   "nameVi": "Lý thuyết biểu diễn nhóm hữu hạn",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10498",
+   "nameEn": "",
+   "nameVi": "Lý thuyết số",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10503",
+   "nameEn": "",
+   "nameVi": "Đại số máy tính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10505",
+   "nameEn": "",
+   "nameVi": "Đại số phân bậc",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10507",
+   "nameEn": "",
+   "nameVi": "Lý thuyết tổ hợp",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10510",
+   "nameEn": "",
+   "nameVi": "Thống kê trong sinh học",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10511",
+   "nameEn": "",
+   "nameVi": "Mô hình thống kê tuyến tính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10512",
+   "nameEn": "",
+   "nameVi": "Thống kê kinh tế",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10515",
+   "nameEn": "",
+   "nameVi": "Thống kê phi tham số",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10518",
+   "nameEn": "",
+   "nameVi": "Giải tích hàm trong thống kê",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10519",
+   "nameEn": "",
+   "nameVi": "Xác suất cho bảo hiểm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10525",
+   "nameEn": "",
+   "nameVi": "Nhóm tuyến tính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10538",
+   "nameEn": "",
+   "nameVi": "Tối ưu hóa ứng dụng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10539",
+   "nameEn": "",
+   "nameVi": "Quy hoạch tuyến tính nâng cao",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10540",
+   "nameEn": "",
+   "nameVi": "Lý thuyết và thuật toán tối ưu không trơn",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10541",
+   "nameEn": "",
+   "nameVi": "Lý thuyết trò chơi",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10543",
+   "nameEn": "",
+   "nameVi": "Cơ sở giải tích lồi và quy hoạch lồi",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10544",
+   "nameEn": "",
+   "nameVi": "Điều kiện tối ưu không trơn",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10545",
+   "nameEn": "",
+   "nameVi": "Điều khiển tối ưu",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10553",
+   "nameEn": "",
+   "nameVi": "Tối ưu đa mục tiêu",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10554",
+   "nameEn": "",
+   "nameVi": "Phân tích dữ liệu sống sót",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10555",
+   "nameEn": "",
+   "nameVi": "Giải tích số cho phương trình vi phân",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10556",
+   "nameEn": "",
+   "nameVi": "Giải tích số cho phương trình đạo hàm riêng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10557",
+   "nameEn": "",
+   "nameVi": "Chuyên đề Xác suất - Thống kê",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10558",
+   "nameEn": "",
+   "nameVi": "Máy học thống kê",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10560",
+   "nameEn": "",
+   "nameVi": "Động lực học hệ nhiều vật và Robotics",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10561",
+   "nameEn": "",
+   "nameVi": "Dao động ngẫu nhiên",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10562",
+   "nameEn": "",
+   "nameVi": "Học máy cho cơ học",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10563",
+   "nameEn": "",
+   "nameVi": "Cơ học tính toán",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10564",
+   "nameEn": "",
+   "nameVi": "Toán cơ học lượng tử",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10565",
+   "nameEn": "",
+   "nameVi": "Mô hình tuyến tính tổng quát",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10596",
+   "nameEn": "",
+   "nameVi": "Lý thuyết nhóm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10601",
+   "nameEn": "",
+   "nameVi": "Lược sử tư duy Số và Đại số",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10603",
+   "nameEn": "",
+   "nameVi": "Đại số nhóm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10604",
+   "nameEn": "",
+   "nameVi": "Phương pháp số trong tối ưu",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10614",
+   "nameEn": "",
+   "nameVi": "Phương pháp biến phân trong Tối ưu",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10615",
+   "nameEn": "",
+   "nameVi": "Mô hình Tối ưu trong Kinh tế",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10625",
+   "nameEn": "",
+   "nameVi": "Tính toán tài chính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10701",
+   "nameEn": "",
+   "nameVi": "Mô hình chuỗi thời gian và dự báo",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10702",
+   "nameEn": "",
+   "nameVi": "Máy học thống kê nâng cao",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10703",
+   "nameEn": "",
+   "nameVi": "Mô hình chuỗi thời gian nâng cao",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10704",
+   "nameEn": "",
+   "nameVi": "Phân tích dữ liệu tài chính",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10705",
+   "nameEn": "",
+   "nameVi": "Công nghệ tài chính",
+   "credits": 3,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10706",
+   "nameEn": "",
+   "nameVi": "Kiểm soát chất lượng thống kê",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10707",
+   "nameEn": "",
+   "nameVi": "Kinh tế lượng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10708",
+   "nameEn": "",
+   "nameVi": "Thống kê Bayes",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "MTH10801",
+   "nameEn": "",
+   "nameVi": "Phân tích dữ liệu chuyên biệt",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  }
+ ]
+}

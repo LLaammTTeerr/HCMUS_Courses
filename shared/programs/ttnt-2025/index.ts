@@ -15,11 +15,8 @@ const blocks = structure.blocks as StandardBlock[];
 export const config: StandardProgramConfig = {
   meta,
   courses,
-  blocks: blocks.map((block) => ({
-    ...block,
-    // Passed but outside the programme total (CTĐT §3).
-    countsInTotal: ['language', 'pe', 'military'].includes(block.id) ? false : undefined,
-  })),
+  // Blocks outside the programme total (PE, Military, …) carry countsInTotal: false (CTĐT §3).
+  blocks,
   specializations: structure.specializations,
   graduation: { credits: structure.graduation.credits, options: structure.graduation.options },
 };

@@ -201,7 +201,9 @@ export function standardProgram(config: StandardProgramConfig): ProgramModule {
       group('specElec', 'Specialization — electives', spec?.elective.minCredits ?? 8,
         (level) => at(level).specElective,
         { checklist: true, note: spec ? `${at('earned').specElectiveCourses}/${spec.elective.minCourses} courses` : specNote }),
-      group('free', 'Free choice (tự chọn tự do)', spec?.freeChoiceCredits ?? 10, (level) => at(level).free, { checklist: true }),
+      ...(spec && spec.freeChoiceCredits === 0 ? [] : [
+        group('free', 'Free choice (tự chọn tự do)', spec?.freeChoiceCredits ?? 10, (level) => at(level).free, { checklist: true }),
+      ]),
       group('grad', 'Graduation work', config.graduation.credits, (level) => at(level).graduation, { checklist: true, warn: false }),
     );
 

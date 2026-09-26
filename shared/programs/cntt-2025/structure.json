@@ -115,7 +115,8 @@
       "BAA00022"
      ]
     }
-   ]
+   ],
+   "countsInTotal": false
   },
   {
    "id": "military",
@@ -128,7 +129,8 @@
       "BAA00030"
      ]
     }
-   ]
+   ],
+   "countsInTotal": false
   },
   {
    "id": "foundation",

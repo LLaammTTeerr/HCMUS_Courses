@@ -22,8 +22,12 @@ const extract = JSON.parse(readFileSync(extractPath, 'utf8'));
 const dir = join('shared/programs', id);
 mkdirSync(dir, { recursive: true });
 
-const NOT_IN_CREDITS = new Set(['language', 'pe', 'military']);   // outside the programme total
-const NOT_IN_GPA = new Set(['language', 'pe', 'military']);       // QC1175 Art. 15.1c
+// Outside the programme total and the GPA (CTĐT §3, QC1175 Art. 15.1c). An extraction can add more,
+// e.g. KHDL 2025 prints "không kể … Tin học cơ sở", by setting countsInTotal: false on the block.
+const OUTSIDE = new Set(['language', 'pe', 'military',
+  ...extract.blocks.filter((b) => b.countsInTotal === false).map((b) => b.id)]);
+const NOT_IN_CREDITS = OUTSIDE;
+const NOT_IN_GPA = OUTSIDE;
 
 // Anh văn 1–4 are waived for students who meet the English standard, so they are listed but never
 // required; the English checklist item covers the standard itself.
@@ -100,7 +104,7 @@ const specializations = extract.specializations.map((spec) => ({
 
 const courses = extract.courses.map((course) => {
   const placement = blockOf.get(course.code);
-  const group = placement ? placement.block.label
+  const group = placement ? (placement.block.shortLabel ?? placement.block.label)
     : graduation.has(course.code) ? 'Graduation work'
     : specCompulsory.has(course.code) ? 'Specialization courses'
     : specElective.has(course.code) ? 'Specialization electives'
@@ -127,7 +131,7 @@ const courses = extract.courses.map((course) => {
   return entry;
 });
 
-const order = extract.blocks.map((b) => b.label)
+const order = extract.blocks.map((b) => b.shortLabel ?? b.label)
   .concat(['Specialization courses', 'Specialization electives', 'Graduation work', 'Free choice & other courses']);
 courses.sort((a, b) =>
   order.indexOf(a.group) - order.indexOf(b.group) ||
@@ -137,7 +141,8 @@ courses.sort((a, b) =>
 writeFileSync(join(dir, 'courses.json'), `${JSON.stringify({ courses }, null, 1)}\n`);
 writeFileSync(join(dir, 'structure.json'), `${JSON.stringify({
   blocks: extract.blocks.filter((b) => b.id !== 'graduation' && b.id !== LANGUAGE).map((b) => ({
-    id: b.id, label: b.label, credits: b.credits, rules: b.rules,
+    id: b.id, label: b.shortLabel ?? b.label, credits: b.credits, rules: b.rules,
+    ...(OUTSIDE.has(b.id) ? { countsInTotal: false } : {}),
   })),
   graduation: { credits: gradBlock?.credits ?? 10, description: gradBlock?.description ?? '', options: graduationOptions() },
   specializations,
@@ -183,11 +188,8 @@ const blocks = structure.blocks as StandardBlock[];
 export const config: StandardProgramConfig = {
   meta,
   courses,
-  blocks: blocks.map((block) => ({
-    ...block,
-    // Passed but outside the programme total (CTĐT §3).
-    countsInTotal: ['language', 'pe', 'military'].includes(block.id) ? false : undefined,
-  })),
+  // Blocks outside the programme total (PE, Military, …) carry countsInTotal: false (CTĐT §3).
+  blocks,
   specializations: structure.specializations,
   graduation: { credits: structure.graduation.credits, options: structure.graduation.options },
 };

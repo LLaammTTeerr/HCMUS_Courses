@@ -4,6 +4,8 @@ import { buildContext } from '../../domain/program';
 import type { StudentRecord } from '../../domain/types';
 import { config as clc2026 } from '../clc-2026/index';
 import { config as cntt2025 } from '../cntt-2025/index';
+import { config as httt2025 } from '../httt-2025/index';
+import { config as khdl2025 } from '../khdl-2025/index';
 import { config as khmt2025 } from '../khmt-2025/index';
 import { config as ktpm2025 } from '../ktpm-2025/index';
 import { config as ttnt2025 } from '../ttnt-2025/index';
@@ -12,7 +14,21 @@ import { suggestedPlanAttempts } from '../../domain/suggestedPlan';
 import { standardProgram, type StandardProgramConfig } from './factory';
 
 /** Every programme built on the factory is checked here — add a new one to this list. */
-const CONFIGS: StandardProgramConfig[] = [clc2026, cntt2025, khmt2025, ktpm2025, ttnt2025];
+const CONFIGS: StandardProgramConfig[] = [clc2026, cntt2025, httt2025, khdl2025, khmt2025, ktpm2025, ttnt2025];
+
+import { readdirSync } from 'node:fs';
+import { PROGRAM_IDS } from '../index';
+
+describe('programme registration', () => {
+  it('registers and validates every programme folder', () => {
+    const folders = readdirSync(new URL('..', import.meta.url)).filter((f) => /^[a-z]+-\d{4}$/.test(f));
+    for (const folder of folders) expect(PROGRAM_IDS, `${folder} is not in shared/programs/index.ts`).toContain(folder);
+    const standard = folders.filter((f) => f !== 'apcs-2024');
+    for (const folder of standard) {
+      expect(CONFIGS.map((c) => c.meta.id), `${folder} is not in CONFIGS`).toContain(folder);
+    }
+  });
+});
 
 const emptyRecord = (programId: string, choices: Record<string, string> = {}): StudentRecord => ({
   profile: { programId, currentSemester: 1, choices, militaryCert: false, thesisGpaThreshold: null },
