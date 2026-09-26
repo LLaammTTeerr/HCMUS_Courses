@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "id": "ttnt-2025",
+  "name": "Trí tuệ nhân tạo — khóa tuyển 2025",
+  "shortName": "TTNT 2025",
+  "intakeYear": 2025,
+  "semestersPerYear": 3,
+  "standardSemesters": 12,
+  "maxSemesters": 21,
+  "semesterMin": 14,
+  "semesterMax": 25,
+  "limitCountsExtras": false,
+  "totalCredits": 138,
+  "gradEarliestSemester": 11,
+  "peCourses": [
+   "BAA00021",
+   "BAA00022"
+  ],
+  "militaryCourse": "BAA00030",
+  "englishDefaultValidityYears": 2,
+  "sources": [
+   {
+    "id": "CTDT",
+    "title": "Chương trình đào tạo ngành Trí tuệ nhân tạo, khóa tuyển 2025 (Quyết định số 2847QĐ-KHTN ngày 19 tháng 09 năm 2025 của Hiệu trưởng Trường Đại học Khoa học tự nhiên, ĐHQG-HCM)",
+    "url": "https://hcmus.edu.vn/chuong-trinh-dao-tao-trinh-do-dai-hoc-khoa-2025/"
+   },
+   {
+    "id": "QC1175",
+    "title": "Quy chế đào tạo trình độ đại học (QĐ 1175/QĐ-KHTN, 24/09/2021)",
+    "url": "https://www.ctda.hcmus.edu.vn/vi/goc-sinh-vien/so-tay-sinh-vien/"
+   }
+  ]
+ }
+}

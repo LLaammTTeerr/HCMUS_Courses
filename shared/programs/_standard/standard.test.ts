@@ -6,12 +6,13 @@ import { config as clc2026 } from '../clc-2026/index';
 import { config as cntt2025 } from '../cntt-2025/index';
 import { config as khmt2025 } from '../khmt-2025/index';
 import { config as ktpm2025 } from '../ktpm-2025/index';
+import { config as ttnt2025 } from '../ttnt-2025/index';
 import { progressOf } from '../../domain/planner';
 import { suggestedPlanAttempts } from '../../domain/suggestedPlan';
 import { standardProgram, type StandardProgramConfig } from './factory';
 
 /** Every programme built on the factory is checked here — add a new one to this list. */
-const CONFIGS: StandardProgramConfig[] = [clc2026, cntt2025, khmt2025, ktpm2025];
+const CONFIGS: StandardProgramConfig[] = [clc2026, cntt2025, khmt2025, ktpm2025, ttnt2025];
 
 const emptyRecord = (programId: string, choices: Record<string, string> = {}): StudentRecord => ({
   profile: { programId, currentSemester: 1, choices, militaryCert: false, thesisGpaThreshold: null },

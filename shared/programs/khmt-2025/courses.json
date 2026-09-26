@@ -465,141 +465,6 @@
    "prereqs": []
   },
   {
-   "code": "CSC10204",
-   "nameEn": "",
-   "nameVi": "Thực tập dự án tốt nghiệp",
-   "credits": 6,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC10251",
-   "nameEn": "",
-   "nameVi": "Khóa luận tốt nghiệp",
-   "credits": 10,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC10252",
-   "nameEn": "",
-   "nameVi": "Thực tập tốt nghiệp",
-   "credits": 10,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC14114",
-   "nameEn": "",
-   "nameVi": "Ứng dụng dữ liệu lớn",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC14115",
-   "nameEn": "",
-   "nameVi": "Khoa học dữ liệu ứng dụng",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC14116",
-   "nameEn": "",
-   "nameVi": "Lập trình song song ứng dụng",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC15104",
-   "nameEn": "",
-   "nameVi": "An toàn và phục hồi dữ liệu",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC15105",
-   "nameEn": "",
-   "nameVi": "Khai thác dữ liệu văn bản và ứng dụng",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC15106",
-   "nameEn": "",
-   "nameVi": "Seminar Công nghệ tri thức",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC15201",
-   "nameEn": "",
-   "nameVi": "Đồ án Mã hóa ứng dụng và an ninh thông tin",
-   "credits": 6,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC15202",
-   "nameEn": "",
-   "nameVi": "Đồ án ứng dụng xử lý ngôn ngữ tự nhiên",
-   "credits": 6,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC16110",
-   "nameEn": "",
-   "nameVi": "Chuyên đề Đồ họa máy tính",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC16111",
-   "nameEn": "",
-   "nameVi": "Chuyên đề Thị giác máy tính",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC16112",
-   "nameEn": "",
-   "nameVi": "Chuyên đề Xử lý ảnh số và video số",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
-   "code": "CSC17107",
-   "nameEn": "",
-   "nameVi": "Ứng dụng phân tích dữ liệu thông minh",
-   "credits": 4,
-   "group": "Kiến thức tốt nghiệp",
-   "requirement": "choose",
-   "prereqs": []
-  },
-  {
    "code": "CSC10108",
    "nameEn": "",
    "nameVi": "Trực quan hóa dữ liệu",
@@ -1182,6 +1047,141 @@
    "credits": 4,
    "group": "Specialization electives",
    "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC10204",
+   "nameEn": "",
+   "nameVi": "Thực tập dự án tốt nghiệp",
+   "credits": 6,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC10251",
+   "nameEn": "",
+   "nameVi": "Khóa luận tốt nghiệp",
+   "credits": 10,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC10252",
+   "nameEn": "",
+   "nameVi": "Thực tập tốt nghiệp",
+   "credits": 10,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC14114",
+   "nameEn": "",
+   "nameVi": "Ứng dụng dữ liệu lớn",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC14115",
+   "nameEn": "",
+   "nameVi": "Khoa học dữ liệu ứng dụng",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC14116",
+   "nameEn": "",
+   "nameVi": "Lập trình song song ứng dụng",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC15104",
+   "nameEn": "",
+   "nameVi": "An toàn và phục hồi dữ liệu",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC15105",
+   "nameEn": "",
+   "nameVi": "Khai thác dữ liệu văn bản và ứng dụng",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC15106",
+   "nameEn": "",
+   "nameVi": "Seminar Công nghệ tri thức",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC15201",
+   "nameEn": "",
+   "nameVi": "Đồ án Mã hóa ứng dụng và an ninh thông tin",
+   "credits": 6,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC15202",
+   "nameEn": "",
+   "nameVi": "Đồ án ứng dụng xử lý ngôn ngữ tự nhiên",
+   "credits": 6,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC16110",
+   "nameEn": "",
+   "nameVi": "Chuyên đề Đồ họa máy tính",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC16111",
+   "nameEn": "",
+   "nameVi": "Chuyên đề Thị giác máy tính",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC16112",
+   "nameEn": "",
+   "nameVi": "Chuyên đề Xử lý ảnh số và video số",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
+   "prereqs": []
+  },
+  {
+   "code": "CSC17107",
+   "nameEn": "",
+   "nameVi": "Ứng dụng phân tích dữ liệu thông minh",
+   "credits": 4,
+   "group": "Graduation work",
+   "requirement": "graduation",
    "prereqs": []
   },
   {

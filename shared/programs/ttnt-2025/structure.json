@@ -1,0 +1,394 @@
+{
+ "blocks": [
+  {
+   "id": "political",
+   "label": "Lý luận chính trị – Pháp luật",
+   "credits": 14,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00101",
+      "BAA00102",
+      "BAA00103",
+      "BAA00104",
+      "BAA00003",
+      "BAA00004"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "social",
+   "label": "Khoa học xã hội – Kinh tế – Kỹ năng",
+   "credits": 2,
+   "rules": [
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 2,
+     "courses": [
+      "BAA00005",
+      "BAA00006",
+      "BAA00007"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "mathScience",
+   "label": "Toán – Khoa học tự nhiên – Công nghệ – Môi trường",
+   "credits": 36,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "MTH00021",
+      "MTH00022",
+      "MTH00035",
+      "MTH00044",
+      "MTH00045",
+      "MTH00050"
+     ]
+    },
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 4,
+     "courses": [
+      "MTH00051",
+      "MTH00052",
+      "MTH00053",
+      "MTH00056"
+     ]
+    },
+    {
+     "type": "chooseCredits",
+     "credits": 6,
+     "courses": [
+      "CHE00001",
+      "CHE00002",
+      "CHE00081",
+      "CHE00082",
+      "BIO00001",
+      "BIO00002",
+      "BIO00081",
+      "BIO00082",
+      "PHY00001",
+      "PHY00002",
+      "PHY00081"
+     ]
+    },
+    {
+     "type": "chooseCourses",
+     "count": 1,
+     "credits": 2,
+     "courses": [
+      "GEO00002",
+      "ENV00001",
+      "ENV00003"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "informatics",
+   "label": "Tin học",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "CSC00009"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pe",
+   "label": "Giáo dục thể chất (không tính vào điểm trung bình, tính vào số tín chỉ tích lũy)",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00021",
+      "BAA00022"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "military",
+   "label": "Giáo dục quốc phòng – an ninh (không tính vào điểm trung bình, tính vào số tín chỉ tích lũy)",
+   "credits": 4,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "BAA00030"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "foundation",
+   "label": "Kiến thức cơ sở ngành",
+   "credits": 38,
+   "rules": [
+    {
+     "type": "all",
+     "courses": [
+      "CSC10003",
+      "CSC10004",
+      "CSC10006",
+      "CSC10007",
+      "CSC10008",
+      "CSC10009",
+      "CSC10013",
+      "CSC10015",
+      "CSC10011",
+      "CSC14003"
+     ]
+    }
+   ]
+  }
+ ],
+ "graduation": {
+  "credits": 10,
+  "description": "Sinh viên tích lũy tối thiểu 10 tín chỉ, chọn 01 trong 03 phương án sau đây: Phương án 1: CSC10251 Khóa luận tốt nghiệp (10 TC). Phương án 2: CSC10252 Thực tập tốt nghiệp (10 TC). Phương án 3: CSC10204 Thực tập dự án tốt nghiệp (6 TC) và Chọn 01 học phần (04 tín chỉ) từ các học phần tốt nghiệp sau: CSC18105 Trí tuệ nhân tạo ứng dụng, CSC15012 Ứng dụng xử lý ngôn ngữ tự nhiên trong doanh nghiệp, CSC16107 Ứng dụng thị giác máy tính.",
+  "options": [
+   {
+    "id": "thesis",
+    "label": "Phương án 1: Khóa luận tốt nghiệp",
+    "courses": [
+     "CSC10251"
+    ]
+   },
+   {
+    "id": "internship",
+    "label": "Phương án 2: Thực tập tốt nghiệp",
+    "courses": [
+     "CSC10252"
+    ]
+   },
+   {
+    "id": "project",
+    "label": "Phương án 3: Thực tập dự án tốt nghiệp + 01 học phần tốt nghiệp (04 TC)",
+    "courses": [
+     "CSC10204"
+    ],
+    "pick": [
+     {
+      "count": 1,
+      "courses": [
+       "CSC18105",
+       "CSC15012",
+       "CSC16107"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "specializations": [
+  {
+   "id": "ttnt",
+   "nameVi": "Trí tuệ nhân tạo",
+   "compulsory": {
+    "minCourses": 0,
+    "minCredits": 16,
+    "courses": [
+     "CSC14004",
+     "CSC14005",
+     "CSC15006",
+     "CSC15009",
+     "CSC16004",
+     "CSC18001",
+     "CSC18002"
+    ]
+   },
+   "elective": {
+    "minCourses": 0,
+    "minCredits": 8,
+    "courses": [
+     "CSC10102",
+     "CSC10103",
+     "CSC10104",
+     "CSC12106",
+     "CSC14112",
+     "CSC14120",
+     "CSC15010",
+     "CSC16109",
+     "CSC17001",
+     "CSC18101",
+     "CSC18102",
+     "CSC18103",
+     "CSC18104",
+     "CSC18106",
+     "CSC18107"
+    ]
+   },
+   "freeChoiceCredits": 10,
+   "freeChoiceCourses": [
+    "CSC10121",
+    "CSC11003",
+    "CSC11004",
+    "CSC12002",
+    "CSC12003",
+    "CSC12004",
+    "CSC13006",
+    "CSC13009",
+    "CSC13112"
+   ]
+  }
+ ],
+ "teachingPlan": [
+  {
+   "semester": 1,
+   "codes": [
+    "ADD00031",
+    "MTH00021",
+    "MTH00045",
+    "BAA00101",
+    "CSC00009",
+    "CSC10013"
+   ]
+  },
+  {
+   "semester": 2,
+   "codes": [
+    "BAA00021",
+    "ADD00032",
+    "BAA00004",
+    "MTH00022",
+    "MTH00035",
+    "CHE00001",
+    "CHE00081",
+    "BIO00001",
+    "BIO00081",
+    "PHY00001",
+    "PHY00081",
+    "CSC10004"
+   ]
+  },
+  {
+   "semester": 3,
+   "codes": [
+    "ADD00033",
+    "BAA00022",
+    "CHE00002",
+    "CHE00082",
+    "BIO00002",
+    "BIO00082",
+    "PHY00002",
+    "MTH00044",
+    "MTH00050",
+    "CSC10003",
+    "CSC10008",
+    "BAA00030"
+   ]
+  },
+  {
+   "semester": 4,
+   "codes": [
+    "ADD00034",
+    "BAA00005",
+    "BAA00006",
+    "BAA00007",
+    "MTH00051",
+    "MTH00052",
+    "MTH00053",
+    "MTH00056",
+    "CSC10015",
+    "CSC10006",
+    "CSC10009",
+    "CSC10121"
+   ]
+  },
+  {
+   "semester": 5,
+   "codes": [
+    "BAA00102",
+    "GEO00002",
+    "ENV00001",
+    "ENV00003",
+    "CSC10007",
+    "CSC14003",
+    "CSC14004",
+    "CSC15006",
+    "CSC11004",
+    "CSC12002",
+    "CSC12003",
+    "CSC12004",
+    "CSC13009"
+   ]
+  },
+  {
+   "semester": 6,
+   "codes": [
+    "BAA00103",
+    "CSC10011",
+    "CSC10102",
+    "CSC10103",
+    "CSC10104",
+    "CSC14005",
+    "CSC16004",
+    "CSC16109",
+    "CSC12106",
+    "CSC15012"
+   ]
+  },
+  {
+   "semester": 7,
+   "codes": [
+    "BAA00104",
+    "CSC18001",
+    "CSC18101",
+    "CSC14120",
+    "CSC15010",
+    "CSC11003",
+    "CSC13006",
+    "CSC18002",
+    "CSC13112",
+    "CSC10251",
+    "CSC10252",
+    "CSC10204",
+    "CSC16107",
+    "CSC18105"
+   ]
+  },
+  {
+   "semester": 8,
+   "codes": [
+    "BAA00003",
+    "CSC17001",
+    "CSC18102",
+    "CSC18103",
+    "CSC18104",
+    "CSC15009",
+    "CSC14112",
+    "CSC18106",
+    "CSC18107",
+    "CSC10251",
+    "CSC10252",
+    "CSC10204"
+   ]
+  }
+ ],
+ "notes": [
+  "Only one specialization: §7.2.2 is headed 'Kiến thức ngành/ chuyên ngành' and gives a single set of lists (7.2.2.1 bắt buộc ≥16 TC, 7.2.2.2 tự chọn ≥8 TC, 7.2.2.3 tự chọn tự do = rest up to 34 TC). There are no named chuyên ngành. I used the id 'ttnt' and the programme name as nameVi.",
+  "§7.2.2.1 is titled 'Kiến thức bắt buộc ngành/ chuyên ngành' but works as a pick-list: 'Sinh viên tích lũy tối thiểu 16 tín chỉ, được chọn trong danh sách các học phần dưới đây' (7 courses × 4 TC = 28 TC), and every row's LOẠI HỌC PHẦN is printed 'TC'. I kept type 'TC' as printed. compulsory.minCourses = 4 is derived (16 TC / 4 TC per course), not printed.",
+  "§7.2.2.2: 'tối thiểu 08 tín chỉ, được chọn trong danh sách ... hoặc từ các học phần trong mục 7.2.2.1 vượt quá số tín chỉ yêu cầu của mục đó'. So extra 7.2.2.1 credits also count toward the 8. elective.minCourses = 2 is derived, not printed: the pool also holds CSC10102 (2 TC) and CSC10103 (3 TC), so a student taking those may need 3 courses.",
+  "§7.2.2.3 tự chọn tự do: choose from the 9 listed courses (added to the specialization as the extra field 'freeChoiceCourses', which is outside the agreed schema) 'hoặc các học phần trong 9. PHỤ LỤC 1: CÁC HỌC PHẦN TỰ CHỌN TỰ DO' (100 courses, pages 25–28) until ngành/chuyên ngành reaches 34 TC. I added the Appendix 1 courses to 'courses' with type 'TC' as printed.",
+  "The Appendix 2 undergraduate courses CSC12107, CSC15105 and CSC17107 appear nowhere else. The table prints no LOẠI HỌC PHẦN, so their type is null. The appendix also lists master's courses (MTH003, MTH058, MTH072, MTH099, MTH036, MTH080, MNC, MTH055, MTH092, MTH020, MTH093, MTH095, MTH089, MTH094, MTH097, MTH085, MTH096, MTH063, MTH084, MTH091, MTH079 — 4 TC each). They were not added to 'courses' because they are graduate-level equivalents, not programme courses. At most 04 of them may be taken, 'được xét chuyển điểm tương đương cho bậc đại học'.",
+  "Decision on page 1 is printed as 'Quyết định số 2847QĐ-KHTN ngày 19 tháng 09 năm 2025', without a slash between 2847 and QĐ. It is reproduced as printed.",
+  "§7.1.5 Ngoại ngữ has no LOẠI HỌC PHẦN column (its Ghi chú says SV đạt chuẩn ngoại ngữ đầu ra thì không đăng ký học các học phần Anh văn). Type 'BB' comes from the §8 teaching plan. The printed TỔNG CỘNG for this block is 12.",
+  "The pdftotext layer is mojibake and even misreads digits: it gives GDĐC 'Tổng cộng' as 50, but the page image clearly shows 56. All numbers and names here come from the page images.",
+  "Teaching plan (§8) is a single plan for the whole programme (no per-specialization plans). It lists elective pools inside semesters (e.g. HK2/HK3 science electives 'chọn 6TC', HK4 BAA00005–07 and MTH00051–56, HK5 GEO/ENV). CSC10251, CSC10252 and CSC10204 are listed in both HK7 and HK8, so their suggestedSemester is null and they appear in both semesters of teachingPlan. Plan notes: CSC10121 Kỹ năng mềm 'Học kỳ hè năm 2'; CSC10103 Khởi nghiệp 'Học kỳ hè năm 3'; CSC10102, CSC10103 and CSC10104 'HP tự chọn chung'.",
+  "Courses from §7 that never appear in the teaching plan: none. Appendix-only courses have suggestedSemester null.",
+  "Per-semester printed totals in §8 (HK1 19, HK2 21, HK3 22, HK4 20, HK5–HK8 15 each) mix compulsory and elective slots and cannot all be reproduced exactly from the listed rows. For example, HK4 lists 19 TC of non-AV courses (counting one 2-TC social and one 4-TC math choice, plus CSC10121) against a printed 20. They were not used for any rule.",
+  "Page 21 (part of HK7 in §8) is printed rotated 90°. It was still legible.",
+  "Pages 2–7 (objectives, CĐR/ELO tables, career paths) contain no course codes."
+ ]
+}

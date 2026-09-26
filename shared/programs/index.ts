@@ -5,6 +5,7 @@ import clc2026 from './clc-2026/index';
 import cntt2025 from './cntt-2025/index';
 import khmt2025 from './khmt-2025/index';
 import ktpm2025 from './ktpm-2025/index';
+import ttnt2025 from './ttnt-2025/index';
 
 // Register new programs here (see CLAUDE.md → "Adding a program").
 const PROGRAMS: Record<string, ProgramModule> = {
@@ -13,6 +14,7 @@ const PROGRAMS: Record<string, ProgramModule> = {
   [cntt2025.meta.id]: cntt2025,
   [khmt2025.meta.id]: khmt2025,
   [ktpm2025.meta.id]: ktpm2025,
+  [ttnt2025.meta.id]: ttnt2025,
 };
 
 export const PROGRAM_IDS = Object.keys(PROGRAMS);

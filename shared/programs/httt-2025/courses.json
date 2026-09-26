@@ -335,7 +335,7 @@
    "nameEn": "",
    "nameVi": "Anh văn 1",
    "credits": 3,
-   "group": "Ngoại ngữ",
+   "group": "Ngoại ngữ (không tính vào điểm trung bình và tín chỉ tích lũy)",
    "requirement": "elective",
    "prereqs": [],
    "suggestedSemester": 1,
@@ -347,7 +347,7 @@
    "nameEn": "",
    "nameVi": "Anh văn 2",
    "credits": 3,
-   "group": "Ngoại ngữ",
+   "group": "Ngoại ngữ (không tính vào điểm trung bình và tín chỉ tích lũy)",
    "requirement": "elective",
    "prereqs": [],
    "suggestedSemester": 2,
@@ -359,7 +359,7 @@
    "nameEn": "",
    "nameVi": "Anh văn 3",
    "credits": 3,
-   "group": "Ngoại ngữ",
+   "group": "Ngoại ngữ (không tính vào điểm trung bình và tín chỉ tích lũy)",
    "requirement": "elective",
    "prereqs": [],
    "suggestedSemester": 3,
@@ -371,7 +371,7 @@
    "nameEn": "",
    "nameVi": "Anh văn 4",
    "credits": 3,
-   "group": "Ngoại ngữ",
+   "group": "Ngoại ngữ (không tính vào điểm trung bình và tín chỉ tích lũy)",
    "requirement": "elective",
    "prereqs": [],
    "suggestedSemester": 4,
@@ -383,7 +383,7 @@
    "nameEn": "",
    "nameVi": "Thể dục 1",
    "credits": 2,
-   "group": "Giáo dục thể chất",
+   "group": "Giáo dục thể chất (không tính vào điểm trung bình, tính vào số tín chỉ tích lũy)",
    "requirement": "compulsory",
    "prereqs": [],
    "suggestedSemester": 1,
@@ -395,7 +395,7 @@
    "nameEn": "",
    "nameVi": "Thể dục 2",
    "credits": 2,
-   "group": "Giáo dục thể chất",
+   "group": "Giáo dục thể chất (không tính vào điểm trung bình, tính vào số tín chỉ tích lũy)",
    "requirement": "compulsory",
    "prereqs": [],
    "suggestedSemester": 2,
@@ -407,7 +407,7 @@
    "nameEn": "",
    "nameVi": "Giáo dục quốc phòng – An ninh",
    "credits": 4,
-   "group": "Giáo dục quốc phòng – an ninh",
+   "group": "Giáo dục quốc phòng – an ninh (không tính vào điểm trung bình, tính vào số tín chỉ tích lũy)",
    "requirement": "compulsory",
    "prereqs": [],
    "suggestedSemester": 3,
@@ -515,9 +515,9 @@
    "suggestedSemester": 6
   },
   {
-   "code": "CSC13008",
+   "code": "CSC12002",
    "nameEn": "",
-   "nameVi": "Phát triển ứng dụng web",
+   "nameVi": "Cơ sở dữ liệu nâng cao",
    "credits": 4,
    "group": "Specialization courses",
    "requirement": "choose",
@@ -525,9 +525,9 @@
    "suggestedSemester": 5
   },
   {
-   "code": "CSC13009",
+   "code": "CSC12003",
    "nameEn": "",
-   "nameVi": "Phát triển phần mềm cho thiết bị di động",
+   "nameVi": "Hệ quản trị cơ sở dữ liệu",
    "credits": 4,
    "group": "Specialization courses",
    "requirement": "choose",
@@ -535,74 +535,24 @@
    "suggestedSemester": 5
   },
   {
-   "code": "CSC13005",
+   "code": "CSC12004",
    "nameEn": "",
-   "nameVi": "Phân tích và quản lý yêu cầu phần mềm",
+   "nameVi": "Phân tích thiết kế hệ thống thông tin",
+   "credits": 4,
+   "group": "Specialization courses",
+   "requirement": "choose",
+   "prereqs": [],
+   "suggestedSemester": 5
+  },
+  {
+   "code": "CSC12005",
+   "nameEn": "",
+   "nameVi": "Phát triển ứng dụng hệ thống thông tin hiện đại",
    "credits": 4,
    "group": "Specialization courses",
    "requirement": "choose",
    "prereqs": [],
    "suggestedSemester": 6
-  },
-  {
-   "code": "CSC13010",
-   "nameEn": "",
-   "nameVi": "Thiết kế phần mềm",
-   "credits": 4,
-   "group": "Specialization courses",
-   "requirement": "choose",
-   "prereqs": [],
-   "suggestedSemester": 6
-  },
-  {
-   "code": "CSC13003",
-   "nameEn": "",
-   "nameVi": "Kiểm thử phần mềm",
-   "credits": 4,
-   "group": "Specialization courses",
-   "requirement": "choose",
-   "prereqs": [],
-   "suggestedSemester": 7
-  },
-  {
-   "code": "CSC13006",
-   "nameEn": "",
-   "nameVi": "Quản lý dự án phần mềm",
-   "credits": 4,
-   "group": "Specialization courses",
-   "requirement": "choose",
-   "prereqs": [],
-   "suggestedSemester": 7
-  },
-  {
-   "code": "CSC13007",
-   "nameEn": "",
-   "nameVi": "Phát triển game",
-   "credits": 4,
-   "group": "Specialization courses",
-   "requirement": "choose",
-   "prereqs": [],
-   "suggestedSemester": 7
-  },
-  {
-   "code": "CSC13106",
-   "nameEn": "",
-   "nameVi": "Kiến trúc phần mềm",
-   "credits": 4,
-   "group": "Specialization courses",
-   "requirement": "choose",
-   "prereqs": [],
-   "suggestedSemester": 7
-  },
-  {
-   "code": "CSC13112",
-   "nameEn": "",
-   "nameVi": "Thiết kế giao diện",
-   "credits": 4,
-   "group": "Specialization courses",
-   "requirement": "choose",
-   "prereqs": [],
-   "suggestedSemester": 7
   },
   {
    "code": "CSC10121",
@@ -615,29 +565,9 @@
    "suggestedSemester": 4
   },
   {
-   "code": "CSC13102",
-   "nameEn": "",
-   "nameVi": "Lập trình ứng dụng Java",
-   "credits": 4,
-   "group": "Specialization electives",
-   "requirement": "elective",
-   "prereqs": [],
-   "suggestedSemester": 4
-  },
-  {
    "code": "CSC10105",
    "nameEn": "",
    "nameVi": "Nhập môn tư duy thuật toán",
-   "credits": 4,
-   "group": "Specialization electives",
-   "requirement": "elective",
-   "prereqs": [],
-   "suggestedSemester": 5
-  },
-  {
-   "code": "CSC13001",
-   "nameEn": "",
-   "nameVi": "Lập trình Windows",
    "credits": 4,
    "group": "Specialization electives",
    "requirement": "elective",
@@ -665,6 +595,26 @@
    "suggestedSemester": 6
   },
   {
+   "code": "CSC10104",
+   "nameEn": "",
+   "nameVi": "Quy hoạch tuyến tính",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "CSC10106",
+   "nameEn": "",
+   "nameVi": "Thuật toán tổ hợp và ứng dụng",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
    "code": "CSC10107",
    "nameEn": "",
    "nameVi": "Thực tập thực tế",
@@ -675,9 +625,9 @@
    "suggestedSemester": 6
   },
   {
-   "code": "CSC11007",
+   "code": "CSC12001",
    "nameEn": "",
-   "nameVi": "Nhập môn DevOps",
+   "nameVi": "An toàn và bảo mật dữ liệu trong hệ thống thông tin",
    "credits": 4,
    "group": "Specialization electives",
    "requirement": "elective",
@@ -685,9 +635,9 @@
    "suggestedSemester": 6
   },
   {
-   "code": "CSC14005",
+   "code": "CSC12105",
    "nameEn": "",
-   "nameVi": "Nhập môn học máy",
+   "nameVi": "Thương mại điện tử",
    "credits": 4,
    "group": "Specialization electives",
    "requirement": "elective",
@@ -695,9 +645,29 @@
    "suggestedSemester": 6
   },
   {
-   "code": "CSC13103",
+   "code": "CSC12106",
    "nameEn": "",
-   "nameVi": "Nhập môn hệ thống phân tán",
+   "nameVi": "Tương tác người – máy",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "CSC17106",
+   "nameEn": "",
+   "nameVi": "Xử lý phân tích dữ liệu trực tuyến",
+   "credits": 4,
+   "group": "Specialization electives",
+   "requirement": "elective",
+   "prereqs": [],
+   "suggestedSemester": 6
+  },
+  {
+   "code": "CSC10108",
+   "nameEn": "",
+   "nameVi": "Trực quan hóa dữ liệu",
    "credits": 4,
    "group": "Specialization electives",
    "requirement": "elective",
@@ -705,64 +675,14 @@
    "suggestedSemester": 7
   },
   {
-   "code": "CSC13107",
+   "code": "CSC17101",
    "nameEn": "",
-   "nameVi": "Mẫu thiết kế hướng đối tượng và ứng dụng",
+   "nameVi": "Hệ thống tư vấn",
    "credits": 4,
    "group": "Specialization electives",
    "requirement": "elective",
    "prereqs": [],
    "suggestedSemester": 7
-  },
-  {
-   "code": "CSC16106",
-   "nameEn": "",
-   "nameVi": "Nhập môn lập trình điều khiển thiết bị thông minh",
-   "credits": 4,
-   "group": "Specialization electives",
-   "requirement": "elective",
-   "prereqs": [],
-   "suggestedSemester": 7
-  },
-  {
-   "code": "CSC13101",
-   "nameEn": "",
-   "nameVi": "Các chủ đề nâng cao trong Công nghệ phần mềm",
-   "credits": 4,
-   "group": "Specialization electives",
-   "requirement": "elective",
-   "prereqs": [],
-   "suggestedSemester": 8
-  },
-  {
-   "code": "CSC13117",
-   "nameEn": "",
-   "nameVi": "Phát triển game nâng cao",
-   "credits": 4,
-   "group": "Specialization electives",
-   "requirement": "elective",
-   "prereqs": [],
-   "suggestedSemester": 8
-  },
-  {
-   "code": "CSC16115",
-   "nameEn": "",
-   "nameVi": "Triển khai và vận hành hệ thống học máy",
-   "credits": 4,
-   "group": "Specialization electives",
-   "requirement": "elective",
-   "prereqs": [],
-   "suggestedSemester": 8
-  },
-  {
-   "code": "CSC18106",
-   "nameEn": "",
-   "nameVi": "Mô hình ngôn ngữ lớn",
-   "credits": 4,
-   "group": "Specialization electives",
-   "requirement": "elective",
-   "prereqs": [],
-   "suggestedSemester": 8
   },
   {
    "code": "CSC10204",
@@ -795,9 +715,9 @@
    "suggestedSemester": 7
   },
   {
-   "code": "CSC13114",
+   "code": "CSC12107",
    "nameEn": "",
-   "nameVi": "Phát triển ứng dụng web nâng cao",
+   "nameVi": "Hệ thống thông tin phục vụ trí tuệ kinh doanh",
    "credits": 4,
    "group": "Graduation work",
    "requirement": "graduation",
@@ -805,9 +725,9 @@
    "suggestedSemester": 7
   },
   {
-   "code": "CSC13118",
+   "code": "CSC12108",
    "nameEn": "",
-   "nameVi": "Phát triển ứng dụng cho thiết bị di động nâng cao",
+   "nameVi": "Ứng dụng phân tán",
    "credits": 4,
    "group": "Graduation work",
    "requirement": "graduation",
@@ -815,51 +735,14 @@
    "suggestedSemester": 7
   },
   {
-   "code": "CSC13115",
+   "code": "CSC12111",
    "nameEn": "",
-   "nameVi": "Các công nghệ mới trong phát triển phần mềm",
+   "nameVi": "Quản trị cơ sở dữ liệu hiện đại",
    "credits": 4,
    "group": "Graduation work",
    "requirement": "graduation",
    "prereqs": [],
-   "suggestedSemester": 8
-  },
-  {
-   "code": "CSC13116",
-   "nameEn": "",
-   "nameVi": "Đồ án Công nghệ phần mềm",
-   "credits": 4,
-   "group": "Graduation work",
-   "requirement": "graduation",
-   "prereqs": [],
-   "suggestedSemester": 8
-  },
-  {
-   "code": "CSC10104",
-   "nameEn": "",
-   "nameVi": "Quy hoạch tuyến tính",
-   "credits": 4,
-   "group": "Free choice & other courses",
-   "requirement": "elective",
-   "prereqs": []
-  },
-  {
-   "code": "CSC10106",
-   "nameEn": "",
-   "nameVi": "Thuật toán tổ hợp và ứng dụng",
-   "credits": 4,
-   "group": "Free choice & other courses",
-   "requirement": "elective",
-   "prereqs": []
-  },
-  {
-   "code": "CSC10108",
-   "nameEn": "",
-   "nameVi": "Trực quan hóa dữ liệu",
-   "credits": 4,
-   "group": "Free choice & other courses",
-   "requirement": "elective",
-   "prereqs": []
+   "suggestedSemester": 7
   },
   {
    "code": "CSC11002",
@@ -892,6 +775,15 @@
    "code": "CSC11006",
    "nameEn": "",
    "nameVi": "Nhập môn điện toán đám mây",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC11007",
+   "nameEn": "",
+   "nameVi": "Nhập môn DevOps",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
@@ -952,63 +844,135 @@
    "prereqs": []
   },
   {
-   "code": "CSC12001",
+   "code": "CSC13001",
    "nameEn": "",
-   "nameVi": "An toàn và bảo mật dữ liệu trong hệ thống thông tin",
+   "nameVi": "Lập trình Windows",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
    "prereqs": []
   },
   {
-   "code": "CSC12002",
+   "code": "CSC13003",
    "nameEn": "",
-   "nameVi": "Cơ sở dữ liệu nâng cao",
+   "nameVi": "Kiểm thử phần mềm",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
    "prereqs": []
   },
   {
-   "code": "CSC12003",
+   "code": "CSC13005",
    "nameEn": "",
-   "nameVi": "Hệ quản trị cơ sở dữ liệu",
+   "nameVi": "Phân tích và quản lý yêu cầu phần mềm",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
    "prereqs": []
   },
   {
-   "code": "CSC12004",
+   "code": "CSC13006",
    "nameEn": "",
-   "nameVi": "Phân tích thiết kế hệ thống thông tin",
+   "nameVi": "Quản lý dự án phần mềm",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
    "prereqs": []
   },
   {
-   "code": "CSC12005",
+   "code": "CSC13007",
    "nameEn": "",
-   "nameVi": "Phát triển ứng dụng hệ thống thông tin hiện đại",
+   "nameVi": "Phát triển game",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
    "prereqs": []
   },
   {
-   "code": "CSC12105",
+   "code": "CSC13008",
    "nameEn": "",
-   "nameVi": "Thương mại điện tử",
+   "nameVi": "Phát triển ứng dụng web",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
    "prereqs": []
   },
   {
-   "code": "CSC12106",
+   "code": "CSC13009",
    "nameEn": "",
-   "nameVi": "Tương tác người – máy",
+   "nameVi": "Phát triển phần mềm cho thiết bị di động",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13010",
+   "nameEn": "",
+   "nameVi": "Thiết kế phần mềm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13101",
+   "nameEn": "",
+   "nameVi": "Các chủ đề nâng cao trong Công nghệ phần mềm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13102",
+   "nameEn": "",
+   "nameVi": "Lập trình ứng dụng Java",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13103",
+   "nameEn": "",
+   "nameVi": "Nhập môn hệ thống phân tán",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13106",
+   "nameEn": "",
+   "nameVi": "Kiến trúc phần mềm",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13107",
+   "nameEn": "",
+   "nameVi": "Mẫu thiết kế hướng đối tượng và ứng dụng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13112",
+   "nameEn": "",
+   "nameVi": "Thiết kế giao diện",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC13117",
+   "nameEn": "",
+   "nameVi": "Phát triển game nâng cao",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
@@ -1036,6 +1000,15 @@
    "code": "CSC14004",
    "nameEn": "",
    "nameVi": "Khai thác dữ liệu và ứng dụng",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC14005",
+   "nameEn": "",
+   "nameVi": "Nhập môn học máy",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
@@ -1366,6 +1339,15 @@
    "prereqs": []
   },
   {
+   "code": "CSC16106",
+   "nameEn": "",
+   "nameVi": "Nhập môn lập trình điều khiển thiết bị thông minh",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
    "code": "CSC16107",
    "nameEn": "",
    "nameVi": "Ứng dụng thị giác máy tính",
@@ -1402,18 +1384,18 @@
    "prereqs": []
   },
   {
-   "code": "CSC17001",
+   "code": "CSC16115",
    "nameEn": "",
-   "nameVi": "Phân tích dữ liệu thông minh",
+   "nameVi": "Triển khai và vận hành hệ thống học máy",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
    "prereqs": []
   },
   {
-   "code": "CSC17101",
+   "code": "CSC17001",
    "nameEn": "",
-   "nameVi": "Hệ thống tư vấn",
+   "nameVi": "Phân tích dữ liệu thông minh",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
@@ -1432,15 +1414,6 @@
    "code": "CSC17104",
    "nameEn": "",
    "nameVi": "Lập trình cho khoa học dữ liệu",
-   "credits": 4,
-   "group": "Free choice & other courses",
-   "requirement": "elective",
-   "prereqs": []
-  },
-  {
-   "code": "CSC17106",
-   "nameEn": "",
-   "nameVi": "Xử lý phân tích dữ liệu trực tuyến",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",
@@ -1495,6 +1468,15 @@
    "code": "CSC18104",
    "nameEn": "",
    "nameVi": "Nhập môn hệ thống đa tác nhân",
+   "credits": 4,
+   "group": "Free choice & other courses",
+   "requirement": "elective",
+   "prereqs": []
+  },
+  {
+   "code": "CSC18106",
+   "nameEn": "",
+   "nameVi": "Mô hình ngôn ngữ lớn",
    "credits": 4,
    "group": "Free choice & other courses",
    "requirement": "elective",

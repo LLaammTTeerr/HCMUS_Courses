@@ -1,135 +1,172 @@
 # HCMUS Progress
 
-A local web app for tracking graduation progress in an HCMUS programme. Two programmes are built in:
+**Plan your degree at HCMUS without the spreadsheet.** Track every course you've taken, see exactly
+which graduation requirements are still open, and plan the remaining semesters with warnings for
+credit limits, prerequisites and your programme's rules.
 
-| Program | Document | Notes |
+### ➜ Use it now: **[hcmus-courses.lamter.cc](https://hcmus-courses.lamter.cc)**
+
+The hosted site is free. Sign-up is invite-only while it's small, so ask the maintainer for a code — or
+[run your own copy](#self-hosting) in a few minutes.
+
+---
+
+## What it does
+
+- **Progress by requirement group.** Credits earned, in progress and planned for each block of your
+  curriculum — general education, foundation, specialization, graduation work — against the numbers
+  printed in the official *chương trình đào tạo*.
+- **Every attempt, every grade.** Retakes are supported and the latest grade is official, as the
+  regulation says. GPA on the 10- and 4-point scales with your graduation ranking.
+- **Compulsory or elective at a glance.** Each course is badged *Compulsory*, *Choose* (pick within a
+  group), *Elective* or *Graduation work*.
+- **A semester planner.** Drag courses into semesters. It warns about credit limits, missing prior
+  courses, a missing specialization or graduation track, and duplicate attempts. One click fills the
+  remaining semesters with a plan that meets every requirement.
+- **"What can I take next?"** Courses you're eligible for, ranked by the requirement they fill and how
+  many later courses they unlock.
+- **Graduation checklist.** The conditions of Article 17 of the university regulation, including your
+  English certificate and whether it will still be valid when you graduate.
+- **Your data is yours.** Download a full JSON backup or a CSV of your courses at any time, and restore
+  from a backup.
+
+## Supported programmes
+
+| Programme | Curriculum used | Credits |
 |---|---|---|
-| **APCS 2024** — Advanced Program in Computer Science | CTĐT khóa 2024 (QĐ 2700/QĐ-KHTN) | 163 credits; thesis or capstone |
-| **CLC 2026** — Tăng cường tiếng Anh / CLC, Công nghệ thông tin | CTĐT khóa **2024** (QĐ 2693/QĐ-KHTN) | 138 credits; 9 specializations; the 2026 curriculum is not published yet, so the 2024 one is used with 2026 semester labels |
+| Khoa học máy tính — Chương trình tiên tiến (**APCS**), khóa 2024 | CTĐT khóa 2024 | 163 |
+| Công nghệ thông tin — **CLC** / Tăng cường tiếng Anh, khóa 2026 | CTĐT khóa **2024** (2026 not yet published) | 138 |
+| **Công nghệ thông tin**, khóa 2025 | CTĐT khóa 2025 | 138 |
+| **Khoa học máy tính**, khóa 2025 | CTĐT khóa 2025 | 138 |
+| **Kỹ thuật phần mềm**, khóa 2025 | CTĐT khóa 2025 | 138 |
 
-Pick the programme in the sidebar. You can use it to:
+Specializations (chuyên ngành) and graduation options (khóa luận, thực tập tốt nghiệp, thực tập dự án)
+come from each document. Your programme isn't listed? See [Adding a programme](#adding-a-programme) — it's
+mostly data entry, and contributions are welcome.
 
-- see credits per requirement group of your programme: earned, in progress, and planned
-- see which courses are **compulsory** (bắt buộc), group electives ("choose", e.g. 16 cr of A), free CS
-  electives, or graduation work. Badges appear in the course list, the drawer, and the planner (`REQ`).
-- record every course attempt with its 10-point grade (retakes supported; the latest grade is official)
-- plan semesters by drag and drop, with warnings for credit limits, prior courses, and your programme's
-  choices (graduation track, and the CLC specialization)
-- get ranked "what can I take next" suggestions
-- check the Article 17 graduation checklist, including the English certificate and its expiry
+## Getting started (as a student)
 
-Your data stays on your machine in `data/progress.db` (SQLite).
+1. **Sign in**, then pick your **programme** and **current semester** in the sidebar.
+2. **Courses → Quick entry.** Paste what you've already done, one course per line:
+   `CODE SEMESTER GRADE` (for example `CSC10004 2 8.5`). Leave the grade out for courses you're taking now.
+3. **Planner.** Choose your specialization and graduation track, press **Load suggested plan**, then
+   drag courses around until the plan suits you.
+4. **Checklist.** Record your English certificate and military education certificate.
 
-## Run
+---
 
-Requires Node 22+.
+## Self-hosting
+
+You need **Node.js 22 or newer**. Everything — the website, the API and the SQLite database — runs in one
+process.
+
+```bash
+git clone <this repository> hcmus-progress
+cd hcmus-progress
+npm install
+npm run build
+npm start                  # → http://localhost:5174
+```
+
+On first start the server creates an **admin** account and prints its password **once** in the log:
+
+```
+Created admin "admin" with password: …  (change it after signing in)
+```
+
+Sign in and the app will ask you to choose a new password. To pick the credentials yourself, set
+`ADMIN_USER` and `ADMIN_PASSWORD` before the first start.
+
+**Inviting people.** As the admin, open **Invites**, create a code and send it; registering requires a
+valid code, and each code works once. A forgotten password is handled under **Invites → Accounts →
+Reset password**, which shows a temporary password once and signs that person out everywhere.
+
+### Configuration
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `PORT` | `5174` | Port the server listens on |
+| `HOST` | `0.0.0.0` | Bind address — use `127.0.0.1` when a reverse proxy runs on the same machine |
+| `PROGRESS_DB` | `data/progress.db` | SQLite database file |
+| `ADMIN_USER`, `ADMIN_PASSWORD`, `ADMIN_NAME` | generated | First-run admin account |
+| `TRUST_PROXY` | off | Trust `X-Forwarded-*` from a proxy on **another** machine (a proxy on the same machine is trusted automatically) |
+
+### Putting it on the internet
+
+Run it behind anything that terminates HTTPS — Caddy, nginx, a Cloudflare Tunnel or a Tailscale Funnel.
+When the proxy forwards `X-Forwarded-Proto: https`, session cookies become `Secure` and HSTS is sent
+automatically; failed sign-ins are rate-limited per visitor address. Only the proxy should be able to
+reach the app, so bind it to `127.0.0.1` if the proxy runs on the same host.
+
+### Backups
+
+- Each start copies the database to `data/backups/progress-YYYYMMDD.db` (one per day, the newest seven kept).
+- `npm run backup [directory]` makes a consistent copy while the app is running — schedule it with cron
+  for an off-machine copy. `BACKUP_KEEP` sets how many copies to keep.
+- Every user can download their own data as JSON (restorable) or CSV from **Your data**.
+
+---
+
+## Development
 
 ```bash
 npm install
-npm run dev          # UI at http://localhost:5173 (API on :5174), also on LAN/Tailscale IPs
+npm run dev                # UI with hot reload on :5173, API on :5174
 ```
-
-To run a production build on a single port:
-
-```bash
-npm run build
-npm start            # http://localhost:5174
-```
-
-Other commands:
 
 | Command | What it does |
 |---|---|
-| `npm test` | rules engine, program data, and API tests (Vitest) |
-| `npm run test:e2e` | browser tests: sign-in, invites, planner, program switch (Playwright) |
-| `npm run test:all` | both suites |
-| `npm run typecheck` | TypeScript check of the whole project |
+| `npm test` | Unit tests: rules engine, every programme's data, the API (Vitest) |
+| `npm run test:e2e` | Browser tests against a production build on a throwaway database (Playwright) |
+| `npm run test:all` | Both suites |
+| `npm run typecheck` | TypeScript across server, UI and shared code |
 
-Environment variables: `PROGRESS_DB` (database file), `PORT`, `HOST` (default `0.0.0.0`; `127.0.0.1` keeps
-it local), and `ADMIN_USER` / `ADMIN_PASSWORD` / `ADMIN_NAME` for the first-run admin account.
+**Stack:** React + Vite for the UI, Hono + better-sqlite3 for the API, and a pure TypeScript rules
+engine in `shared/` that both use. The server only stores data; every calculation happens in the engine,
+so it can be tested without a browser or a database.
 
-The dev server listens on all interfaces and accepts `*.ts.net` hostnames, so the app is reachable over
-Tailscale at `http://<machine>.<tailnet>.ts.net:5173`. Sign-in is required, but the tailnet connection is
-plain HTTP, so session cookies are only marked `Secure` behind an HTTPS proxy.
+```
+shared/domain/      the rules engine: grades, GPA, prerequisites, planner, checklist
+shared/programs/    one folder per programme (course data + its rules)
+server/             API, accounts, SQLite migrations, backups
+src/                React pages and components
+e2e/                Playwright tests
+```
 
-**Currently published** at **https://hcmus-courses.lamter.cc** (Cloudflare Tunnel, HTTPS, sign-in
-required), served by the `hcmus-progress` systemd user service with `cloudflared-hcmus` as the tunnel. Note that the service holds port
-5174, so stop it before `npm run dev`. To share it with someone outside your tailnet, or to run it as a
-service, see
-[docs/hosting.md](docs/hosting.md) — it covers a public HTTPS **Tailscale Funnel** (cookies turn
-`Secure` automatically), what to check before going public, and a systemd unit. Forwarded headers are
-trusted only from a proxy on the same machine, or when `TRUST_PROXY=1` is set.
+`CLAUDE.md` has the architecture notes and the conventions the codebase follows.
 
-## Accounts
+### Adding a programme
 
-Everyone who uses the site has their own account and their own courses; nobody can see anyone else's.
+Most HCMUS programmes share one structure — general education, foundation, one specialization and
+graduation work — which `shared/programs/_standard/factory.ts` implements. For such a programme:
 
-- **First start** creates an **admin** account and prints its password once in the server log:
-  `Created admin "admin" with password: …`. Sign in and change it (the app asks you to).
-  Set `ADMIN_USER` / `ADMIN_PASSWORD` before the first start to choose them yourself.
-- **Inviting someone:** sign in as the admin → **Invites** → create a code and send it. Registration
-  requires a code, each code works once, and you can revoke unused codes.
-- **Forgotten password:** the admin opens **Invites → Accounts → Reset password**, which shows a
-  temporary password once and signs that person out everywhere. They choose a new one at next sign-in.
-- Sessions are cookies valid for 30 days; failed sign-ins are rate limited.
+1. Transcribe the curriculum's §6–7 tables into an extraction file (the format is documented at the top
+   of `scripts/program-from-extract.mjs`): the blocks and their rules ("all of", "choose 1 of", "choose
+   N credits from"), the specializations and the course list with credits.
+2. Generate the programme folder:
 
-## First steps
+   ```bash
+   node scripts/program-from-extract.mjs extract.json khmt-2026 "Khoa học máy tính — khóa tuyển 2026" "KHMT 2026"
+   ```
 
-1. **Sign in** (see Accounts above).
-2. **Courses → Quick entry.** Paste your finished courses, one per line: `CODE SEMESTER GRADE`
-   (semester 1 = HK1 2024–2025). Leave the grade out for the current semester's courses.
-3. **Sidebar.** Pick your programme and current semester.
-4. **Planner.** Pick thesis or capstone, click **Load suggested plan**, then drag courses to adjust.
-5. **Checklist.** Enter your English certificate and the military education certificate.
+3. Register it in `shared/programs/index.ts` and add its config to the list in
+   `shared/programs/_standard/standard.test.ts`. That suite checks the credit totals, that every
+   referenced course exists, and that a complete plan can be built for every graduation option.
 
-## Your data
-
-- **In the app:** *Your data* → download a **JSON backup** (everything: courses, programme, choices,
-  certificate, GPA settings) or a **CSV** of your courses for a spreadsheet. Restoring a JSON file
-  replaces your own account's data and touches nobody else's.
-- `data/progress.db` is ignored by git. To version your data, remove `data/*.db` from `.gitignore`.
-- **Automatic:** each server start copies the database to `data/backups/progress-YYYYMMDD.db`
-  (once per day, newest 7 kept).
-- **Scheduled / off-machine:** `npm run backup [directory]` folds in the write-ahead log and copies the
-  database, and is safe to run while the app is up. For a nightly copy somewhere else:
-
-  ```cron
-  # crontab -e
-  15 2 * * *  cd ~/Projects/HCMUS_Courses && /usr/bin/npm run backup -- ~/Backups/hcmus >> /tmp/hcmus-backup.log 2>&1
-  ```
-
-  `BACKUP_KEEP` (default 7) sets how many copies are kept in the target directory.
-- To inspect the data: `sqlite3 data/progress.db 'select * from attempts'`.
-
-## Adding another programme
-
-Rules live in code, one module per programme (`shared/programs/<id>/`), so a new programme means a small
-TypeScript file plus its course data and tests. See `CLAUDE.md` → "Adding a program".
+Programmes with a different shape (APCS is one) implement the `ProgramModule` interface directly.
 
 ## Where the rules come from
 
-All sources are official documents from https://www.ctda.hcmus.edu.vn; copies are in `docs/sources/`.
+- **Curricula:** the official *chương trình đào tạo* of each programme, published by HCMUS and the Faculty
+  of Information Technology.
+- **Regulation:** *Quy chế đào tạo trình độ đại học* (QĐ 1175/QĐ-KHTN) — credit limits per semester,
+  grading, GPA, academic warnings and the graduation conditions of Article 17.
+- **Grade conversion:** QĐ 651/QĐ-KHTN (4-point scale).
 
-| Rule | Source |
-|---|---|
-| Buckets, courses, credits, suggested plan | *CTĐT APCS khóa 2024* (QĐ 2700/QĐ-KHTN) |
-| Prior courses (prerequisites) | *Course Descriptions — BSc APCS* (2021), "Prior-course" field, remapped to 2024 codes |
-| 10–22 credits/semester, grading, GPA, academic warnings, Article 17 | *Quy chế đào tạo* QĐ 1175/QĐ-KHTN (in *Sổ tay sinh viên 2024–2025*) |
-| English: IELTS 6.0 / TOEFL iBT 79 / TOEFL ITP 550 + TOEIC S&W 270 | QĐ 1985/QĐ-KHTN |
-| 4-point conversion `1 + (g − 3) × 0.5` | QĐ 651/QĐ-KHTN |
+**Known limits.** Prerequisites are only known for APCS, and they are warnings rather than blocks. Things
+the documents don't publish — the thesis GPA threshold, some programmes' English standard, the IT-skills
+standard — show as *unknown* on the checklist until you confirm them with the faculty. Which courses
+count toward the GPA can be changed per course, because Article 15.1c lets a programme exclude some.
 
-GPA and graduation classification use the passed courses that count toward the GPA. By default the
-app excludes Physical and Military Education, the five political theory courses (BAA00101–104,
-BAA00003), and Introduction to Laws (BAA00004). Article 15.1c also lets the program exclude other
-courses, so each course's drawer has a **"Counts toward GPA & graduation classification"** toggle.
-Overridden courses show "not in GPA" in the course list, and the dashboard lists every graded course
-left out.
-
-Known gaps:
-
-- **Prerequisites are soft.** They are "học phần học trước", so they produce warnings and never block.
-  The original wording for each course is shown in its drawer.
-- **IT standard.** The chuẩn tin học is not defined for APCS; confirm it with giáo vụ.
-- **Thesis GPA threshold.** It is not published; enter it on the Checklist page.
-
-The design is described in `docs/superpowers/specs/2026-09-17-apcs-progress-tracker-design.md`.
+Found a wrong number? Every figure comes from a document, so open an issue with the programme, the
+section and what it should say.

@@ -31,17 +31,22 @@ const LANGUAGE = 'language';
 
 const blockOf = new Map();
 for (const block of extract.blocks) {
+  if (block.id === 'graduation') continue;   // graduation courses are placed below
   for (const rule of block.rules ?? []) {
-    for (const code of rule.courses) {
+    for (const code of rule.courses ?? []) {
       if (!blockOf.has(code)) blockOf.set(code, { block, compulsory: rule.type === 'all' });
     }
   }
 }
 const specCompulsory = new Set(extract.specializations.flatMap((s) => s.compulsory.courses));
 const specElective = new Set(extract.specializations.flatMap((s) => s.elective.courses));
-const graduation = new Set(
-  extract.blocks.find((b) => b.id === 'graduation')?.rules.flatMap((r) => r.courses) ?? [],
-);
+const graduationBlock = extract.blocks.find((b) => b.id === 'graduation');
+const graduation = new Set([
+  ...(graduationBlock?.rules ?? []).flatMap((r) => r.courses ?? []),
+  ...(graduationBlock?.options ?? []).flatMap((o) => [
+    ...(o.courses ?? []), ...(o.pool ?? []), ...(o.pick ?? []).flatMap((p) => p.courses),
+  ]),
+]);
 
 const creditOf = new Map(extract.courses.map((c) => [c.code, c.credits]));
 const nameOf = new Map(extract.courses.map((c) => [c.code, c.nameVi]));
@@ -62,7 +67,7 @@ function graduationOptions() {
     }));
   }
   const full = gradBlock.credits;
-  const all = [...new Set(gradBlock.rules.flatMap((r) => r.courses))];
+  const all = [...new Set(gradBlock.rules.flatMap((r) => r.courses ?? []))];
   const options = all.filter((code) => creditOf.get(code) === full).map((code) => ({
     id: /khóa luận/i.test(nameOf.get(code) ?? '') ? 'thesis' : /thực tập tốt nghiệp/i.test(nameOf.get(code) ?? '') ? 'internship' : code.toLowerCase(),
     label: nameOf.get(code) ?? code,
