@@ -24,6 +24,13 @@ describe('semester credit limits', () => {
     expect(ids(record(over))).toContain('credits-high-8');
   });
 
+  it('leaves PE and Military out of the limit when the programme says so (QC1175 Art. 7.2a)', () => {
+    const attempts = [planned('CS420', 8), planned('BAA00021', 8), planned('BAA00030', 8)];
+    expect(semesterCredits(program, attempts).get(8)).toBe(10);
+    const mainstream = { ...program, meta: { ...program.meta, limitCountsExtras: false } };
+    expect(semesterCredits(mainstream, attempts).get(8)).toBe(4);
+  });
+
   it('ignores past semesters and empty future ones', () => {
     const r = record([done('CS160', 1, 8)]);
     expect(ids(r).some((id) => id.startsWith('credits-'))).toBe(false);

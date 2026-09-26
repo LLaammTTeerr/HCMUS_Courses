@@ -11,13 +11,19 @@ export function progressOf(program: Program, record: StudentRecord, states?: Map
   return program.progress(buildContext(program, record, states ?? deriveCourseStates(program, record.attempts)));
 }
 
-/** Registered credits per semester (all attempts, including EXTRA courses — QC1175 Art. 7.2). */
+/**
+ * Registered credits per semester, as QC1175 Art. 7.2 counts them for this programme: every attempt, or
+ * without the courses outside the programme total when `limitCountsExtras` is false.
+ */
 export function semesterCredits(program: Program, attempts: Attempt[]): Map<number, number> {
   const index = courseIndex(program);
+  const countsExtras = program.meta.limitCountsExtras ?? true;
   const totals = new Map<number, number>();
   for (const a of attempts) {
     const course = index.get(a.code);
-    if (course) totals.set(a.semester, (totals.get(a.semester) ?? 0) + course.credits);
+    if (!course) continue;
+    if (!countsExtras && course.countsInCredits === false) continue;
+    totals.set(a.semester, (totals.get(a.semester) ?? 0) + course.credits);
   }
   return totals;
 }

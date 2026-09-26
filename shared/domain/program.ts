@@ -16,6 +16,12 @@ export interface ProgramMeta {
   /** Registration limits per semester (QC1175 Art. 7.2). */
   semesterMin: number;
   semesterMax: number;
+  /**
+   * Whether courses outside the programme total (PE, Military, general foreign language) count toward
+   * the semester limits. QC1175 Art. 7.2a excludes them for mainstream programmes; the advanced/CLC
+   * limits count every registered course. Default true.
+   */
+  limitCountsExtras?: boolean;
   totalCredits: number;
   /** Graduation work is only suggested from this semester on. */
   gradEarliestSemester: number;
