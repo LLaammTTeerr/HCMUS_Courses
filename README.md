@@ -52,8 +52,8 @@ The dev server listens on all interfaces and accepts `*.ts.net` hostnames, so th
 Tailscale at `http://<machine>.<tailnet>.ts.net:5173`. Sign-in is required, but the tailnet connection is
 plain HTTP, so session cookies are only marked `Secure` behind an HTTPS proxy.
 
-**Currently published** at **https://g14rice.taile98b1e.ts.net:8443** (Tailscale Funnel, HTTPS, sign-in
-required) and running as the `hcmus-progress` systemd user service. Note that the service holds port
+**Currently published** at **https://hcmus-courses.lamter.cc** (Cloudflare Tunnel, HTTPS, sign-in
+required), served by the `hcmus-progress` systemd user service with `cloudflared-hcmus` as the tunnel. Note that the service holds port
 5174, so stop it before `npm run dev`. To share it with someone outside your tailnet, or to run it as a
 service, see
 [docs/hosting.md](docs/hosting.md) — it covers a public HTTPS **Tailscale Funnel** (cookies turn
